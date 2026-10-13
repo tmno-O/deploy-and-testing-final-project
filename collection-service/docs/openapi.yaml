@@ -1,0 +1,468 @@
+openapi: 3.0.3
+info:
+  title: Collection & Fulfillment Service
+  version: 1.0.0
+  description: |
+    Service 5 ของ Online Trading Card Gacha Platform: คอลเลกชันการ์ดดิจิทัลและการขอจัดส่งการ์ดจริง
+    ทุก response มี header `X-Request-Id` (ส่งมาเองได้ ถ้าไม่ส่งจะสร้างให้)
+servers:
+  - url: http://localhost:3005
+tags:
+  - name: health
+  - name: collection
+  - name: internal
+  - name: fulfillment
+  - name: admin
+
+components:
+  securitySchemes:
+    userJwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT จาก user-service (HS256, iss=user-service, sub=userId)
+    serviceKey:
+      type: apiKey
+      in: header
+      name: X-Service-Key
+    adminKey:
+      type: apiKey
+      in: header
+      name: X-Admin-Key
+
+  parameters:
+    limit:
+      name: limit
+      in: query
+      schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
+    offset:
+      name: offset
+      in: query
+      schema: { type: integer, minimum: 0, default: 0 }
+    rarity:
+      name: rarity
+      in: query
+      schema: { $ref: '#/components/schemas/Rarity' }
+    userId:
+      name: userId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    orderId:
+      name: id
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+
+  schemas:
+    Rarity:
+      type: string
+      enum: [COMMON, RARE, SUPER_RARE, ULTRA_RARE, SECRET_RARE]
+    OrderStatus:
+      type: string
+      enum: [PENDING, PROCESSING, SHIPPED, DELIVERED, CANCELLED]
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code: { type: string, example: VALIDATION_ERROR }
+            message: { type: string }
+            details: {}
+    Card:
+      type: object
+      additionalProperties: false
+      required: [cardId, cardName, cardRarity, cardImageUrl, quantity, redeemedQuantity, availableQuantity, createdAt, updatedAt]
+      properties:
+        cardId: { type: string, example: CARD-001 }
+        cardName: { type: string }
+        cardRarity: { $ref: '#/components/schemas/Rarity' }
+        cardImageUrl: { type: string, format: uri }
+        quantity: { type: integer, minimum: 0 }
+        redeemedQuantity: { type: integer, minimum: 0, description: จำนวนที่ถูกแลกเป็นการ์ดจริง (รวมที่อยู่ใน order ที่ยังไม่ยกเลิก) }
+        availableQuantity: { type: integer, minimum: 0, description: quantity - redeemedQuantity }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    CardPage:
+      type: object
+      additionalProperties: false
+      required: [data, total, limit, offset]
+      properties:
+        data: { type: array, items: { $ref: '#/components/schemas/Card' } }
+        total: { type: integer }
+        limit: { type: integer }
+        offset: { type: integer }
+    AddCardRequest:
+      type: object
+      additionalProperties: false
+      required: [pullId, cardId]
+      properties:
+        pullId: { type: string, format: uuid, description: idempotency key ของการสุ่มครั้งนั้น }
+        cardId: { type: string, example: CARD-001 }
+        cardName: { type: string, description: บังคับเมื่อปิด Catalog }
+        cardRarity: { $ref: '#/components/schemas/Rarity' }
+        cardImageUrl: { type: string, format: uri, description: บังคับเมื่อปิด Catalog }
+        quantity: { type: integer, minimum: 1, maximum: 100, default: 1 }
+    AddCardResponse:
+      type: object
+      additionalProperties: false
+      required: [pullId, created, card]
+      properties:
+        pullId: { type: string, format: uuid }
+        created: { type: boolean, description: false = pullId นี้เคยถูกใช้แล้ว ไม่ได้เพิ่มซ้ำ }
+        card: { $ref: '#/components/schemas/Card' }
+    ShippingAddress:
+      type: object
+      additionalProperties: false
+      required: [recipientName, phone, line1, district, province, postalCode]
+      properties:
+        recipientName: { type: string, maxLength: 100 }
+        phone: { type: string, pattern: '^[0-9+\-\s]{8,20}$' }
+        line1: { type: string, maxLength: 255 }
+        line2: { type: string, maxLength: 255 }
+        subdistrict: { type: string, maxLength: 100 }
+        district: { type: string, maxLength: 100 }
+        province: { type: string, maxLength: 100 }
+        postalCode: { type: string, pattern: '^\d{5}$' }
+    OrderItemRequest:
+      type: object
+      additionalProperties: false
+      required: [cardId, quantity]
+      properties:
+        cardId: { type: string }
+        quantity: { type: integer, minimum: 1 }
+    CreateOrderRequest:
+      type: object
+      additionalProperties: false
+      required: [items]
+      description: ต้องมี addressId หรือ shippingAddress อย่างใดอย่างหนึ่ง
+      properties:
+        items:
+          type: array
+          minItems: 1
+          items: { $ref: '#/components/schemas/OrderItemRequest' }
+        addressId: { type: string, format: uuid, description: id ที่อยู่ใน user-service }
+        shippingAddress: { $ref: '#/components/schemas/ShippingAddress' }
+    Order:
+      type: object
+      additionalProperties: false
+      required: [id, userId, items, addressId, shippingAddress, shippingFee, status, trackingNumber, paymentStatus, paymentRef, statusHistory, createdAt, updatedAt]
+      properties:
+        id: { type: string, format: uuid }
+        userId: { type: string }
+        items:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required: [cardId, cardName, quantity]
+            properties:
+              cardId: { type: string }
+              cardName: { type: string }
+              quantity: { type: integer }
+        addressId: { type: string, format: uuid, nullable: true }
+        shippingAddress: { $ref: '#/components/schemas/ShippingAddress' }
+        shippingFee: { type: integer, description: บาท (จำนวนเต็ม) }
+        status: { $ref: '#/components/schemas/OrderStatus' }
+        trackingNumber: { type: string, nullable: true }
+        paymentStatus: { type: string, enum: [NOT_REQUIRED, PAID, REFUNDED] }
+        paymentRef: { type: string, nullable: true }
+        statusHistory:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required: [status, at]
+            properties:
+              status: { $ref: '#/components/schemas/OrderStatus' }
+              at: { type: string, format: date-time }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    OrderEnvelope:
+      type: object
+      additionalProperties: false
+      required: [order]
+      properties:
+        order: { $ref: '#/components/schemas/Order' }
+    OrderPage:
+      type: object
+      additionalProperties: false
+      required: [data, total, limit, offset]
+      properties:
+        data: { type: array, items: { $ref: '#/components/schemas/Order' } }
+        total: { type: integer }
+        limit: { type: integer }
+        offset: { type: integer }
+    UpdateStatusRequest:
+      type: object
+      additionalProperties: false
+      required: [status]
+      properties:
+        status: { $ref: '#/components/schemas/OrderStatus' }
+        trackingNumber: { type: string, description: บังคับเมื่อ status = SHIPPED }
+
+  responses:
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+
+paths:
+  /health:
+    get:
+      tags: [health]
+      summary: Liveness
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status]
+                properties: { status: { type: string, enum: [ok] } }
+  /health/ready:
+    get:
+      tags: [health]
+      summary: Readiness (store โหลดแล้ว)
+      responses:
+        '200':
+          description: Ready
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status]
+                properties: { status: { type: string, enum: [ready] } }
+        '503': { $ref: '#/components/responses/Error' }
+
+  /collections/me:
+    get:
+      tags: [collection]
+      summary: การ์ดทั้งหมดของฉัน
+      security: [{ userJwt: [] }]
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/rarity'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CardPage' }
+        '400': { $ref: '#/components/responses/Error' }
+        '401': { $ref: '#/components/responses/Error' }
+  /collections/me/{cardId}:
+    get:
+      tags: [collection]
+      summary: การ์ด 1 ใบของฉัน
+      security: [{ userJwt: [] }]
+      parameters:
+        - name: cardId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [card]
+                properties: { card: { $ref: '#/components/schemas/Card' } }
+        '401': { $ref: '#/components/responses/Error' }
+        '404': { $ref: '#/components/responses/Error' }
+
+  /internal/collections/{userId}/cards:
+    post:
+      tags: [internal]
+      summary: (Gacha) เพิ่มการ์ดให้ผู้ใช้ แบบ idempotent ด้วย pullId
+      security: [{ serviceKey: [] }]
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AddCardRequest' }
+      responses:
+        '200':
+          description: pullId นี้เคยถูกใช้แล้ว คืนผลเดิม ไม่เพิ่มซ้ำ
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AddCardResponse' }
+        '201':
+          description: เพิ่มการ์ดแล้ว
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AddCardResponse' }
+        '400': { $ref: '#/components/responses/Error' }
+        '401': { $ref: '#/components/responses/Error' }
+        '409':
+          description: PULL_ID_CONFLICT (pullId เดิมแต่คนละ user หรือคนละการ์ด)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '422':
+          description: CARD_NOT_FOUND (เมื่อเปิด Catalog)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '503':
+          description: CATALOG_SERVICE_UNAVAILABLE
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+  /internal/collections/{userId}:
+    get:
+      tags: [internal]
+      summary: คอลเลกชันของผู้ใช้ใดก็ได้
+      security: [{ serviceKey: [] }]
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/rarity'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CardPage' }
+        '400': { $ref: '#/components/responses/Error' }
+        '401': { $ref: '#/components/responses/Error' }
+
+  /fulfillments/orders:
+    post:
+      tags: [fulfillment]
+      summary: ขอจัดส่งการ์ดจริง (all-or-nothing)
+      security: [{ userJwt: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreateOrderRequest' }
+      responses:
+        '201':
+          description: สร้าง order แล้ว
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OrderEnvelope' }
+        '400': { $ref: '#/components/responses/Error' }
+        '401': { $ref: '#/components/responses/Error' }
+        '402':
+          description: INSUFFICIENT_BALANCE (เมื่อเปิด Wallet)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '409':
+          description: INSUFFICIENT_QUANTITY (details บอกใบที่ไม่พอ)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '422':
+          description: ADDRESS_NOT_FOUND
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '503':
+          description: USER_SERVICE_UNAVAILABLE / WALLET_SERVICE_UNAVAILABLE
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+    get:
+      tags: [fulfillment]
+      summary: order ของฉัน (ใหม่สุดก่อน)
+      security: [{ userJwt: [] }]
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+        - name: status
+          in: query
+          schema: { $ref: '#/components/schemas/OrderStatus' }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OrderPage' }
+        '400': { $ref: '#/components/responses/Error' }
+        '401': { $ref: '#/components/responses/Error' }
+  /fulfillments/orders/{id}:
+    get:
+      tags: [fulfillment]
+      summary: order 1 รายการ (ของคนอื่นตอบ 404)
+      security: [{ userJwt: [] }]
+      parameters:
+        - $ref: '#/components/parameters/orderId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OrderEnvelope' }
+        '400': { $ref: '#/components/responses/Error' }
+        '401': { $ref: '#/components/responses/Error' }
+        '404': { $ref: '#/components/responses/Error' }
+  /fulfillments/orders/{id}/cancel:
+    post:
+      tags: [fulfillment]
+      summary: ยกเลิก order (เฉพาะ PENDING) คืนการ์ด และคืนค่าส่งถ้าจ่ายแล้ว
+      security: [{ userJwt: [] }]
+      parameters:
+        - $ref: '#/components/parameters/orderId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OrderEnvelope' }
+        '401': { $ref: '#/components/responses/Error' }
+        '404': { $ref: '#/components/responses/Error' }
+        '409':
+          description: INVALID_STATUS_TRANSITION
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '503':
+          description: WALLET_SERVICE_UNAVAILABLE (คืนเงินไม่สำเร็จ order ไม่เปลี่ยน)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+
+  /admin/fulfillments/orders/{id}/status:
+    patch:
+      tags: [admin]
+      summary: เปลี่ยนสถานะ order ตาม state machine
+      description: |
+        PENDING → PROCESSING → SHIPPED → DELIVERED, PENDING/PROCESSING → CANCELLED
+        SHIPPED ต้องมี trackingNumber
+      security: [{ adminKey: [] }]
+      parameters:
+        - $ref: '#/components/parameters/orderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UpdateStatusRequest' }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OrderEnvelope' }
+        '400': { $ref: '#/components/responses/Error' }
+        '401': { $ref: '#/components/responses/Error' }
+        '404': { $ref: '#/components/responses/Error' }
+        '409':
+          description: INVALID_STATUS_TRANSITION
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }

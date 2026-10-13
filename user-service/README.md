@@ -102,14 +102,14 @@ src/
   repositories/ userRepo, addressRepo (อ่าน/เขียนข้อมูลผ่าน store.js ทั้งหมด)
 data/           mock-data.json
 tests/          unit/ integration/ helpers/
-Dockerfile · docker-compose.yml · .github/workflows/ci.yml
+Dockerfile · docker-compose.yml
 ```
 
 ## CI/CD (GitHub Actions)
+Workflow อยู่ที่ root ของ repo: [`.github/workflows/user-service-ci.yml`](../.github/workflows/user-service-ci.yml)
+(GitHub รันเฉพาะ workflow ใน `.github/workflows/` ที่ root) ทำงานเมื่อมีการแก้ไฟล์ใน `user-service/**`
 - ทุก push / pull request: `lint` → `test` → เก็บ coverage
 - เมื่อ push เข้า `main`: build Docker image แล้ว push ไป `ghcr.io/<repo>/user-service` (tag `latest` และ `sha-xxxx`)
-- ถ้าทีมใช้ monorepo: ย้าย `ci.yml` ไปไว้ที่ `.github/workflows/` ของ repo หลัก แล้วเพิ่ม
-  `defaults.run.working-directory: user-service`, `context: user-service` และ `paths: ['user-service/**']`
 
 ## การตัดสินใจด้านความปลอดภัย
 - รหัสผ่านใช้ Argon2id (m=19 MiB, t=2, p=1 ตามคำแนะนำ OWASP) และ login ตอบข้อความเดียวกันทุกกรณีพร้อมคุมเวลาตอบ

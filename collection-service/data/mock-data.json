@@ -1,0 +1,54 @@
+{
+  "collections": [
+    {
+      "id": "c0110000-0001-4000-8000-000000000001",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "CARD-001",
+      "cardName": "Flame Dragon",
+      "cardRarity": "ULTRA_RARE",
+      "cardImageUrl": "https://example.com/cards/CARD-001.png",
+      "quantity": 3,
+      "redeemedQuantity": 0,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "c0110000-0002-4000-8000-000000000002",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "CARD-002",
+      "cardName": "Forest Elf",
+      "cardRarity": "COMMON",
+      "cardImageUrl": "https://example.com/cards/CARD-002.png",
+      "quantity": 5,
+      "redeemedQuantity": 0,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "c0110000-0003-4000-8000-000000000003",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "CARD-003",
+      "cardName": "Ocean Spirit",
+      "cardRarity": "RARE",
+      "cardImageUrl": "https://example.com/cards/CARD-003.png",
+      "quantity": 1,
+      "redeemedQuantity": 0,
+      "createdAt": "2026-01-02T00:00:00.000Z",
+      "updatedAt": "2026-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "c0110000-0004-4000-8000-000000000004",
+      "userId": "a1b2c3d4-0002-4000-8000-000000000002",
+      "cardId": "CARD-004",
+      "cardName": "Thunder Knight",
+      "cardRarity": "SECRET_RARE",
+      "cardImageUrl": "https://example.com/cards/CARD-004.png",
+      "quantity": 1,
+      "redeemedQuantity": 0,
+      "createdAt": "2026-01-03T00:00:00.000Z",
+      "updatedAt": "2026-01-03T00:00:00.000Z"
+    }
+  ],
+  "pulls": [],
+  "orders": []
+}

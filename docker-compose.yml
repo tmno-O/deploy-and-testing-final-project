@@ -1,0 +1,84 @@
+# รันทุก service ของ Trading Card Gacha Platform จาก root ของ repo
+#   cp .env.example .env            # แล้วแก้ค่า secret
+#   docker compose up --build       # user-service :3001 + collection-service :3005
+#   docker compose --profile full up  # รวม service ของเพื่อน (เมื่อมี image บน GHCR แล้ว)
+# hostname ใน network นี้ = ชื่อ service (เช่น http://user-service:3001) ดู SERVICE_CONVENTIONS.md
+
+x-shared-auth: &shared-auth
+  JWT_SECRET: ${JWT_SECRET:?กรุณาตั้ง JWT_SECRET ในไฟล์ .env (อย่างน้อย 32 ตัวอักษร)}
+  JWT_ISSUER: ${JWT_ISSUER:-user-service}
+  CORS_ORIGIN: ${CORS_ORIGIN:-*}
+
+services:
+  user-service:
+    build: ./user-service
+    environment:
+      <<: *shared-auth
+      NODE_ENV: production
+      PORT: 3001
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-1h}
+      PERSIST_DATA: ${PERSIST_DATA:-true}
+    volumes:
+      - user-data:/app/data
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
+
+  collection-service:
+    build: ./collection-service
+    environment:
+      <<: *shared-auth
+      NODE_ENV: production
+      PORT: 3005
+      SERVICE_API_KEY: ${SERVICE_API_KEY:?กรุณาตั้ง SERVICE_API_KEY ในไฟล์ .env (อย่างน้อย 32 ตัวอักษร)}
+      ADMIN_API_KEY: ${ADMIN_API_KEY:?กรุณาตั้ง ADMIN_API_KEY ในไฟล์ .env (อย่างน้อย 32 ตัวอักษร)}
+      USER_SERVICE_URL: http://user-service:3001
+      # เปิด Catalog/Wallet ได้โดยตั้งค่าใน .env เมื่อ service นั้นพร้อม (ใช้คู่กับ --profile full)
+      CATALOG_SERVICE_URL: ${CATALOG_SERVICE_URL:-}
+      WALLET_ENABLED: ${WALLET_ENABLED:-false}
+      WALLET_SERVICE_URL: ${WALLET_SERVICE_URL:-}
+      PERSIST_DATA: ${PERSIST_DATA:-true}
+    volumes:
+      - collection-data:/app/data
+    ports:
+      - "3005:3005"
+    depends_on:
+      user-service:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ---- service ของเพื่อนในทีม: ยังไม่เสร็จ จึงอยู่ใน profile "full" ----
+  # image / port เป็นค่าเสนอ ให้เจ้าของแต่ละ service ยืนยัน (ดู SERVICE_CONVENTIONS.md)
+  wallet-service:
+    profiles: ["full"]
+    image: ${WALLET_IMAGE:-ghcr.io/tmno-o/deploy-and-testing-final-project/wallet-service:latest}
+    environment:
+      <<: *shared-auth
+      PORT: 3002
+      SERVICE_API_KEY: ${SERVICE_API_KEY}
+    ports:
+      - "3002:3002"
+
+  catalog-service:
+    profiles: ["full"]
+    image: ${CATALOG_IMAGE:-ghcr.io/tmno-o/deploy-and-testing-final-project/catalog-service:latest}
+    environment:
+      <<: *shared-auth
+      PORT: 3003
+    ports:
+      - "3003:3003"
+
+  gacha-service:
+    profiles: ["full"]
+    image: ${GACHA_IMAGE:-ghcr.io/tmno-o/deploy-and-testing-final-project/gacha-service:latest}
+    environment:
+      <<: *shared-auth
+      PORT: 3004
+      SERVICE_API_KEY: ${SERVICE_API_KEY}
+      COLLECTION_SERVICE_URL: http://collection-service:3005
+    ports:
+      - "3004:3004"
+
+volumes:
+  user-data:
+  collection-data:
