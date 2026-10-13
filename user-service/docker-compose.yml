@@ -1,0 +1,23 @@
+# รัน user-service เดี่ยว ๆ (ข้อมูลเก็บในไฟล์ JSON ไม่ต้องมี database)
+# ใช้งาน: cp .env.example .env แล้ว docker compose up --build
+services:
+  user-service:
+    build: .
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      JWT_SECRET: ${JWT_SECRET:?กรุณาตั้ง JWT_SECRET ในไฟล์ .env (อย่างน้อย 32 ตัวอักษร)}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-1h}
+      JWT_ISSUER: ${JWT_ISSUER:-user-service}
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
+      TRUST_PROXY: ${TRUST_PROXY:-}
+      PERSIST_DATA: ${PERSIST_DATA:-true}
+    volumes:
+      # volume ใหม่จะถูกเติมด้วย mock data จาก image ครั้งแรก; ลบ volume (docker compose down -v) เพื่อรีเซ็ตข้อมูล
+      - user-data:/app/data
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
+
+volumes:
+  user-data:

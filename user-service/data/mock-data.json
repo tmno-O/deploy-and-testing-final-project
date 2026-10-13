@@ -1,0 +1,71 @@
+{
+  "users": [
+    {
+      "id": "a1b2c3d4-0001-4000-8000-000000000001",
+      "email": "somchai@example.com",
+      "passwordHash": "$argon2id$v=19$m=19456,t=2,p=1$0iCsbZ6M0NQKSiSOnKKB7g$eYUzvgVv6SyVwP9GIk8fPJ1Wj1k1DzzwuebeeEz+pz8",
+      "firstName": "Somchai",
+      "lastName": "Jaidee",
+      "displayName": "somchai",
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "a1b2c3d4-0002-4000-8000-000000000002",
+      "email": "somying@example.com",
+      "passwordHash": "$argon2id$v=19$m=19456,t=2,p=1$0iCsbZ6M0NQKSiSOnKKB7g$eYUzvgVv6SyVwP9GIk8fPJ1Wj1k1DzzwuebeeEz+pz8",
+      "firstName": "Somying",
+      "lastName": "Rakdee",
+      "displayName": "somying",
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    }
+  ],
+  "addresses": [
+    {
+      "id": "b1b2c3d4-0001-4000-8000-000000000001",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "recipientName": "Somchai Jaidee",
+      "phone": "0812345678",
+      "line1": "99/1 Moo 3",
+      "line2": null,
+      "subdistrict": "Suthep",
+      "district": "Mueang",
+      "province": "Chiang Mai",
+      "postalCode": "50000",
+      "isDefault": true,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "b1b2c3d4-0002-4000-8000-000000000002",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "recipientName": "Somchai Jaidee (Office)",
+      "phone": "0812345678",
+      "line1": "123 Nimmanhaemin Rd",
+      "line2": "Floor 5",
+      "subdistrict": "Suthep",
+      "district": "Mueang",
+      "province": "Chiang Mai",
+      "postalCode": "50200",
+      "isDefault": false,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "b1b2c3d4-0003-4000-8000-000000000003",
+      "userId": "a1b2c3d4-0002-4000-8000-000000000002",
+      "recipientName": "Somying Rakdee",
+      "phone": "0898765432",
+      "line1": "45 Sukhumvit Rd",
+      "line2": null,
+      "subdistrict": "Khlong Toei Nuea",
+      "district": "Watthana",
+      "province": "Bangkok",
+      "postalCode": "10110",
+      "isDefault": true,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    }
+  ]
+}
