@@ -1,0 +1,7989 @@
+{
+  "cards": [
+    {
+      "id": "base1-23",
+      "name": "Arcanine",
+      "imageSmall": "https://images.pokemontcg.io/base1/23.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/23_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 100,
+      "attacks": [
+        {
+          "name": "Flamethrower",
+          "cost": [
+            "Fire",
+            "Fire",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "50",
+          "text": "Discard 1 Fire Energy card attached to Arcanine in order to use this attack."
+        },
+        {
+          "name": "Take Down",
+          "cost": [
+            "Fire",
+            "Fire",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "80",
+          "text": "Arcanine does 30 damage to itself."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-1",
+      "name": "Bulbasaur",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/1.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/1_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 70,
+      "attacks": [
+        {
+          "name": "Leech Seed",
+          "cost": [
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "20",
+          "text": "Heal 20 damage from this Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Yuu Nishida"
+    },
+    {
+      "id": "swsh7-2",
+      "name": "Hoppip",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/2.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/2_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "Rapid Strike"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 40,
+      "attacks": [
+        {
+          "name": "Continuous Spin",
+          "cost": [
+            "Grass"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "20×",
+          "text": "Flip a coin until you get tails. This attack does 20 damage for each heads."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 0,
+      "artist": "Kagemaru Himeno"
+    },
+    {
+      "id": "base1-24",
+      "name": "Charmeleon",
+      "imageSmall": "https://images.pokemontcg.io/base1/24.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/24_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 80,
+      "attacks": [
+        {
+          "name": "Slash",
+          "cost": [
+            "Colorless",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "30",
+          "text": ""
+        },
+        {
+          "name": "Flamethrower",
+          "cost": [
+            "Fire",
+            "Fire",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "50",
+          "text": "Discard 1 Fire Energy card attached to Charmeleon in order to use this attack."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Mitsuhiro Arita"
+    },
+    {
+      "id": "sv3pt5-2",
+      "name": "Ivysaur",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/2.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/2_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 100,
+      "attacks": [
+        {
+          "name": "Leech Seed",
+          "cost": [
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30",
+          "text": "Heal 20 damage from this Pokémon."
+        },
+        {
+          "name": "Vine Whip",
+          "cost": [
+            "Grass",
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "80",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Yuu Nishida"
+    },
+    {
+      "id": "swsh7-3",
+      "name": "Skiploom",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/3.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/3_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1",
+        "Rapid Strike"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Spinning Attack",
+          "cost": [
+            "Grass"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "20",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 0,
+      "artist": "kirisAki"
+    },
+    {
+      "id": "base1-25",
+      "name": "Dewgong",
+      "imageSmall": "https://images.pokemontcg.io/base1/25.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/25_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 80,
+      "attacks": [
+        {
+          "name": "Aurora Beam",
+          "cost": [
+            "Water",
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "50",
+          "text": ""
+        },
+        {
+          "name": "Ice Beam",
+          "cost": [
+            "Water",
+            "Water",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "30",
+          "text": "Flip a coin. If heads, the Defending Pokémon is now Paralyzed."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Mitsuhiro Arita"
+    },
+    {
+      "id": "sv3pt5-4",
+      "name": "Charmander",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/4.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/4_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 70,
+      "attacks": [
+        {
+          "name": "Blazing Destruction",
+          "cost": [
+            "Fire"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Discard a Stadium in play."
+        },
+        {
+          "name": "Steady Firebreathing",
+          "cost": [
+            "Fire",
+            "Fire"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "GIDORA"
+    },
+    {
+      "id": "swsh7-5",
+      "name": "Seedot",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/5.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/5_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 50,
+      "attacks": [
+        {
+          "name": "Astonish",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "10",
+          "text": "Choose a random card from your opponent's hand. Your opponent reveals that card and shuffles it into their deck."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "otumami"
+    },
+    {
+      "id": "base1-26",
+      "name": "Dratini",
+      "imageSmall": "https://images.pokemontcg.io/base1/26.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/26_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Colorless"
+      ],
+      "hp": 40,
+      "attacks": [
+        {
+          "name": "Pound",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10",
+          "text": ""
+        }
+      ],
+      "weaknesses": [],
+      "retreatCost": 1,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-5",
+      "name": "Charmeleon",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/5.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/5_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 100,
+      "attacks": [
+        {
+          "name": "Combustion",
+          "cost": [
+            "Fire"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "20",
+          "text": ""
+        },
+        {
+          "name": "Fire Blast",
+          "cost": [
+            "Fire",
+            "Fire",
+            "Fire"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "90",
+          "text": "Discard an Energy from this Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "GIDORA"
+    },
+    {
+      "id": "swsh7-9",
+      "name": "Petilil",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/9.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/9_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Seed Bomb",
+          "cost": [
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "20",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Mika Pikazo"
+    },
+    {
+      "id": "base1-27",
+      "name": "Farfetch'd",
+      "imageSmall": "https://images.pokemontcg.io/base1/27.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/27_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Colorless"
+      ],
+      "hp": 50,
+      "attacks": [
+        {
+          "name": "Leek Slap",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "30",
+          "text": "Flip a coin. If tails, this attack does nothing. Either way, you can't use this attack again as long as Farfetch'd stays in play (even putting Farfetch'd on the Bench won't let you use it again)."
+        },
+        {
+          "name": "Pot Smash",
+          "cost": [
+            "Colorless",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "30",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-7",
+      "name": "Squirtle",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/7.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/7_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Withdraw",
+          "cost": [
+            "Water"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Flip a coin. If heads, during your opponent's next turn, prevent all damage done to this Pokémon by attacks."
+        },
+        {
+          "name": "Skull Bash",
+          "cost": [
+            "Water",
+            "Water"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "20",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "kantaro"
+    },
+    {
+      "id": "swsh7-11",
+      "name": "Dwebble",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/11.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/11_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Ram",
+          "cost": [
+            "Grass"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10",
+          "text": ""
+        },
+        {
+          "name": "Sharp Claws",
+          "cost": [
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "10+",
+          "text": "Flip a coin. If heads, this attack does 30 more damage."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Shigenori Negishi"
+    },
+    {
+      "id": "base1-28",
+      "name": "Growlithe",
+      "imageSmall": "https://images.pokemontcg.io/base1/28.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/28_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Flare",
+          "cost": [
+            "Fire",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "20",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-8",
+      "name": "Wartortle",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/8.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/8_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 100,
+      "attacks": [
+        {
+          "name": "Free Diving",
+          "cost": [
+            "Water"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Put up to 3 Basic Water Energy cards from your discard pile into your hand."
+        },
+        {
+          "name": "Spinning Attack",
+          "cost": [
+            "Water",
+            "Water"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "50",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "kantaro"
+    },
+    {
+      "id": "swsh7-12",
+      "name": "Crustle",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/12.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/12_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 130,
+      "attacks": [
+        {
+          "name": "X-Scissor",
+          "cost": [
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30+",
+          "text": "Flip a coin. If heads, this attack does 60 more damage."
+        },
+        {
+          "name": "Hammer In",
+          "cost": [
+            "Grass",
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "130",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "sowsow"
+    },
+    {
+      "id": "base1-29",
+      "name": "Haunter",
+      "imageSmall": "https://images.pokemontcg.io/base1/29.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/29_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Psychic"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Hypnosis",
+          "cost": [
+            "Psychic"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "The Defending Pokémon is now Asleep."
+        },
+        {
+          "name": "Dream Eater",
+          "cost": [
+            "Psychic",
+            "Psychic"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "50",
+          "text": "You can't use this attack unless the Defending Pokémon is Asleep."
+        }
+      ],
+      "weaknesses": [],
+      "retreatCost": 1,
+      "artist": "Keiji Kinebuchi"
+    },
+    {
+      "id": "sv3pt5-10",
+      "name": "Caterpie",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/10.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/10_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 50,
+      "attacks": [
+        {
+          "name": "Leaf Munch",
+          "cost": [
+            "Grass"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10+",
+          "text": "If your opponent's Active Pokémon is a Grass Pokémon, this attack does 30 more damage."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Tika Matsuno"
+    },
+    {
+      "id": "swsh7-15",
+      "name": "Gossifleur",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/15.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/15_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 50,
+      "attacks": [
+        {
+          "name": "Blot",
+          "cost": [
+            "Grass"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10",
+          "text": "Heal 10 damage from this Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Mizue"
+    },
+    {
+      "id": "base1-30",
+      "name": "Ivysaur",
+      "imageSmall": "https://images.pokemontcg.io/base1/30.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/30_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Vine Whip",
+          "cost": [
+            "Grass",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "30",
+          "text": ""
+        },
+        {
+          "name": "Poisonpowder",
+          "cost": [
+            "Grass",
+            "Grass",
+            "Grass"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "20",
+          "text": "The Defending Pokémon is now Poisoned."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-11",
+      "name": "Metapod",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/11.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/11_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 90,
+      "attacks": [
+        {
+          "name": "Tackle",
+          "cost": [
+            "Grass"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "20",
+          "text": ""
+        },
+        {
+          "name": "Defensive Posture",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "",
+          "text": "Flip a coin. If heads, during your opponent's next turn, prevent all damage done to this Pokémon by attacks."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Tika Matsuno"
+    },
+    {
+      "id": "swsh7-17",
+      "name": "Applin",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/17.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/17_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 40,
+      "attacks": [
+        {
+          "name": "Rollout",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Miki Tanaka"
+    },
+    {
+      "id": "base1-31",
+      "name": "Jynx",
+      "imageSmall": "https://images.pokemontcg.io/base1/31.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/31_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Psychic"
+      ],
+      "hp": 70,
+      "attacks": [
+        {
+          "name": "Doubleslap",
+          "cost": [
+            "Psychic"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10×",
+          "text": "Flip 2 coins. This attack does 10 damage times the number of heads."
+        },
+        {
+          "name": "Meditate",
+          "cost": [
+            "Psychic",
+            "Psychic",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "20+",
+          "text": "Does 20 damage plus 10 more damage for each damage counter on the Defending Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Psychic",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-12",
+      "name": "Butterfree",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/12.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/12_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 130,
+      "attacks": [
+        {
+          "name": "Whirlwind",
+          "cost": [
+            "Grass"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "60",
+          "text": "Switch out your opponent's Active Pokémon to the Bench. (Your opponent chooses the new Active Pokémon.)"
+        },
+        {
+          "name": "Bye-Bye Flight",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "",
+          "text": "Choose 1 of your opponent's Benched Pokémon. Shuffle that Pokémon and all attached cards into their deck, and then shuffle this Pokémon and all attached cards into your deck. If your opponent has no Benched Pokémon, this attack does nothing."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Tika Matsuno"
+    },
+    {
+      "id": "swsh7-22",
+      "name": "Litleo",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/22.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/22_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Live Coal",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Misa Tsutsui"
+    },
+    {
+      "id": "base1-32",
+      "name": "Kadabra",
+      "imageSmall": "https://images.pokemontcg.io/base1/32.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/32_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Psychic"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Recover",
+          "cost": [
+            "Psychic",
+            "Psychic"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "",
+          "text": "Discard 1 Psychic Energy card attached to Kadabra in order to use this attack. Remove all damage counters from Kadabra."
+        },
+        {
+          "name": "Super Psy",
+          "cost": [
+            "Psychic",
+            "Psychic",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "50",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Psychic",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-13",
+      "name": "Weedle",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/13.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/13_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 50,
+      "attacks": [
+        {
+          "name": "Ram",
+          "cost": [
+            "Grass"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10",
+          "text": ""
+        },
+        {
+          "name": "Bug Bite",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "20",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "nisimono"
+    },
+    {
+      "id": "swsh7-23",
+      "name": "Pyroar",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/23.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/23_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 130,
+      "attacks": [
+        {
+          "name": "Combustion",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "30",
+          "text": ""
+        },
+        {
+          "name": "Rip Claw",
+          "cost": [
+            "Fire",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "70",
+          "text": "Discard an Energy from your opponent's Active Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Hitoshi Ariga"
+    },
+    {
+      "id": "base1-33",
+      "name": "Kakuna",
+      "imageSmall": "https://images.pokemontcg.io/base1/33.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/33_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 80,
+      "attacks": [
+        {
+          "name": "Stiffen",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "",
+          "text": "Flip a coin. If heads, prevent all damage done to Kakuna during your opponent's next turn. (Any other effects of attacks still happen.)"
+        },
+        {
+          "name": "Poisonpowder",
+          "cost": [
+            "Grass",
+            "Grass"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "20",
+          "text": "Flip a coin. If heads, the Defending Pokémon is now Poisoned."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Keiji Kinebuchi"
+    },
+    {
+      "id": "sv3pt5-14",
+      "name": "Kakuna",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/14.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/14_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 80,
+      "attacks": [
+        {
+          "name": "Zzzt",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "20",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "nisimono"
+    },
+    {
+      "id": "swsh7-24",
+      "name": "Psyduck",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/24.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/24_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 70,
+      "attacks": [
+        {
+          "name": "Rain Splash",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "OKACHEKE"
+    },
+    {
+      "id": "base1-34",
+      "name": "Machoke",
+      "imageSmall": "https://images.pokemontcg.io/base1/34.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/34_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Fighting"
+      ],
+      "hp": 80,
+      "attacks": [
+        {
+          "name": "Karate Chop",
+          "cost": [
+            "Fighting",
+            "Fighting",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "50-",
+          "text": "Does 50 damage minus 10 damage for each damage counter on Machoke."
+        },
+        {
+          "name": "Submission",
+          "cost": [
+            "Fighting",
+            "Fighting",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "60",
+          "text": "Machoke does 20 damage to itself."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Psychic",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-16",
+      "name": "Pidgey",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/16.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/16_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Colorless"
+      ],
+      "hp": 50,
+      "attacks": [
+        {
+          "name": "Call for Family",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Search your deck for up to 2 Basic Pokémon and put them onto your Bench. Then, shuffle your deck."
+        },
+        {
+          "name": "Tackle",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "20",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Oswaldo KATO"
+    },
+    {
+      "id": "swsh7-25",
+      "name": "Golduck",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/25.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/25_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 120,
+      "attacks": [
+        {
+          "name": "Psybeam",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "20",
+          "text": "Your opponent's Active Pokémon is now Confused."
+        },
+        {
+          "name": "Surf",
+          "cost": [
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "70",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Kyoko Umemoto"
+    },
+    {
+      "id": "base1-35",
+      "name": "Magikarp",
+      "imageSmall": "https://images.pokemontcg.io/base1/35.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/35_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 30,
+      "attacks": [
+        {
+          "name": "Tackle",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10",
+          "text": ""
+        },
+        {
+          "name": "Flail",
+          "cost": [
+            "Water"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10×",
+          "text": "Does 10 damage times the number of damage counters on Magikarp."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Mitsuhiro Arita"
+    },
+    {
+      "id": "sv3pt5-17",
+      "name": "Pidgeotto",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/17.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/17_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Colorless"
+      ],
+      "hp": 80,
+      "attacks": [
+        {
+          "name": "Flap",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "20",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 0,
+      "artist": "Oswaldo KATO"
+    },
+    {
+      "id": "swsh7-26",
+      "name": "Tentacool",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/26.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/26_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Gentle Slap",
+          "cost": [
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "SATOSHI NAKAI"
+    },
+    {
+      "id": "base1-36",
+      "name": "Magmar",
+      "imageSmall": "https://images.pokemontcg.io/base1/36.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/36_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 50,
+      "attacks": [
+        {
+          "name": "Fire Punch",
+          "cost": [
+            "Fire",
+            "Fire"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30",
+          "text": ""
+        },
+        {
+          "name": "Flamethrower",
+          "cost": [
+            "Fire",
+            "Fire",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "50",
+          "text": "Discard 1 Fire Energy card attached to Magmar in order to use this attack."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-18",
+      "name": "Pidgeot",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/18.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/18_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Colorless"
+      ],
+      "hp": 130,
+      "attacks": [
+        {
+          "name": "Flap",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "40",
+          "text": ""
+        },
+        {
+          "name": "Fly",
+          "cost": [
+            "Colorless",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "150",
+          "text": "Flip a coin. If tails, this attack does nothing. If heads, during your opponent's next turn, prevent all damage from and effects of attacks done to this Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 0,
+      "artist": "Oswaldo KATO"
+    },
+    {
+      "id": "swsh7-27",
+      "name": "Tentacruel",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/27.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/27_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 120,
+      "attacks": [
+        {
+          "name": "Wave Splash",
+          "cost": [
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "50",
+          "text": ""
+        },
+        {
+          "name": "Poisonous Prison",
+          "cost": [
+            "Water",
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "100",
+          "text": "Your opponent's Active Pokémon is now Poisoned. During your opponent's next turn, that Pokémon can't retreat."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Mina Nakai"
+    },
+    {
+      "id": "base1-37",
+      "name": "Nidorino",
+      "imageSmall": "https://images.pokemontcg.io/base1/37.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/37_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Double Kick",
+          "cost": [
+            "Grass",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "30×",
+          "text": "Flip 2 coins. This attack does 30 damage times the number of heads."
+        },
+        {
+          "name": "Horn Drill",
+          "cost": [
+            "Grass",
+            "Grass",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "50",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Psychic",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Mitsuhiro Arita"
+    },
+    {
+      "id": "sv3pt5-19",
+      "name": "Rattata",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/19.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/19_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Colorless"
+      ],
+      "hp": 40,
+      "attacks": [
+        {
+          "name": "Gnaw the Wound",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "20+",
+          "text": "This attack does 10 more damage for each damage counter on your opponent's Active Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "sowsow"
+    },
+    {
+      "id": "swsh7-32",
+      "name": "Lotad",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/32.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/32_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Call for Family",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Search your deck for up to 2 Basic Pokémon and put them onto your Bench. Then, shuffle your deck."
+        },
+        {
+          "name": "Rain Splash",
+          "cost": [
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "20",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Teeziro"
+    },
+    {
+      "id": "base1-38",
+      "name": "Poliwhirl",
+      "imageSmall": "https://images.pokemontcg.io/base1/38.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/38_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Amnesia",
+          "cost": [
+            "Water",
+            "Water"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "",
+          "text": "Choose 1 of the Defending Pokémon's attacks. That Pokémon can't use that attack during your opponent's next turn."
+        },
+        {
+          "name": "Doubleslap",
+          "cost": [
+            "Water",
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "30×",
+          "text": "Flip 2 coins. This attack does 30 damage times the number of heads."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Grass",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-20",
+      "name": "Raticate",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/20.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/20_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Colorless"
+      ],
+      "hp": 70,
+      "attacks": [
+        {
+          "name": "Second Bite",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30+",
+          "text": "This attack does 30 more damage for each damage counter on your opponent's Active Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 0,
+      "artist": "sowsow"
+    },
+    {
+      "id": "swsh7-33",
+      "name": "Lombre",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/33.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/33_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 90,
+      "attacks": [
+        {
+          "name": "Wave Splash",
+          "cost": [
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "50",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "miki kudo"
+    },
+    {
+      "id": "base1-39",
+      "name": "Porygon",
+      "imageSmall": "https://images.pokemontcg.io/base1/39.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/39_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Colorless"
+      ],
+      "hp": 30,
+      "attacks": [
+        {
+          "name": "Conversion 1",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "If the Defending Pokémon has a Weakness, you may change it to a type of your choice other than Colorless."
+        },
+        {
+          "name": "Conversion 2",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "",
+          "text": "Change Porygon's Resistance to a type of your choice other than Colorless."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Tomoaki Imakuni"
+    },
+    {
+      "id": "sv3pt5-21",
+      "name": "Spearow",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/21.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/21_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Colorless"
+      ],
+      "hp": 50,
+      "attacks": [
+        {
+          "name": "Speed Dive",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Gemi"
+    },
+    {
+      "id": "swsh7-35",
+      "name": "Carvanha",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/35.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/35_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 50,
+      "attacks": [
+        {
+          "name": "Ram",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10",
+          "text": ""
+        },
+        {
+          "name": "Razor Fin",
+          "cost": [
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "20",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Kyoko Umemoto"
+    },
+    {
+      "id": "base1-40",
+      "name": "Raticate",
+      "imageSmall": "https://images.pokemontcg.io/base1/40.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/40_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Colorless"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Bite",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "20",
+          "text": ""
+        },
+        {
+          "name": "Super Fang",
+          "cost": [
+            "Colorless",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "",
+          "text": "Does damage to the Defending Pokémon equal to half the Defending Pokémon's remaining HP (rounded up to the nearest 10)."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-22",
+      "name": "Fearow",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/22.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/22_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Colorless"
+      ],
+      "hp": 90,
+      "attacks": [
+        {
+          "name": "Beak Catch",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Search your deck for up to 3 cards and put them into your hand. Then, shuffle your deck."
+        },
+        {
+          "name": "Speed Dive",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "50",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 0,
+      "artist": "Gemi"
+    },
+    {
+      "id": "swsh7-37",
+      "name": "Feebas",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/37.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/37_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "Rapid Strike"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 30,
+      "attacks": [
+        {
+          "name": "Flail Around",
+          "cost": [
+            "Water"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10×",
+          "text": "Flip 3 coins. This attack does 10 damage for each heads."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "tetsuya koizumi"
+    },
+    {
+      "id": "base1-41",
+      "name": "Seel",
+      "imageSmall": "https://images.pokemontcg.io/base1/41.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/41_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Headbutt",
+          "cost": [
+            "Water"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-23",
+      "name": "Ekans",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/23.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/23_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Darkness"
+      ],
+      "hp": 70,
+      "attacks": [
+        {
+          "name": "Acid Spray",
+          "cost": [
+            "Darkness",
+            "Darkness"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30",
+          "text": "Flip a coin. If heads, discard an Energy from your opponent's Active Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Kedamahadaitai Yawarakai"
+    },
+    {
+      "id": "swsh7-39",
+      "name": "Luvdisc",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/39.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/39_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 70,
+      "attacks": [
+        {
+          "name": "Synchrodraw",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Shuffle your hand into your deck. Then, draw a card for each card in your opponent's hand."
+        },
+        {
+          "name": "Water Gun",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "20",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Mizue"
+    },
+    {
+      "id": "base1-42",
+      "name": "Wartortle",
+      "imageSmall": "https://images.pokemontcg.io/base1/42.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/42_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Uncommon",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 70,
+      "attacks": [
+        {
+          "name": "Withdraw",
+          "cost": [
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "",
+          "text": "Flip a coin. If heads, prevent all damage done to Wartortle during your opponent's next turn. (Any other effects of attacks still happen.)"
+        },
+        {
+          "name": "Bite",
+          "cost": [
+            "Water",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "40",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-25",
+      "name": "Pikachu",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/25.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/25_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Lightning"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Charge",
+          "cost": [
+            "Lightning"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Search your deck for a Basic Lightning Energy card and attach it to this Pokémon. Then, shuffle your deck."
+        },
+        {
+          "name": "Pika Punch",
+          "cost": [
+            "Lightning",
+            "Lightning",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "50",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Naoyo Kimura"
+    },
+    {
+      "id": "swsh7-42",
+      "name": "Tympole",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/42.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/42_hires.png",
+      "rarity": "common",
+      "sourceRarity": "Common",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 70,
+      "attacks": [
+        {
+          "name": "Mud-Slap",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Mina Nakai"
+    },
+    {
+      "id": "base1-17",
+      "name": "Beedrill",
+      "imageSmall": "https://images.pokemontcg.io/base1/17.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/17_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 80,
+      "attacks": [
+        {
+          "name": "Twineedle",
+          "cost": [
+            "Colorless",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "30×",
+          "text": "Flip 2 coins. This attack does 30 damage times the number of heads."
+        },
+        {
+          "name": "Poison Sting",
+          "cost": [
+            "Grass",
+            "Grass",
+            "Grass"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "40",
+          "text": "Flip a coin. If heads, the Defending Pokémon is now Poisoned."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 0,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-3",
+      "name": "Venusaur ex",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/3.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/3_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Double Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2",
+        "ex"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 340,
+      "attacks": [
+        {
+          "name": "Dangerous Toxwhip",
+          "cost": [
+            "Grass",
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "150",
+          "text": "Your opponent's Active Pokémon is now Confused and Poisoned."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 4,
+      "artist": "5ban Graphics"
+    },
+    {
+      "id": "swsh7-1",
+      "name": "Pinsir",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/1.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/1_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "Single Strike"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 120,
+      "attacks": [
+        {
+          "name": "Seismic Toss",
+          "cost": [
+            "Grass",
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "110",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Shin Nagasawa"
+    },
+    {
+      "id": "base1-18",
+      "name": "Dragonair",
+      "imageSmall": "https://images.pokemontcg.io/base1/18.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/18_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Colorless"
+      ],
+      "hp": 80,
+      "attacks": [
+        {
+          "name": "Slam",
+          "cost": [
+            "Colorless",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "30×",
+          "text": "Flip 2 coins. This attack does 30 damage times the number of heads."
+        },
+        {
+          "name": "Hyper Beam",
+          "cost": [
+            "Colorless",
+            "Colorless",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "20",
+          "text": "If the Defending Pokémon has any Energy cards attached to it, choose 1 of them and discard it."
+        }
+      ],
+      "weaknesses": [],
+      "retreatCost": 2,
+      "artist": "Mitsuhiro Arita"
+    },
+    {
+      "id": "sv3pt5-6",
+      "name": "Charizard ex",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/6.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/6_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Double Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2",
+        "ex"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 330,
+      "attacks": [
+        {
+          "name": "Brave Wing",
+          "cost": [
+            "Fire"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "60+",
+          "text": "If this Pokémon has any damage counters on it, this attack does 100 more damage."
+        },
+        {
+          "name": "Explosive Vortex",
+          "cost": [
+            "Fire",
+            "Fire",
+            "Fire",
+            "Fire"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "330",
+          "text": "Discard 3 Energy from this Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "PLANETA Mochizuki"
+    },
+    {
+      "id": "swsh7-6",
+      "name": "Tropius",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/6.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/6_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 110,
+      "attacks": [
+        {
+          "name": "Rally Back",
+          "cost": [
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30+",
+          "text": "If any of your Pokémon were Knocked Out by damage from an attack from your opponent's Pokémon during their last turn, this attack does 90 more damage."
+        },
+        {
+          "name": "Solar Beam",
+          "cost": [
+            "Grass",
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "100",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Oswaldo KATO"
+    },
+    {
+      "id": "base1-19",
+      "name": "Dugtrio",
+      "imageSmall": "https://images.pokemontcg.io/base1/19.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/19_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Fighting"
+      ],
+      "hp": 70,
+      "attacks": [
+        {
+          "name": "Slash",
+          "cost": [
+            "Fighting",
+            "Fighting",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "40",
+          "text": ""
+        },
+        {
+          "name": "Earthquake",
+          "cost": [
+            "Fighting",
+            "Fighting",
+            "Fighting",
+            "Fighting"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "70",
+          "text": "Does 10 damage to each of your own Benched Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)"
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Grass",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Keiji Kinebuchi"
+    },
+    {
+      "id": "sv3pt5-9",
+      "name": "Blastoise ex",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/9.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/9_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Double Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2",
+        "ex"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 330,
+      "attacks": [
+        {
+          "name": "Twin Cannons",
+          "cost": [
+            "Water",
+            "Water"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "140×",
+          "text": "Discard up to 2 Basic Water Energy cards from your hand. This attack does 140 damage for each card you discarded in this way."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "PLANETA Yamashita"
+    },
+    {
+      "id": "swsh7-10",
+      "name": "Lilligant",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/10.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/10_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 100,
+      "attacks": [
+        {
+          "name": "Dizzying Flower",
+          "cost": [
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "70",
+          "text": "Flip a coin. If heads, your opponent's Active Pokémon is now Asleep. If tails, your opponent's Active Pokémon is now Confused."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Kagemaru Himeno"
+    },
+    {
+      "id": "base1-20",
+      "name": "Electabuzz",
+      "imageSmall": "https://images.pokemontcg.io/base1/20.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/20_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Lightning"
+      ],
+      "hp": 70,
+      "attacks": [
+        {
+          "name": "Thundershock",
+          "cost": [
+            "Lightning"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10",
+          "text": "Flip a coin. If heads, the Defending Pokémon is now Paralyzed."
+        },
+        {
+          "name": "Thunderpunch",
+          "cost": [
+            "Lightning",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30+",
+          "text": "Flip a coin. If heads, this attack does 30 damage plus 10 more damage; if tails, this attack does 30 damage plus Electabuzz does 10 damage to itself."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-15",
+      "name": "Beedrill",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/15.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/15_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 130,
+      "attacks": [
+        {
+          "name": "Nadir Needle",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30+",
+          "text": "If you have no cards in your hand, this attack does 120 more damage, and your opponent's Active Pokémon is now Paralyzed and Poisoned."
+        },
+        {
+          "name": "Pierce",
+          "cost": [
+            "Grass",
+            "Grass"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "110",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "nisimono"
+    },
+    {
+      "id": "swsh7-36",
+      "name": "Sharpedo",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/36.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/36_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 120,
+      "attacks": [
+        {
+          "name": "Taunt",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Switch 1 of your opponent's Benched Pokémon with their Active Pokémon."
+        },
+        {
+          "name": "Jet Bite",
+          "cost": [
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "120",
+          "text": "During your next turn, this Pokémon can't attack."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Kazuma Koda"
+    },
+    {
+      "id": "base1-21",
+      "name": "Electrode",
+      "imageSmall": "https://images.pokemontcg.io/base1/21.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/21_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Lightning"
+      ],
+      "hp": 80,
+      "attacks": [
+        {
+          "name": "Electric Shock",
+          "cost": [
+            "Lightning",
+            "Lightning",
+            "Lightning"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "50",
+          "text": "Flip a coin. If tails, Electrode does 10 damage to itself."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Keiji Kinebuchi"
+    },
+    {
+      "id": "sv3pt5-24",
+      "name": "Arbok ex",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/24.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/24_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Double Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1",
+        "ex"
+      ],
+      "types": [
+        "Darkness"
+      ],
+      "hp": 270,
+      "attacks": [
+        {
+          "name": "Bind Down",
+          "cost": [
+            "Darkness",
+            "Darkness"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "70",
+          "text": "During your opponent's next turn, the Defending Pokémon can't retreat."
+        },
+        {
+          "name": "Menacing Fangs",
+          "cost": [
+            "Darkness",
+            "Darkness",
+            "Darkness"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "150",
+          "text": "Your opponent discards 2 cards from their hand."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Eske Yoshinob"
+    },
+    {
+      "id": "swsh7-38",
+      "name": "Milotic",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/38.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/38_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1",
+        "Rapid Strike"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 120,
+      "attacks": [
+        {
+          "name": "Double Smash",
+          "cost": [
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "70×",
+          "text": "Flip 2 coins. This attack does 70 damage for each heads."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "sui"
+    },
+    {
+      "id": "base1-22",
+      "name": "Pidgeotto",
+      "imageSmall": "https://images.pokemontcg.io/base1/22.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/22_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Colorless"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Whirlwind",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "20",
+          "text": "If your opponent has any Benched Pokémon, he or she chooses 1 of them and switches it with the Defending Pokémon. (Do the damage before switching the Pokémon.)"
+        },
+        {
+          "name": "Mirror Move",
+          "cost": [
+            "Colorless",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "",
+          "text": "If Pidgeotto was attacked last turn, do the final result of that attack on Pidgeotto to the Defending Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-26",
+      "name": "Raichu",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/26.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/26_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Lightning"
+      ],
+      "hp": 120,
+      "attacks": [
+        {
+          "name": "Thunder",
+          "cost": [
+            "Lightning",
+            "Lightning",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "180",
+          "text": "This Pokémon also does 50 damage to itself."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Naoyo Kimura"
+    },
+    {
+      "id": "swsh7-46",
+      "name": "Wishiwashi",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/46.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/46_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "Rapid Strike"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 30,
+      "attacks": [
+        {
+          "name": "Schooling Shot",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30+",
+          "text": "This attack does 30 more damage for each basic Energy attached to this Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Teeziro"
+    },
+    {
+      "id": "sv3pt5-34",
+      "name": "Nidoking",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/34.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/34_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Darkness"
+      ],
+      "hp": 170,
+      "attacks": [
+        {
+          "name": "Venomous Impact",
+          "cost": [
+            "Darkness",
+            "Darkness",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "190",
+          "text": "Your opponent's Active Pokémon is now Poisoned."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Shiburingaru"
+    },
+    {
+      "id": "swsh7-56",
+      "name": "Ampharos",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/56.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/56_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Lightning"
+      ],
+      "hp": 150,
+      "attacks": [
+        {
+          "name": "Thunder Shock",
+          "cost": [
+            "Lightning"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "40",
+          "text": "Flip a coin. If heads, your opponent's Active Pokémon is now Paralyzed."
+        },
+        {
+          "name": "Electron Crush",
+          "cost": [
+            "Lightning",
+            "Lightning",
+            "Lightning",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "100+",
+          "text": "You may discard 3 Lightning Energy from this Pokémon. If you do, this attack does 120 more damage."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Saya Tsuruta"
+    },
+    {
+      "id": "sv3pt5-38",
+      "name": "Ninetales ex",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/38.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/38_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Double Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1",
+        "ex"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 260,
+      "attacks": [
+        {
+          "name": "Heat Wave",
+          "cost": [
+            "Fire"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "30",
+          "text": "Your opponent's Active Pokémon is now Burned."
+        },
+        {
+          "name": "Mirrored Flames",
+          "cost": [
+            "Fire",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "80+",
+          "text": "If you have the same number of cards in your hand as your opponent, this attack does 140 more damage."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "kawayoo"
+    },
+    {
+      "id": "swsh7-77",
+      "name": "Gourgeist",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/77.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/77_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Psychic"
+      ],
+      "hp": 120,
+      "attacks": [
+        {
+          "name": "Pandemonium",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "60×",
+          "text": "Reveal the top 6 cards of your deck. This attack does 60 damage for each Psychic Pokémon you find there. Then, shuffle those Pokémon back into your deck and discard the other cards."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Darkness",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Megumi Higuchi"
+    },
+    {
+      "id": "sv3pt5-40",
+      "name": "Wigglytuff ex",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/40.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/40_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Double Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1",
+        "ex"
+      ],
+      "types": [
+        "Colorless"
+      ],
+      "hp": 250,
+      "attacks": [
+        {
+          "name": "Friend Tackle",
+          "cost": [
+            "Colorless",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "90+",
+          "text": "If you played a Supporter card from your hand during this turn, this attack does 90 more damage."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Saki Hayashiro"
+    },
+    {
+      "id": "swsh7-88",
+      "name": "Gigalith",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/88.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/88_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Fighting"
+      ],
+      "hp": 180,
+      "attacks": [
+        {
+          "name": "Guard Press",
+          "cost": [
+            "Fighting"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "50",
+          "text": "During your opponent's next turn, this Pokémon takes 50 less damage from attacks (after applying Weakness and Resistance)."
+        },
+        {
+          "name": "Pressure Shot",
+          "cost": [
+            "Fighting",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "180",
+          "text": "This Pokémon also does 10 damage to itself for each damage counter on it."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Grass",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 4,
+      "artist": "Masakazu Fukuda"
+    },
+    {
+      "id": "sv3pt5-45",
+      "name": "Vileplume",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/45.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/45_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 140,
+      "attacks": [
+        {
+          "name": "Solar Beam",
+          "cost": [
+            "Grass",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "90",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Sekio"
+    },
+    {
+      "id": "swsh7-90",
+      "name": "Seismitoad",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/90.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/90_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Fighting"
+      ],
+      "hp": 170,
+      "attacks": [
+        {
+          "name": "Shaky Wave",
+          "cost": [
+            "Fighting"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "60",
+          "text": "During your opponent's next turn, the Defending Pokémon's attacks cost Colorless more, and its Retreat Cost is Colorless more."
+        },
+        {
+          "name": "Hyper Voice",
+          "cost": [
+            "Fighting",
+            "Colorless",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "160",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Grass",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Pani Kobayashi"
+    },
+    {
+      "id": "sv3pt5-65",
+      "name": "Alakazam ex",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/65.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/65_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Double Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2",
+        "ex"
+      ],
+      "types": [
+        "Psychic"
+      ],
+      "hp": 310,
+      "attacks": [
+        {
+          "name": "Mind Jack",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "90+",
+          "text": "This attack does 30 more damage for each of your opponent's Benched Pokémon."
+        },
+        {
+          "name": "Dimensional Hand",
+          "cost": [
+            "Psychic",
+            "Psychic"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "120",
+          "text": "This attack can be used even if this Pokémon is on the Bench."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Darkness",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Mitsuhiro Arita"
+    },
+    {
+      "id": "swsh7-97",
+      "name": "Shiftry",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/97.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/97_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Darkness"
+      ],
+      "hp": 150,
+      "attacks": [
+        {
+          "name": "Shiftadieu",
+          "cost": [
+            "Darkness"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "If your opponent's Active Pokémon has any damage counters on it, put it and all attached cards into your opponent's hand."
+        },
+        {
+          "name": "Nipping Cyclone",
+          "cost": [
+            "Darkness",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "130",
+          "text": "Discard a random card from your opponent's hand."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Grass",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Masakazu Fukuda"
+    },
+    {
+      "id": "sv3pt5-68",
+      "name": "Machamp",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/68.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/68_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Fighting"
+      ],
+      "hp": 180,
+      "attacks": [
+        {
+          "name": "Mountain Chopping",
+          "cost": [
+            "Fighting",
+            "Fighting"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "100",
+          "text": "Discard the top 2 cards of your opponent's deck."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Psychic",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Ryuta Fuse"
+    },
+    {
+      "id": "swsh7-105",
+      "name": "Thievul",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/105.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/105_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Darkness"
+      ],
+      "hp": 100,
+      "attacks": [
+        {
+          "name": "Tail Smack",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "60",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Grass",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Kyoko Umemoto"
+    },
+    {
+      "id": "sv3pt5-76",
+      "name": "Golem ex",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/76.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/76_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Double Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2",
+        "ex"
+      ],
+      "types": [
+        "Fighting"
+      ],
+      "hp": 330,
+      "attacks": [
+        {
+          "name": "Dynamic Roll",
+          "cost": [
+            "Fighting"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "50",
+          "text": "During your next turn, attacks used by this Pokémon do 120 more damage to your opponent's Active Pokémon (before applying Weakness and Resistance)."
+        },
+        {
+          "name": "Rock Blaster",
+          "cost": [
+            "Fighting",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "180",
+          "text": "This attack's damage isn't affected by Resistance."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Grass",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 4,
+      "artist": "Uta"
+    },
+    {
+      "id": "swsh7-106",
+      "name": "Altaria",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/106.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/106_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Dragon"
+      ],
+      "hp": 90,
+      "attacks": [
+        {
+          "name": "Glide",
+          "cost": [
+            "Water",
+            "Metal"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "60",
+          "text": ""
+        }
+      ],
+      "weaknesses": [],
+      "retreatCost": 0,
+      "artist": "Misa Tsutsui"
+    },
+    {
+      "id": "sv3pt5-85",
+      "name": "Dodrio",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/85.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/85_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Colorless"
+      ],
+      "hp": 100,
+      "attacks": [
+        {
+          "name": "Ballistic Beak",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10+",
+          "text": "This attack does 30 more damage for each damage counter on this Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Anesaki Dynamic"
+    },
+    {
+      "id": "swsh7-119",
+      "name": "Drampa",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/119.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/119_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Dragon"
+      ],
+      "hp": 120,
+      "attacks": [
+        {
+          "name": "Corkscrew Punch",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "30",
+          "text": ""
+        },
+        {
+          "name": "Berserk",
+          "cost": [
+            "Water",
+            "Fighting"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "70+",
+          "text": "If your Benched Pokémon have any damage counters on them, this attack does 90 more damage."
+        }
+      ],
+      "weaknesses": [],
+      "retreatCost": 2,
+      "artist": "Tomokazu Komiya"
+    },
+    {
+      "id": "sv3pt5-94",
+      "name": "Gengar",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/94.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/94_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Psychic"
+      ],
+      "hp": 130,
+      "attacks": [
+        {
+          "name": "Poltergeist",
+          "cost": [
+            "Psychic"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "50×",
+          "text": "Your opponent reveals their hand. This attack does 50 damage for each Trainer card you find there."
+        },
+        {
+          "name": "Hollow Dive",
+          "cost": [
+            "Psychic",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "110",
+          "text": "Put 3 damage counters on your opponent's Benched Pokémon in any way you like."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Darkness",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 0,
+      "artist": "Tomokazu Komiya"
+    },
+    {
+      "id": "swsh7-120",
+      "name": "Flapple",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/120.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/120_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Dragon"
+      ],
+      "hp": 80,
+      "attacks": [
+        {
+          "name": "Acidic Mucus",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "50×",
+          "text": "This attack does 50 damage for each of your opponent's Pokémon in play that has an Ability."
+        },
+        {
+          "name": "Fighting Tackle",
+          "cost": [
+            "Grass",
+            "Fire"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "80+",
+          "text": "If your opponent's Active Pokémon is a Pokémon V, this attack does 80 more damage."
+        }
+      ],
+      "weaknesses": [],
+      "retreatCost": 1,
+      "artist": "Anesaki Dynamic"
+    },
+    {
+      "id": "sv3pt5-101",
+      "name": "Electrode",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/101.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/101_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Lightning"
+      ],
+      "hp": 90,
+      "attacks": [
+        {
+          "name": "Bang Boom Chain",
+          "cost": [
+            "Lightning"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "20+",
+          "text": "Before doing damage, you may discard any number of Pokémon Tools from your Pokémon. This attack does 40 more damage for each card you discarded in this way."
+        },
+        {
+          "name": "Electro Ball",
+          "cost": [
+            "Lightning",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "70",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "nagimiso"
+    },
+    {
+      "id": "swsh7-121",
+      "name": "Appletun",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/121.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/121_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Dragon"
+      ],
+      "hp": 90,
+      "attacks": [
+        {
+          "name": "Thick Mucus",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "70×",
+          "text": "This attack does 70 damage for each Special Energy card attached to your opponent's Pokémon."
+        },
+        {
+          "name": "Fighting Tackle",
+          "cost": [
+            "Grass",
+            "Fire"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "80+",
+          "text": "If your opponent's Active Pokémon is a Pokémon V, this attack does 80 more damage."
+        }
+      ],
+      "weaknesses": [],
+      "retreatCost": 3,
+      "artist": "Yuya Oka"
+    },
+    {
+      "id": "sv3pt5-105",
+      "name": "Marowak",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/105.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/105_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Fighting"
+      ],
+      "hp": 120,
+      "attacks": [
+        {
+          "name": "Bone Throw",
+          "cost": [
+            "Fighting"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "30",
+          "text": "This attack also does 30 damage to 1 of your opponent's Benched Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)"
+        },
+        {
+          "name": "Boundless Power",
+          "cost": [
+            "Fighting",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "120",
+          "text": "During your next turn, this Pokémon can't attack."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Grass",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Shinya Komatsu"
+    },
+    {
+      "id": "swsh7-128",
+      "name": "Smeargle",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/128.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/128_hires.png",
+      "rarity": "rare",
+      "sourceRarity": "Rare",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Colorless"
+      ],
+      "hp": 80,
+      "attacks": [
+        {
+          "name": "Live Painting",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30+",
+          "text": "Reveal any number of basic Energy cards from your hand. This attack does 30 more damage for each type of basic Energy you revealed in this way."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Kouki Saitou"
+    },
+    {
+      "id": "base1-1",
+      "name": "Alakazam",
+      "imageSmall": "https://images.pokemontcg.io/base1/1.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/1_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Psychic"
+      ],
+      "hp": 80,
+      "attacks": [
+        {
+          "name": "Confuse Ray",
+          "cost": [
+            "Psychic",
+            "Psychic",
+            "Psychic"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "30",
+          "text": "Flip a coin. If heads, the Defending Pokémon is now Confused."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Psychic",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-166",
+      "name": "Bulbasaur",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/166.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/166_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Illustration Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 70,
+      "attacks": [
+        {
+          "name": "Leech Seed",
+          "cost": [
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "20",
+          "text": "Heal 20 damage from this Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Yoriyuki Ikegami"
+    },
+    {
+      "id": "swsh7-4",
+      "name": "Jumpluff",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/4.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/4_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2",
+        "Rapid Strike"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 90,
+      "attacks": [
+        {
+          "name": "Spinning Attack",
+          "cost": [
+            "Grass"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "60",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 0,
+      "artist": "Tika Matsuno"
+    },
+    {
+      "id": "base1-2",
+      "name": "Blastoise",
+      "imageSmall": "https://images.pokemontcg.io/base1/2.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/2_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 100,
+      "attacks": [
+        {
+          "name": "Hydro Pump",
+          "cost": [
+            "Water",
+            "Water",
+            "Water"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "40+",
+          "text": "Does 40 damage plus 10 more damage for each Water Energy attached to Blastoise but not used to pay for this attack's Energy cost. Extra Water Energy after the 2nd doesn't count."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-167",
+      "name": "Ivysaur",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/167.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/167_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Illustration Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 100,
+      "attacks": [
+        {
+          "name": "Leech Seed",
+          "cost": [
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30",
+          "text": "Heal 20 damage from this Pokémon."
+        },
+        {
+          "name": "Vine Whip",
+          "cost": [
+            "Grass",
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "80",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Yoriyuki Ikegami"
+    },
+    {
+      "id": "swsh7-7",
+      "name": "Leafeon V",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/7.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/7_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo V",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "V"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 200,
+      "attacks": [
+        {
+          "name": "Leaf Blade",
+          "cost": [
+            "Grass",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "90+",
+          "text": "Flip a coin. If heads, this attack does 60 more damage."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "5ban Graphics"
+    },
+    {
+      "id": "base1-3",
+      "name": "Chansey",
+      "imageSmall": "https://images.pokemontcg.io/base1/3.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/3_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Colorless"
+      ],
+      "hp": 120,
+      "attacks": [
+        {
+          "name": "Scrunch",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "",
+          "text": "Flip a coin. If heads, prevent all damage done to Chansey during your opponent's next turn. (Any other effects of attacks still happen.)"
+        },
+        {
+          "name": "Double-edge",
+          "cost": [
+            "Colorless",
+            "Colorless",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "80",
+          "text": "Chansey does 80 damage to itself."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-168",
+      "name": "Charmander",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/168.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/168_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Illustration Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 70,
+      "attacks": [
+        {
+          "name": "Blazing Destruction",
+          "cost": [
+            "Fire"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Discard a Stadium in play."
+        },
+        {
+          "name": "Steady Firebreathing",
+          "cost": [
+            "Fire",
+            "Fire"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "miki kudo"
+    },
+    {
+      "id": "swsh7-8",
+      "name": "Leafeon VMAX",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/8.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/8_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo VMAX",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "VMAX"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 310,
+      "attacks": [
+        {
+          "name": "Grass Knot",
+          "cost": [
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "60×",
+          "text": "This attack does 60 damage for each Colorless in your opponent's Active Pokémon's Retreat Cost."
+        },
+        {
+          "name": "Max Leaf",
+          "cost": [
+            "Grass",
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "170",
+          "text": "Heal 30 damage from this Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "PLANETA Tsuji"
+    },
+    {
+      "id": "base1-4",
+      "name": "Charizard",
+      "imageSmall": "https://images.pokemontcg.io/base1/4.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/4_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 120,
+      "attacks": [
+        {
+          "name": "Fire Spin",
+          "cost": [
+            "Fire",
+            "Fire",
+            "Fire",
+            "Fire"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "100",
+          "text": "Discard 2 Energy cards attached to Charizard in order to use this attack."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Mitsuhiro Arita"
+    },
+    {
+      "id": "sv3pt5-169",
+      "name": "Charmeleon",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/169.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/169_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Illustration Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 100,
+      "attacks": [
+        {
+          "name": "Combustion",
+          "cost": [
+            "Fire"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "20",
+          "text": ""
+        },
+        {
+          "name": "Fire Blast",
+          "cost": [
+            "Fire",
+            "Fire",
+            "Fire"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "90",
+          "text": "Discard an Energy from this Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "miki kudo"
+    },
+    {
+      "id": "swsh7-13",
+      "name": "Trevenant V",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/13.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/13_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo V",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "V"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 210,
+      "attacks": [
+        {
+          "name": "Absorb Life",
+          "cost": [
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30",
+          "text": "Heal 30 damage from this Pokémon."
+        },
+        {
+          "name": "Shadow Claw",
+          "cost": [
+            "Grass",
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "120",
+          "text": "Discard a random card from your opponent's hand."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "MUGENUP"
+    },
+    {
+      "id": "base1-5",
+      "name": "Clefairy",
+      "imageSmall": "https://images.pokemontcg.io/base1/5.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/5_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Colorless"
+      ],
+      "hp": 40,
+      "attacks": [
+        {
+          "name": "Sing",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Flip a coin. If heads, the Defending Pokémon is now Asleep."
+        },
+        {
+          "name": "Metronome",
+          "cost": [
+            "Colorless",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "",
+          "text": "Choose 1 of the Defending Pokémon's attacks. Metronome copies that attack except for its Energy costs and anything else required in order to use that attack, such as discarding Energy cards. (No matter what type the Defending Pokémon is, Clefairy's type is still Colorless.)"
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-170",
+      "name": "Squirtle",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/170.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/170_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Illustration Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Withdraw",
+          "cost": [
+            "Water"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Flip a coin. If heads, during your opponent's next turn, prevent all damage done to this Pokémon by attacks."
+        },
+        {
+          "name": "Skull Bash",
+          "cost": [
+            "Water",
+            "Water"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "20",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Mitsuhiro Arita"
+    },
+    {
+      "id": "swsh7-14",
+      "name": "Trevenant VMAX",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/14.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/14_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo VMAX",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "VMAX"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 320,
+      "attacks": [
+        {
+          "name": "Missing in the Forest",
+          "cost": [
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "40×",
+          "text": "This attack does 40 damage for each Supporter card in your opponent's discard pile."
+        },
+        {
+          "name": "Max Tree",
+          "cost": [
+            "Grass",
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "180",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "MUGENUP"
+    },
+    {
+      "id": "base1-6",
+      "name": "Gyarados",
+      "imageSmall": "https://images.pokemontcg.io/base1/6.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/6_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 100,
+      "attacks": [
+        {
+          "name": "Dragon Rage",
+          "cost": [
+            "Water",
+            "Water",
+            "Water"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "50",
+          "text": ""
+        },
+        {
+          "name": "Bubblebeam",
+          "cost": [
+            "Water",
+            "Water",
+            "Water",
+            "Water"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "40",
+          "text": "Flip a coin. If heads, the Defending Pokémon is now Paralyzed."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Grass",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Mitsuhiro Arita"
+    },
+    {
+      "id": "sv3pt5-171",
+      "name": "Wartortle",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/171.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/171_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Illustration Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 100,
+      "attacks": [
+        {
+          "name": "Free Diving",
+          "cost": [
+            "Water"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Put up to 3 Basic Water Energy cards from your discard pile into your hand."
+        },
+        {
+          "name": "Spinning Attack",
+          "cost": [
+            "Water",
+            "Water"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "50",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Mitsuhiro Arita"
+    },
+    {
+      "id": "swsh7-16",
+      "name": "Eldegoss",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/16.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/16_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 80,
+      "attacks": [
+        {
+          "name": "Cotton Guard",
+          "cost": [
+            "Grass"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "30",
+          "text": "During your opponent's next turn, this Pokémon takes 30 less damage from attacks (after applying Weakness and Resistance)."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Kouki Saitou"
+    },
+    {
+      "id": "base1-7",
+      "name": "Hitmonchan",
+      "imageSmall": "https://images.pokemontcg.io/base1/7.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/7_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Fighting"
+      ],
+      "hp": 70,
+      "attacks": [
+        {
+          "name": "Jab",
+          "cost": [
+            "Fighting"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "20",
+          "text": ""
+        },
+        {
+          "name": "Special Punch",
+          "cost": [
+            "Fighting",
+            "Fighting",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "40",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Psychic",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-172",
+      "name": "Caterpie",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/172.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/172_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Illustration Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 50,
+      "attacks": [
+        {
+          "name": "Leaf Munch",
+          "cost": [
+            "Grass"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10+",
+          "text": "If your opponent's Active Pokémon is a Grass Pokémon, this attack does 30 more damage."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Teeziro"
+    },
+    {
+      "id": "swsh7-18",
+      "name": "Flareon VMAX",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/18.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/18_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo VMAX",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "VMAX",
+        "Single Strike"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 320,
+      "attacks": [
+        {
+          "name": "Max Detonate",
+          "cost": [
+            "Fire",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "100×",
+          "text": "Discard the top 5 cards of your deck. This attack does 100 damage for each Energy card you discarded in this way."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "5ban Graphics"
+    },
+    {
+      "id": "base1-8",
+      "name": "Machamp",
+      "imageSmall": "https://images.pokemontcg.io/base1/8.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/8_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Fighting"
+      ],
+      "hp": 100,
+      "attacks": [
+        {
+          "name": "Seismic Toss",
+          "cost": [
+            "Fighting",
+            "Fighting",
+            "Fighting",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "60",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Psychic",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-173",
+      "name": "Pikachu",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/173.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/173_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Illustration Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Lightning"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Charge",
+          "cost": [
+            "Lightning"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Search your deck for a Basic Lightning Energy card and attach it to this Pokémon. Then, shuffle your deck."
+        },
+        {
+          "name": "Pika Punch",
+          "cost": [
+            "Lightning",
+            "Lightning",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "50",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Hiroyuki Yamamoto"
+    },
+    {
+      "id": "swsh7-19",
+      "name": "Entei",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/19.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/19_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "Single Strike"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 120,
+      "attacks": [
+        {
+          "name": "Angry Fang",
+          "cost": [
+            "Fire",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "10×",
+          "text": "This attack does 10 damage for each damage counter on all of your Benched Single Strike Pokémon."
+        },
+        {
+          "name": "Heat Tackle",
+          "cost": [
+            "Fire",
+            "Fire",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "120",
+          "text": "This Pokémon also does 30 damage to itself."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "NC Empire"
+    },
+    {
+      "id": "base1-9",
+      "name": "Magneton",
+      "imageSmall": "https://images.pokemontcg.io/base1/9.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/9_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Lightning"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Thunder Wave",
+          "cost": [
+            "Lightning",
+            "Lightning",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "30",
+          "text": "Flip a coin. If heads, the Defending Pokémon is now Paralyzed."
+        },
+        {
+          "name": "Selfdestruct",
+          "cost": [
+            "Lightning",
+            "Lightning",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "80",
+          "text": "Does 20 damage to each Pokémon on each player's Bench. (Don't apply Weakness and Resistance for Benched Pokémon.) Magneton does 80 damage to itself."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Keiji Kinebuchi"
+    },
+    {
+      "id": "sv3pt5-174",
+      "name": "Nidoking",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/174.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/174_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Illustration Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Darkness"
+      ],
+      "hp": 170,
+      "attacks": [
+        {
+          "name": "Venomous Impact",
+          "cost": [
+            "Darkness",
+            "Darkness",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "190",
+          "text": "Your opponent's Active Pokémon is now Poisoned."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Misaki Hashimoto"
+    },
+    {
+      "id": "swsh7-20",
+      "name": "Victini",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/20.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/20_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Victory Dive",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30",
+          "text": "You may search your deck for up to 2 cards and put them into your hand. Then, shuffle your deck."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Teeziro"
+    },
+    {
+      "id": "base1-10",
+      "name": "Mewtwo",
+      "imageSmall": "https://images.pokemontcg.io/base1/10.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/10_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Psychic"
+      ],
+      "hp": 60,
+      "attacks": [
+        {
+          "name": "Psychic",
+          "cost": [
+            "Psychic",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "10+",
+          "text": "Does 10 damage plus 10 more damage for each Energy card attached to the Defending Pokémon."
+        },
+        {
+          "name": "Barrier",
+          "cost": [
+            "Psychic",
+            "Psychic"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "",
+          "text": "Discard 1 Psychic Energy card attached to Mewtwo in order to prevent all effects of attacks, including damage, done to Mewtwo during your opponent's next turn."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Psychic",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-175",
+      "name": "Psyduck",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/175.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/175_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Illustration Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 70,
+      "attacks": [
+        {
+          "name": "Overthink",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "During your opponent's next turn, whenever they flip a coin, treat it as tails."
+        },
+        {
+          "name": "Water Gun",
+          "cost": [
+            "Water"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Whisker"
+    },
+    {
+      "id": "swsh7-21",
+      "name": "Volcarona V",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/21.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/21_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo V",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "V"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 210,
+      "attacks": [
+        {
+          "name": "Surging Flames",
+          "cost": [
+            "Fire"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "20+",
+          "text": "This attack does 20 more damage for each basic Energy card in your discard pile. Then, shuffle those Energy cards into your deck."
+        },
+        {
+          "name": "Fire Blast",
+          "cost": [
+            "Fire",
+            "Fire",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "160",
+          "text": "Discard an Energy from this Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "kawayoo"
+    },
+    {
+      "id": "base1-11",
+      "name": "Nidoking",
+      "imageSmall": "https://images.pokemontcg.io/base1/11.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/11_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 90,
+      "attacks": [
+        {
+          "name": "Thrash",
+          "cost": [
+            "Grass",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "30+",
+          "text": "Flip a coin. If heads, this attack does 30 damage plus 10 more damage; if tails, this attack does 30 damage and Nidoking does 10 damage to itself."
+        },
+        {
+          "name": "Toxic",
+          "cost": [
+            "Grass",
+            "Grass",
+            "Grass"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "20",
+          "text": "The Defending Pokémon is now Poisoned. It now takes 20 Poison damage instead of 10 after each player's turn (even if it was already Poisoned)."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Psychic",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-176",
+      "name": "Poliwhirl",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/176.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/176_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Illustration Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 90,
+      "attacks": [
+        {
+          "name": "Wave Splash",
+          "cost": [
+            "Water"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "20",
+          "text": ""
+        },
+        {
+          "name": "Frog Hop",
+          "cost": [
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30+",
+          "text": "Flip a coin. If heads, this attack does 60 more damage."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Gemi"
+    },
+    {
+      "id": "swsh7-28",
+      "name": "Gyarados V",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/28.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/28_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo V",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "V"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 220,
+      "attacks": [
+        {
+          "name": "Get Angry",
+          "cost": [
+            "Water",
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "20×",
+          "text": "This attack does 20 damage for each damage counter on this Pokémon."
+        },
+        {
+          "name": "Heavy Storm",
+          "cost": [
+            "Water",
+            "Water",
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "180",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "PLANETA Tsuji"
+    },
+    {
+      "id": "base1-12",
+      "name": "Ninetales",
+      "imageSmall": "https://images.pokemontcg.io/base1/12.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/12_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 80,
+      "attacks": [
+        {
+          "name": "Lure",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "",
+          "text": "If your opponent has any Benched Pokémon, choose 1 of them and switch it with his or her Active Pokémon."
+        },
+        {
+          "name": "Fire Blast",
+          "cost": [
+            "Fire",
+            "Fire",
+            "Fire",
+            "Fire"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "80",
+          "text": "Discard 1 Fire Energy card attached to Ninetales in order to use this attack."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-177",
+      "name": "Machoke",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/177.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/177_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Illustration Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Fighting"
+      ],
+      "hp": 100,
+      "attacks": [
+        {
+          "name": "Mountain Ramming",
+          "cost": [
+            "Fighting",
+            "Fighting"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "50",
+          "text": "Discard the top card of your opponent's deck."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Psychic",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Tetsu Kayama"
+    },
+    {
+      "id": "swsh7-29",
+      "name": "Gyarados VMAX",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/29.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/29_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo VMAX",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "VMAX"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 330,
+      "attacks": [
+        {
+          "name": "Hyper Beam",
+          "cost": [
+            "Water",
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "120",
+          "text": "Discard an Energy from your opponent's Active Pokémon."
+        },
+        {
+          "name": "Max Tyrant",
+          "cost": [
+            "Water",
+            "Water",
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "240",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 4,
+      "artist": "Shin Nagasawa"
+    },
+    {
+      "id": "base1-13",
+      "name": "Poliwrath",
+      "imageSmall": "https://images.pokemontcg.io/base1/13.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/13_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 90,
+      "attacks": [
+        {
+          "name": "Water Gun",
+          "cost": [
+            "Water",
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "30+",
+          "text": "Does 30 damage plus 10 more damage for each Water Energy attached to Poliwrath but not used to pay for this attack's Energy cost. Extra Water Energy after the 2nd doesn't count."
+        },
+        {
+          "name": "Whirlpool",
+          "cost": [
+            "Water",
+            "Water",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "40",
+          "text": "If the Defending Pokémon has any Energy cards attached to it, choose 1 of them and discard it."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Grass",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-178",
+      "name": "Tangela",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/178.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/178_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Illustration Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 80,
+      "attacks": [
+        {
+          "name": "Tactful Tangling",
+          "cost": [
+            "Grass"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "10+",
+          "text": "If you played Erika's Invitation from your hand during this turn, this attack does 60 more damage."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Oswaldo KATO"
+    },
+    {
+      "id": "swsh7-30",
+      "name": "Vaporeon VMAX",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/30.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/30_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo VMAX",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "VMAX",
+        "Rapid Strike"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 320,
+      "attacks": [
+        {
+          "name": "Bubble Pod",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Put a Water Pokémon from your discard pile onto your Bench. If you do, attach up to 3 Water Energy cards from your discard pile to that Pokémon."
+        },
+        {
+          "name": "Max Torrent",
+          "cost": [
+            "Water",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "100+",
+          "text": "If your opponent's Active Pokémon already has any damage counters on it, this attack does 100 more damage."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "5ban Graphics"
+    },
+    {
+      "id": "base1-14",
+      "name": "Raichu",
+      "imageSmall": "https://images.pokemontcg.io/base1/14.png",
+      "imageLarge": "https://images.pokemontcg.io/base1/14_hires.png",
+      "rarity": "epic",
+      "sourceRarity": "Rare Holo",
+      "setId": "base1",
+      "setName": "Base",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 1"
+      ],
+      "types": [
+        "Lightning"
+      ],
+      "hp": 80,
+      "attacks": [
+        {
+          "name": "Agility",
+          "cost": [
+            "Lightning",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "20",
+          "text": "Flip a coin. If heads, during your opponent's next turn, prevent all effects of attacks, including damage, done to Raichu."
+        },
+        {
+          "name": "Thunder",
+          "cost": [
+            "Lightning",
+            "Lightning",
+            "Lightning",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "60",
+          "text": "Flip a coin. If tails, Raichu does 30 damage to itself."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Ken Sugimori"
+    },
+    {
+      "id": "sv3pt5-198",
+      "name": "Venusaur ex",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/198.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/198_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Special Illustration Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2",
+        "ex"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 340,
+      "attacks": [
+        {
+          "name": "Dangerous Toxwhip",
+          "cost": [
+            "Grass",
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "150",
+          "text": "Your opponent's Active Pokémon is now Confused and Poisoned."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 4,
+      "artist": "Yoriyuki Ikegami"
+    },
+    {
+      "id": "swsh7-166",
+      "name": "Leafeon V",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/166.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/166_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Rare Ultra",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "V"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 200,
+      "attacks": [
+        {
+          "name": "Leaf Blade",
+          "cost": [
+            "Grass",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "90+",
+          "text": "Flip a coin. If heads, this attack does 60 more damage."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "5ban Graphics"
+    },
+    {
+      "id": "sv3pt5-199",
+      "name": "Charizard ex",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/199.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/199_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Special Illustration Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2",
+        "ex"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 330,
+      "attacks": [
+        {
+          "name": "Brave Wing",
+          "cost": [
+            "Fire"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "60+",
+          "text": "If this Pokémon has any damage counters on it, this attack does 100 more damage."
+        },
+        {
+          "name": "Explosive Vortex",
+          "cost": [
+            "Fire",
+            "Fire",
+            "Fire",
+            "Fire"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "330",
+          "text": "Discard 3 Energy from this Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "miki kudo"
+    },
+    {
+      "id": "swsh7-167",
+      "name": "Leafeon V",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/167.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/167_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Rare Ultra",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "V"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 200,
+      "attacks": [
+        {
+          "name": "Leaf Blade",
+          "cost": [
+            "Grass",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "90+",
+          "text": "Flip a coin. If heads, this attack does 60 more damage."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "You Iribi"
+    },
+    {
+      "id": "sv3pt5-200",
+      "name": "Blastoise ex",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/200.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/200_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Special Illustration Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2",
+        "ex"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 330,
+      "attacks": [
+        {
+          "name": "Twin Cannons",
+          "cost": [
+            "Water",
+            "Water"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "140×",
+          "text": "Discard up to 2 Basic Water Energy cards from your hand. This attack does 140 damage for each card you discarded in this way."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "Mitsuhiro Arita"
+    },
+    {
+      "id": "swsh7-168",
+      "name": "Trevenant V",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/168.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/168_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Rare Ultra",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "V"
+      ],
+      "types": [
+        "Grass"
+      ],
+      "hp": 210,
+      "attacks": [
+        {
+          "name": "Absorb Life",
+          "cost": [
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "30",
+          "text": "Heal 30 damage from this Pokémon."
+        },
+        {
+          "name": "Shadow Claw",
+          "cost": [
+            "Grass",
+            "Grass",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "120",
+          "text": "Discard a random card from your opponent's hand."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fire",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "MUGENUP"
+    },
+    {
+      "id": "sv3pt5-201",
+      "name": "Alakazam ex",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/201.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/201_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Special Illustration Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Stage 2",
+        "ex"
+      ],
+      "types": [
+        "Psychic"
+      ],
+      "hp": 310,
+      "attacks": [
+        {
+          "name": "Mind Jack",
+          "cost": [
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "90+",
+          "text": "This attack does 30 more damage for each of your opponent's Benched Pokémon."
+        },
+        {
+          "name": "Dimensional Hand",
+          "cost": [
+            "Psychic",
+            "Psychic"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "120",
+          "text": "This attack can be used even if this Pokémon is on the Bench."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Darkness",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "Shinya Komatsu"
+    },
+    {
+      "id": "swsh7-169",
+      "name": "Flareon V",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/169.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/169_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Rare Ultra",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "V",
+        "Single Strike"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 210,
+      "attacks": [
+        {
+          "name": "Flaming Breath",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "20",
+          "text": "Search your deck for a Fire Energy card and attach it to this Pokémon. Then, shuffle your deck."
+        },
+        {
+          "name": "Scorching Column",
+          "cost": [
+            "Fire",
+            "Fire",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "120",
+          "text": "Your opponent's Active Pokémon is now Burned."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "5ban Graphics"
+    },
+    {
+      "id": "sv3pt5-202",
+      "name": "Zapdos ex",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/202.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/202_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Special Illustration Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "ex"
+      ],
+      "types": [
+        "Lightning"
+      ],
+      "hp": 200,
+      "attacks": [
+        {
+          "name": "Multishot Lightning",
+          "cost": [
+            "Lightning",
+            "Lightning",
+            "Lightning"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "120",
+          "text": "This attack also does 90 damage to 1 of your opponent's Benched Pokémon that has any damage counters on it. (Don't apply Weakness and Resistance for Benched Pokémon.)"
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Shiburingaru"
+    },
+    {
+      "id": "swsh7-170",
+      "name": "Volcarona V",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/170.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/170_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Rare Ultra",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "V"
+      ],
+      "types": [
+        "Fire"
+      ],
+      "hp": 210,
+      "attacks": [
+        {
+          "name": "Surging Flames",
+          "cost": [
+            "Fire"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "20+",
+          "text": "This attack does 20 more damage for each basic Energy card in your discard pile. Then, shuffle those Energy cards into your deck."
+        },
+        {
+          "name": "Fire Blast",
+          "cost": [
+            "Fire",
+            "Fire",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "160",
+          "text": "Discard an Energy from this Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Eske Yoshinob"
+    },
+    {
+      "id": "sv3pt5-205",
+      "name": "Mew ex",
+      "imageSmall": "https://images.pokemontcg.io/sv3pt5/205.png",
+      "imageLarge": "https://images.pokemontcg.io/sv3pt5/205_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Hyper Rare",
+      "setId": "sv3pt5",
+      "setName": "151",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "ex"
+      ],
+      "types": [
+        "Psychic"
+      ],
+      "hp": 180,
+      "attacks": [
+        {
+          "name": "Genome Hacking",
+          "cost": [
+            "Colorless",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "",
+          "text": "Choose 1 of your opponent's Active Pokémon's attacks and use it as this attack."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Darkness",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 0,
+      "artist": "aky CG Works"
+    },
+    {
+      "id": "swsh7-171",
+      "name": "Gyarados V",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/171.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/171_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Rare Ultra",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "V"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 220,
+      "attacks": [
+        {
+          "name": "Get Angry",
+          "cost": [
+            "Water",
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "20×",
+          "text": "This attack does 20 damage for each damage counter on this Pokémon."
+        },
+        {
+          "name": "Heavy Storm",
+          "cost": [
+            "Water",
+            "Water",
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "180",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "PLANETA Tsuji"
+    },
+    {
+      "id": "swsh7-172",
+      "name": "Vaporeon V",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/172.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/172_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Rare Ultra",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "V",
+        "Rapid Strike"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 210,
+      "attacks": [
+        {
+          "name": "Triple Draw",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Draw 3 cards."
+        },
+        {
+          "name": "Splash Jump",
+          "cost": [
+            "Water",
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "90",
+          "text": "Switch this Pokémon with 1 of your Benched Pokémon."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "5ban Graphics"
+    },
+    {
+      "id": "swsh7-173",
+      "name": "Suicune V",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/173.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/173_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Rare Ultra",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "V"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 210,
+      "attacks": [
+        {
+          "name": "Blizzard Rondo",
+          "cost": [
+            "Water",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 2,
+          "damage": "20+",
+          "text": "This attack does 20 more damage for each Benched Pokémon (both yours and your opponent's)."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Ayaka Yoshida"
+    },
+    {
+      "id": "swsh7-174",
+      "name": "Glaceon V",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/174.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/174_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Rare Ultra",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "V"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 210,
+      "attacks": [
+        {
+          "name": "Frozen Awakening",
+          "cost": [
+            "Water"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Search your deck for a card that evolves from this Pokémon and put it onto this Pokémon to evolve it. Then, shuffle your deck."
+        },
+        {
+          "name": "Heavy Snow",
+          "cost": [
+            "Water",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "120",
+          "text": "Discard a Stadium in play."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Metal",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "5ban Graphics"
+    },
+    {
+      "id": "swsh7-175",
+      "name": "Glaceon V",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/175.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/175_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Rare Ultra",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "V"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 210,
+      "attacks": [
+        {
+          "name": "Frozen Awakening",
+          "cost": [
+            "Water"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "Search your deck for a card that evolves from this Pokémon and put it onto this Pokémon to evolve it. Then, shuffle your deck."
+        },
+        {
+          "name": "Heavy Snow",
+          "cost": [
+            "Water",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "120",
+          "text": "Discard a Stadium in play."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Metal",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Narumi Sato"
+    },
+    {
+      "id": "swsh7-176",
+      "name": "Arctovish V",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/176.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/176_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Rare Ultra",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "V"
+      ],
+      "types": [
+        "Water"
+      ],
+      "hp": 220,
+      "attacks": [
+        {
+          "name": "Ancient Freeze",
+          "cost": [
+            "Water",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "80",
+          "text": "If the Defending Pokémon is a Pokémon V or a Pokémon-GX, it can't attack during your opponent's next turn."
+        },
+        {
+          "name": "Giga Impact",
+          "cost": [
+            "Water",
+            "Water",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 4,
+          "damage": "220",
+          "text": "During your next turn, this Pokémon can't attack."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Lightning",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 2,
+      "artist": "Eske Yoshinob"
+    },
+    {
+      "id": "swsh7-177",
+      "name": "Jolteon V",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/177.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/177_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Rare Ultra",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "V"
+      ],
+      "types": [
+        "Lightning"
+      ],
+      "hp": 190,
+      "attacks": [
+        {
+          "name": "Thunder Spear",
+          "cost": [
+            "Colorless"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "This attack does 20 damage to 1 of your opponent's Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)"
+        },
+        {
+          "name": "Pin Missile",
+          "cost": [
+            "Lightning",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "60×",
+          "text": "Flip 4 coins. This attack does 60 damage for each heads."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 0,
+      "artist": "5ban Graphics"
+    },
+    {
+      "id": "swsh7-178",
+      "name": "Dracozolt V",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/178.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/178_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Rare Ultra",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "V"
+      ],
+      "types": [
+        "Lightning"
+      ],
+      "hp": 220,
+      "attacks": [
+        {
+          "name": "Primeval Beak",
+          "cost": [
+            "Lightning"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "30",
+          "text": "During your opponent's next turn, Energy cards can't be attached from your opponent's hand to the Defending Pokémon."
+        },
+        {
+          "name": "Mountain Swing",
+          "cost": [
+            "Lightning",
+            "Lightning",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "180",
+          "text": "Discard the top 3 cards of your deck."
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Fighting",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 3,
+      "artist": "PLANETA Mochizuki"
+    },
+    {
+      "id": "swsh7-179",
+      "name": "Espeon V",
+      "imageSmall": "https://images.pokemontcg.io/swsh7/179.png",
+      "imageLarge": "https://images.pokemontcg.io/swsh7/179_hires.png",
+      "rarity": "legendary",
+      "sourceRarity": "Rare Ultra",
+      "setId": "swsh7",
+      "setName": "Evolving Skies",
+      "supertype": "Pokémon",
+      "subtypes": [
+        "Basic",
+        "V"
+      ],
+      "types": [
+        "Psychic"
+      ],
+      "hp": 200,
+      "attacks": [
+        {
+          "name": "Zen Shot",
+          "cost": [
+            "Psychic"
+          ],
+          "convertedEnergyCost": 1,
+          "damage": "",
+          "text": "This attack does 60 damage to 1 of your opponent's Pokémon V. (Don't apply Weakness and Resistance for Benched Pokémon.)"
+        },
+        {
+          "name": "Super Psy Bolt",
+          "cost": [
+            "Psychic",
+            "Colorless",
+            "Colorless"
+          ],
+          "convertedEnergyCost": 3,
+          "damage": "120",
+          "text": ""
+        }
+      ],
+      "weaknesses": [
+        {
+          "type": "Darkness",
+          "value": "×2"
+        }
+      ],
+      "retreatCost": 1,
+      "artist": "5ban Graphics"
+    }
+  ],
+  "packs": [
+    {
+      "id": "starter",
+      "name": "Starter Pack",
+      "description": "Entry-level pack, mostly common cards.",
+      "priceCredits": 100,
+      "cardsPerPack": 5,
+      "rates": {
+        "common": 70,
+        "rare": 25,
+        "epic": 4,
+        "legendary": 1
+      },
+      "setIds": [
+        "sv3pt5",
+        "swsh7",
+        "base1"
+      ],
+      "active": true
+    },
+    {
+      "id": "premium",
+      "name": "Premium Pack",
+      "description": "Better odds for rare and epic cards.",
+      "priceCredits": 300,
+      "cardsPerPack": 5,
+      "rates": {
+        "common": 45,
+        "rare": 35,
+        "epic": 15,
+        "legendary": 5
+      },
+      "setIds": [
+        "sv3pt5",
+        "swsh7",
+        "base1"
+      ],
+      "active": true
+    },
+    {
+      "id": "legendary",
+      "name": "Legendary Pack",
+      "description": "Highest odds of legendary cards.",
+      "priceCredits": 1000,
+      "cardsPerPack": 3,
+      "rates": {
+        "common": 20,
+        "rare": 30,
+        "epic": 30,
+        "legendary": 20
+      },
+      "setIds": [
+        "sv3pt5",
+        "swsh7",
+        "base1"
+      ],
+      "active": true
+    }
+  ],
+  "stock": [
+    {
+      "cardId": "base1-23",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-1",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-2",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-24",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-2",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-3",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-25",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-4",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-5",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-26",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-5",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-9",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-27",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-7",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-11",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-28",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-8",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-12",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-29",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-10",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-15",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-30",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-11",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-17",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-31",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-12",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-22",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-32",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-13",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-23",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-33",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-14",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-24",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-34",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-16",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-25",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-35",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-17",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-26",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-36",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-18",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-27",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-37",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-19",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-32",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-38",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-20",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-33",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-39",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-21",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-35",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-40",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-22",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-37",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-41",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-23",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-39",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-42",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-25",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-42",
+      "total": 200,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-17",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-3",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-1",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-18",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-6",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-6",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-19",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-9",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-10",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-20",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-15",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-36",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-21",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-24",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-38",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-22",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-26",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-46",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-34",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-56",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-38",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-77",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-40",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-88",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-45",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-90",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-65",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-97",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-68",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-105",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-76",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-106",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-85",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-119",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-94",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-120",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-101",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-121",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-105",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-128",
+      "total": 80,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-1",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-166",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-4",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-2",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-167",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-7",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-3",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-168",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-8",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-4",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-169",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-13",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-5",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-170",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-14",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-6",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-171",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-16",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-7",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-172",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-18",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-8",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-173",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-19",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-9",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-174",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-20",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-10",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-175",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-21",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-11",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-176",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-28",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-12",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-177",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-29",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-13",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-178",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-30",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "base1-14",
+      "total": 25,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-198",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-166",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-199",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-167",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-200",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-168",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-201",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-169",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-202",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-170",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "sv3pt5-205",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-171",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-172",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-173",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-174",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-175",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-176",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-177",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-178",
+      "total": 5,
+      "reserved": 0
+    },
+    {
+      "cardId": "swsh7-179",
+      "total": 5,
+      "reserved": 0
+    }
+  ],
+  "reservations": []
+}

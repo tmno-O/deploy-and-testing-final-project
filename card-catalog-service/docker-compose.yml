@@ -1,0 +1,25 @@
+# Run card-catalog-service standalone (data lives in a JSON file, no database needed)
+# Usage: cp .env.example .env && docker compose up --build
+services:
+  card-catalog-service:
+    build: .
+    environment:
+      NODE_ENV: production
+      PORT: 3003
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env (at least 32 characters)}
+      JWT_ISSUER: ${JWT_ISSUER:-user-service}
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY:?Set INTERNAL_API_KEY in .env (at least 32 characters)}
+      ADMIN_USER_IDS: ${ADMIN_USER_IDS:-}
+      RESERVATION_TTL_SECONDS: ${RESERVATION_TTL_SECONDS:-600}
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
+      TRUST_PROXY: ${TRUST_PROXY:-}
+      PERSIST_DATA: ${PERSIST_DATA:-true}
+    volumes:
+      # a new volume is seeded from the image's mock data on first run; `docker compose down -v` resets it
+      - catalog-data:/app/data
+    ports:
+      - "3003:3003"
+    restart: unless-stopped
+
+volumes:
+  catalog-data:
