@@ -33,6 +33,8 @@ jobs:
           cache-dependency-path: card-catalog-service/package-lock.json
       - run: npm ci
       - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run build
       - run: npm run test:coverage
       - uses: actions/upload-artifact@v4
         if: always()

@@ -1,8 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-const { normalizeCard, selectCards, buildSeed, PACKS, QUOTAS } = require('../../scripts/lib/seed');
+import * as fs from 'fs';
+import * as path from 'path';
+import { normalizeCard, selectCards, buildSeed, PACKS, QUOTAS } from '../../scripts/lib/seed';
+import type { CatalogData, Rarity } from '../../src/catalog/types';
 
-function rawCard(overrides = {}) {
+function rawCard(overrides: Record<string, unknown> = {}) {
   return {
     id: 'sv3pt5-1',
     name: 'Bulbasaur',
@@ -26,7 +27,7 @@ function rawCard(overrides = {}) {
 
 describe('normalizeCard', () => {
   test('converts a valid API card to the Card model', () => {
-    const { card, rarityKnown } = normalizeCard(rawCard());
+    const { card, rarityKnown } = normalizeCard(rawCard())!;
     expect(rarityKnown).toBe(true);
     expect(card).toMatchObject({
       id: 'sv3pt5-1',
@@ -55,19 +56,19 @@ describe('normalizeCard', () => {
   });
 
   test('strips control characters from text fields', () => {
-    const { card } = normalizeCard(rawCard({ name: 'Bulba\u0000saur\n' }));
+    const { card } = normalizeCard(rawCard({ name: 'Bulba\u0000saur\n' }))!;
     expect(card.name).toBe('Bulba saur');
   });
 
   test('flags unknown rarity and keeps the original', () => {
-    const result = normalizeCard(rawCard({ rarity: 'Mystery' }));
+    const result = normalizeCard(rawCard({ rarity: 'Mystery' }))!;
     expect(result.rarityKnown).toBe(false);
     expect(result.card).toMatchObject({ rarity: 'common', sourceRarity: 'Mystery' });
   });
 });
 
 describe('selectCards', () => {
-  const make = (id, setId, rarity) => ({ id, setId, rarity });
+  const make = (id: string, setId: string, rarity: Rarity) => ({ id, setId, rarity });
 
   test('respects quotas and spreads picks across sets', () => {
     const cards = [
@@ -108,7 +109,7 @@ describe('buildSeed', () => {
 
   test('rarer cards get less stock', () => {
     const { seed } = buildSeed([rawCard(), rawCard({ id: 'sv3pt5-2', rarity: 'Hyper Rare' })], ['sv3pt5']);
-    const total = (id) => seed.stock.find((s) => s.cardId === id).total;
+    const total = (id: string) => seed.stock.find((s) => s.cardId === id)!.total;
     expect(total('sv3pt5-2')).toBeLessThan(total('sv3pt5-1'));
   });
 
@@ -120,7 +121,9 @@ describe('buildSeed', () => {
 });
 
 describe('committed seed file', () => {
-  const data = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'data', 'mock-data.json'), 'utf8'));
+  const data = JSON.parse(
+    fs.readFileSync(path.join(__dirname, '..', '..', 'data', 'mock-data.json'), 'utf8'),
+  ) as CatalogData;
 
   test('has cards in all four tiers with one stock row per card', () => {
     const tiers = new Set(data.cards.map((c) => c.rarity));

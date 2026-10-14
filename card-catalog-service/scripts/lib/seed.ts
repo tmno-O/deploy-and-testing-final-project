@@ -1,14 +1,17 @@
-// Pure helpers used by scripts/import-cards.js (no network, no file I/O) so they can be unit tested.
-const { z } = require('zod');
-const { TIERS, mapRarity } = require('../../src/services/rarity');
+// Pure helpers used by scripts/import-cards.ts (no network, no file I/O) so they can be unit tested.
+import { z } from 'zod';
+import { TIERS, mapRarity } from '../../src/catalog/rarity';
+import type { CatalogData, Card, Pack, Rarity, Stock } from '../../src/catalog/types';
 
-const IMAGE_HOST = 'images.pokemontcg.io';
+export const IMAGE_HOST = 'images.pokemontcg.io';
 
 // How many cards of each tier go into the seed (total 160), and the physical stock per card.
-const QUOTAS = { common: 60, rare: 40, epic: 40, legendary: 20 };
-const STOCK_TOTAL = { common: 200, rare: 80, epic: 25, legendary: 5 };
+export const QUOTAS: Record<Rarity, number> = { common: 60, rare: 40, epic: 40, legendary: 20 };
+export const STOCK_TOTAL: Record<Rarity, number> = { common: 200, rare: 80, epic: 25, legendary: 5 };
 
-const PACKS = [
+type PackTemplate = Omit<Pack, 'setIds' | 'active'>;
+
+export const PACKS: PackTemplate[] = [
   {
     id: 'starter',
     name: 'Starter Pack',
@@ -51,8 +54,10 @@ const imageUrl = z.string().refine((value) => {
   }
 }, `image must be an https URL on ${IMAGE_HOST}`);
 
+const safeId = z.string().regex(/^[A-Za-z0-9._-]{1,40}$/);
+
 const apiCardSchema = z.object({
-  id: z.string().regex(/^[A-Za-z0-9._-]{1,40}$/),
+  id: safeId,
   name: text(100),
   supertype: text(40),
   subtypes: z.array(text(40)).optional().default([]),
@@ -75,14 +80,14 @@ const apiCardSchema = z.object({
     .default([]),
   weaknesses: z.array(z.object({ type: text(40), value: text(20) })).optional().default([]),
   images: z.object({ small: imageUrl, large: imageUrl }),
-  set: z.object({ id: z.string().regex(/^[A-Za-z0-9._-]{1,40}$/), name: text(100) }),
+  set: z.object({ id: safeId, name: text(100) }),
 });
 
 /**
  * Validates one raw API card and converts it to our Card model.
- * @returns {{ card: object, rarityKnown: boolean } | null} null when the card is unusable
+ * Returns null when the card is unusable (invalid shape, bad image host, no HP).
  */
-function normalizeCard(raw) {
+export function normalizeCard(raw: unknown): { card: Card; rarityKnown: boolean } | null {
   const parsed = apiCardSchema.safeParse(raw);
   if (!parsed.success) return null;
   const c = parsed.data;
@@ -114,20 +119,21 @@ function normalizeCard(raw) {
   };
 }
 
-/**
- * Deterministic selection: per tier, take cards round-robin across sets (sorted by id) until the quota is met.
- */
-function selectCards(cards, quotas = QUOTAS) {
-  const selected = [];
+type Pickable = Pick<Card, 'id' | 'setId' | 'rarity'>;
+
+/** Deterministic selection: per tier, take cards round-robin across sets (sorted by id) until the quota is met. */
+export function selectCards<T extends Pickable>(cards: T[], quotas: Record<Rarity, number> = QUOTAS): T[] {
+  const selected: T[] = [];
   for (const tier of TIERS) {
-    const bySet = new Map();
+    const bySet = new Map<string, T[]>();
     for (const card of cards.filter((c) => c.rarity === tier)) {
-      if (!bySet.has(card.setId)) bySet.set(card.setId, []);
-      bySet.get(card.setId).push(card);
+      const bucket = bySet.get(card.setId) ?? [];
+      bucket.push(card);
+      bySet.set(card.setId, bucket);
     }
     const buckets = [...bySet.keys()]
       .sort()
-      .map((setId) => bySet.get(setId).sort((a, b) => a.id.localeCompare(b.id, 'en', { numeric: true })));
+      .map((setId) => bySet.get(setId)!.sort((a, b) => a.id.localeCompare(b.id, 'en', { numeric: true })));
 
     let picked = 0;
     for (let round = 0; picked < quotas[tier]; round += 1) {
@@ -143,25 +149,32 @@ function selectCards(cards, quotas = QUOTAS) {
   return selected;
 }
 
-function buildStock(cards) {
+export function buildStock(cards: Pick<Card, 'id' | 'rarity'>[]): Stock[] {
   return cards.map((card) => ({ cardId: card.id, total: STOCK_TOTAL[card.rarity], reserved: 0 }));
 }
 
-function buildPacks(setIds) {
+export function buildPacks(setIds: string[]): Pack[] {
   return PACKS.map((pack) => ({ ...pack, rates: { ...pack.rates }, setIds: [...setIds], active: true }));
 }
 
-function countByRarity(cards) {
-  const counts = Object.fromEntries(TIERS.map((tier) => [tier, 0]));
+export function countByRarity(cards: Pick<Card, 'rarity'>[]): Record<Rarity, number> {
+  const counts: Record<Rarity, number> = { common: 0, rare: 0, epic: 0, legendary: 0 };
   for (const card of cards) counts[card.rarity] += 1;
   return counts;
 }
 
-function buildSeed(rawCards, setIds) {
-  const unknownRarities = new Set();
+export interface SeedReport {
+  candidates: number;
+  skipped: number;
+  unknownRarities: string[];
+  counts: Record<Rarity, number>;
+}
+
+export function buildSeed(rawCards: unknown[], setIds: string[]): { seed: CatalogData; report: SeedReport } {
+  const unknownRarities = new Set<string>();
   let skipped = 0;
-  const seen = new Set();
-  const candidates = [];
+  const seen = new Set<string>();
+  const candidates: Card[] = [];
 
   for (const raw of rawCards) {
     const result = normalizeCard(raw);
@@ -177,18 +190,11 @@ function buildSeed(rawCards, setIds) {
   const cards = selectCards(candidates);
   return {
     seed: { cards, packs: buildPacks(setIds), stock: buildStock(cards), reservations: [] },
-    report: { candidates: candidates.length, skipped, unknownRarities: [...unknownRarities], counts: countByRarity(cards) },
+    report: {
+      candidates: candidates.length,
+      skipped,
+      unknownRarities: [...unknownRarities],
+      counts: countByRarity(cards),
+    },
   };
 }
-
-module.exports = {
-  IMAGE_HOST,
-  QUOTAS,
-  STOCK_TOTAL,
-  PACKS,
-  normalizeCard,
-  selectCards,
-  buildStock,
-  buildPacks,
-  buildSeed,
-};

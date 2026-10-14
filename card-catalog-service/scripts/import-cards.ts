@@ -1,12 +1,11 @@
-#!/usr/bin/env node
 // One-off seed generator: downloads Pokémon cards from the Pokémon TCG API and writes data/mock-data.json.
 // The service itself never calls the external API at runtime.
 //
-// Usage: node scripts/import-cards.js [--sets sv3pt5,swsh7,base1] [--out data/mock-data.json] [--dry-run]
+// Usage: npm run import:cards -- [--sets sv3pt5,swsh7,base1] [--out data/mock-data.json] [--dry-run]
 // Optional env: POKEMONTCG_API_KEY (higher rate limits; never printed or stored)
-const fs = require('fs');
-const path = require('path');
-const { buildSeed } = require('./lib/seed');
+import * as fs from 'fs';
+import * as path from 'path';
+import { buildSeed } from './lib/seed';
 
 const API_BASE = 'https://api.pokemontcg.io/v2';
 const DEFAULT_SETS = ['sv3pt5', 'swsh7', 'base1'];
@@ -18,13 +17,23 @@ const MAX_ATTEMPTS = 6;
 const TIMEOUT_MS = 60000;
 const SET_ID = /^[A-Za-z0-9._-]{1,40}$/;
 
-function parseArgs(argv) {
-  const args = { sets: DEFAULT_SETS, out: path.join(__dirname, '..', 'data', 'mock-data.json'), dryRun: false };
+interface Args {
+  sets: string[];
+  out: string;
+  dryRun: boolean;
+}
+
+function parseArgs(argv: string[]): Args {
+  const args: Args = {
+    sets: DEFAULT_SETS,
+    out: path.join(__dirname, '..', 'data', 'mock-data.json'),
+    dryRun: false,
+  };
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === '--dry-run') args.dryRun = true;
-    else if (arg === '--sets') args.sets = String(argv[++i] || '').split(',').map((s) => s.trim()).filter(Boolean);
-    else if (arg === '--out') args.out = path.resolve(String(argv[++i] || ''));
+    else if (arg === '--sets') args.sets = String(argv[++i] ?? '').split(',').map((s) => s.trim()).filter(Boolean);
+    else if (arg === '--out') args.out = path.resolve(String(argv[++i] ?? ''));
     else throw new Error(`Unknown argument: ${arg}`);
   }
   if (args.sets.length === 0 || !args.sets.every((id) => SET_ID.test(id))) {
@@ -33,30 +42,33 @@ function parseArgs(argv) {
   return args;
 }
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+class FatalHttpError extends Error {}
 
 // The API is unreliable (502/504/timeouts are common), so retry with exponential backoff.
-async function fetchJson(url) {
-  const headers = { Accept: 'application/json' };
+async function fetchJson(url: string): Promise<{ data?: unknown[]; totalCount?: number }> {
+  const headers: Record<string, string> = { Accept: 'application/json' };
   if (process.env.POKEMONTCG_API_KEY) headers['X-Api-Key'] = process.env.POKEMONTCG_API_KEY;
 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt += 1) {
     try {
       const res = await fetch(url, { headers, signal: AbortSignal.timeout(TIMEOUT_MS) });
-      if (res.ok) return await res.json();
-      if (res.status !== 429 && res.status < 500) throw Object.assign(new Error(`HTTP ${res.status}`), { fatal: true });
+      if (res.ok) return (await res.json()) as { data?: unknown[]; totalCount?: number };
+      if (res.status !== 429 && res.status < 500) throw new FatalHttpError(`HTTP ${res.status}`);
       console.warn(`  attempt ${attempt}/${MAX_ATTEMPTS}: HTTP ${res.status}`);
     } catch (err) {
-      if (err.fatal) throw err;
-      console.warn(`  attempt ${attempt}/${MAX_ATTEMPTS}: ${err.name === 'TimeoutError' ? 'timeout' : err.message}`);
+      if (err instanceof FatalHttpError) throw err;
+      const name = err instanceof Error ? err.name : '';
+      console.warn(`  attempt ${attempt}/${MAX_ATTEMPTS}: ${name === 'TimeoutError' ? 'timeout' : (err as Error).message}`);
     }
     if (attempt < MAX_ATTEMPTS) await sleep(Math.min(2000 * 2 ** (attempt - 1), 30000));
   }
   throw new Error(`Giving up on ${new URL(url).pathname} after ${MAX_ATTEMPTS} attempts`);
 }
 
-async function fetchSetCards(setId) {
-  const cards = [];
+async function fetchSetCards(setId: string): Promise<unknown[]> {
+  const cards: unknown[] = [];
   for (let page = 1; ; page += 1) {
     const url = new URL(`${API_BASE}/cards`);
     url.searchParams.set('q', `set.id:${setId} supertype:Pokemon`);
@@ -66,21 +78,21 @@ async function fetchSetCards(setId) {
     const body = await fetchJson(url.toString());
     if (!Array.isArray(body.data)) throw new Error(`Unexpected response for set ${setId}`);
     cards.push(...body.data);
-    if (cards.length >= body.totalCount || body.data.length === 0) break;
+    if (cards.length >= (body.totalCount ?? 0) || body.data.length === 0) break;
   }
   return cards;
 }
 
 // Write to a temp file then rename, so an interrupted run never leaves a corrupt data file.
-function writeAtomic(file, content) {
+function writeAtomic(file: string, content: string): void {
   const tmp = `${file}.${process.pid}.tmp`;
   fs.writeFileSync(tmp, content, { mode: 0o644 });
   fs.renameSync(tmp, file);
 }
 
-async function main() {
+async function main(): Promise<void> {
   const args = parseArgs(process.argv.slice(2));
-  const raw = [];
+  const raw: unknown[] = [];
   for (const setId of args.sets) {
     console.log(`Fetching set ${setId} ...`);
     const cards = await fetchSetCards(setId);
@@ -107,7 +119,7 @@ async function main() {
   console.log(`Wrote ${args.out}`);
 }
 
-main().catch((err) => {
-  console.error(`Import failed: ${err.message}`);
+main().catch((err: unknown) => {
+  console.error(`Import failed: ${err instanceof Error ? err.message : err}`);
   process.exit(1);
 });

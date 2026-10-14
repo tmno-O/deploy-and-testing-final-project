@@ -1,4 +1,4 @@
-const { TIERS, mapRarity } = require('../../src/services/rarity');
+import { TIERS, mapRarity } from '../../src/catalog/rarity';
 
 describe('mapRarity', () => {
   test.each([

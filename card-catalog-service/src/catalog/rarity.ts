@@ -1,19 +1,11 @@
 // Maps the free-text `rarity` of the Pokémon TCG API onto the 4 rarity tiers used by the platform.
-const TIERS = ['common', 'rare', 'epic', 'legendary'];
+import type { Rarity } from './types';
 
-const BY_SOURCE = {
-  common: [
-    'Common',
-    'Uncommon',
-    'Promo',
-    'Classic Collection',
-  ],
-  rare: [
-    'Rare',
-    'Double Rare',
-    'Rare ACE',
-    'Rare BREAK',
-  ],
+export const TIERS: readonly Rarity[] = ['common', 'rare', 'epic', 'legendary'];
+
+const BY_SOURCE: Record<Rarity, string[]> = {
+  common: ['Common', 'Uncommon', 'Promo', 'Classic Collection'],
+  rare: ['Rare', 'Double Rare', 'Rare ACE', 'Rare BREAK'],
   epic: [
     'Rare Holo',
     'Rare Holo EX',
@@ -47,19 +39,14 @@ const BY_SOURCE = {
   ],
 };
 
-const LOOKUP = new Map();
-for (const [tier, names] of Object.entries(BY_SOURCE)) {
+const LOOKUP = new Map<string, Rarity>();
+for (const [tier, names] of Object.entries(BY_SOURCE) as [Rarity, string[]][]) {
   for (const name of names) LOOKUP.set(name.toLowerCase(), tier);
 }
 
-/**
- * @param {string|undefined|null} sourceRarity rarity string from the API
- * @returns {{ rarity: string, known: boolean }} unknown values fall back to `common`
- */
-function mapRarity(sourceRarity) {
+/** Unknown or missing source values fall back to `common` (known: false) so the importer can warn. */
+export function mapRarity(sourceRarity: unknown): { rarity: Rarity; known: boolean } {
   const key = typeof sourceRarity === 'string' ? sourceRarity.trim().toLowerCase() : '';
   const tier = LOOKUP.get(key);
   return tier ? { rarity: tier, known: true } : { rarity: 'common', known: false };
 }
-
-module.exports = { TIERS, mapRarity };
