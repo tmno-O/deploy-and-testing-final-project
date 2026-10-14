@@ -53,10 +53,13 @@ export interface Reservation {
   id: string;
   idempotencyKey: string;
   items: { cardId: string; qty: number }[];
-  status: 'reserved' | 'committed' | 'released';
+  status: ReservationStatus;
   expiresAt: string;
   createdAt: string;
+  updatedAt: string;
 }
+
+export type ReservationStatus = 'reserved' | 'committed' | 'released' | 'expired';
 
 export interface CatalogData {
   cards: Card[];

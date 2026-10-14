@@ -20,3 +20,5 @@ export const forbidden = (message = 'Forbidden', code = 'FORBIDDEN') => new AppE
 export const notFound = (message = 'Resource not found', code = 'NOT_FOUND') =>
   new AppError(404, code, message);
 export const conflict = (code: string, message: string) => new AppError(409, code, message);
+export const gone = (code: string, message: string) => new AppError(410, code, message);
+export const unprocessable = (code: string, message: string) => new AppError(422, code, message);

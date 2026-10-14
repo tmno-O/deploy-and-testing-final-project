@@ -12,6 +12,8 @@ export interface AppConfig {
   internalApiKey: string;
   adminUserIds: string[];
   reservationTtlMs: number;
+  reservationSweepMs: number;
+  rateLimitPerMinute: number;
 }
 
 type Env = Record<string, string | undefined>;
@@ -72,5 +74,7 @@ export function loadConfig(env: Env = process.env): AppConfig {
     internalApiKey,
     adminUserIds: parseList(env.ADMIN_USER_IDS),
     reservationTtlMs: parsePositiveInt(env, 'RESERVATION_TTL_SECONDS', 600) * 1000,
+    reservationSweepMs: parsePositiveInt(env, 'RESERVATION_SWEEP_SECONDS', 30) * 1000,
+    rateLimitPerMinute: parsePositiveInt(env, 'RATE_LIMIT_PER_MINUTE', 300),
   };
 }

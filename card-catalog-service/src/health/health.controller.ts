@@ -1,7 +1,9 @@
 import { Controller, Get, HttpStatus, Res } from '@nestjs/common';
+import { SkipThrottle } from '@nestjs/throttler';
 import type { Response } from 'express';
 import { StoreService } from '../store/store.service';
 
+@SkipThrottle()
 @Controller('health')
 export class HealthController {
   constructor(private readonly store: StoreService) {}

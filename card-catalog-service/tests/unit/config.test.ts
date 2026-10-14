@@ -8,6 +8,7 @@ describe('loadConfig', () => {
     expect(c.port).toBe(3003);
     expect(c.jwt.issuer).toBe('user-service');
     expect(c.reservationTtlMs).toBe(600000);
+    expect(c.rateLimitPerMinute).toBe(300);
     expect(c.data.persist).toBe(false);
     expect(c.corsOrigin).toEqual(['*']);
     expect(c.adminUserIds).toEqual([]);
