@@ -33,11 +33,11 @@ describeDb('PostgreSQL store', () => {
     app = nestApp;
     db = app.get(DatabaseService);
     inventory = app.get(InventoryService);
-    await db.query(fs.readFileSync(path.join(__dirname, '..', '..', 'db', 'schema.sql'), 'utf8'));
+    await db.query(fs.readFileSync(path.join(__dirname, '..', '..', '..', 'db', 'schema.sql'), 'utf8'));
   });
 
   beforeEach(async () => {
-    await db.query('truncate reservations, stock, packs, cards');
+    await db.query('truncate reservations, stock, packs, cards cascade');
     for (const card of [
       makeCard('a-1', { rarity: 'common' }),
       makeCard('a-2', { rarity: 'legendary', attacks: [{ name: 'Slash', cost: ['Fire'], convertedEnergyCost: 1, damage: '30', text: '' }] }),

@@ -74,7 +74,7 @@ export function parseDatabase(env: Env): DatabaseConfig | undefined {
     throw new Error('DATABASE_SSL must be one of: disable, no-verify, require');
   }
   // local databases default to plain TCP; remote ones (Supabase) are always encrypted
-  const ssl = (rawSsl as DatabaseSsl | undefined) ?? (isLocalHost(url) ? 'disable' : 'no-verify');
+  const ssl = (rawSsl as DatabaseSsl | undefined) || (isLocalHost(url) ? 'disable' : 'no-verify'); // '' counts as unset
   return {
     url,
     ssl,

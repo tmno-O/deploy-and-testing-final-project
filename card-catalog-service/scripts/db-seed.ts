@@ -20,7 +20,10 @@ async function main(): Promise<void> {
     if (Number(rows[0].n) > 0 && !force) {
       throw new Error('cards table is not empty; re-run with --force to replace it');
     }
-    if (force) await client.query('truncate reservations, stock, packs, cards');
+    if (force) {
+      // plain deletes (not TRUNCATE ... CASCADE): fails loudly instead of wiping wallet / gacha rows that reference packs
+      for (const table of ['reservations', 'stock', 'packs', 'cards']) await client.query(`delete from ${table}`);
+    }
 
     for (const card of data.cards) await client.query(SQL.CARD_UPSERT, cardValues(card));
     for (const pack of data.packs) await client.query(SQL.PACK_UPSERT, packValues(pack));

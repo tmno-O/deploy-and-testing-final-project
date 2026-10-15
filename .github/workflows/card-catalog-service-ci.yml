@@ -4,9 +4,9 @@ name: card-catalog-service CI/CD
 on:
   push:
     branches: [main]
-    paths: ['card-catalog-service/**', '.github/workflows/card-catalog-service-ci.yml']
+    paths: ['card-catalog-service/**', 'db/**', '.github/workflows/card-catalog-service-ci.yml']
   pull_request:
-    paths: ['card-catalog-service/**', '.github/workflows/card-catalog-service-ci.yml']
+    paths: ['card-catalog-service/**', 'db/**', '.github/workflows/card-catalog-service-ci.yml']
 
 defaults:
   run:

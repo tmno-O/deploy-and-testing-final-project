@@ -38,8 +38,8 @@ services:
       PORT: 3003
       PERSIST_DATA: ${PERSIST_DATA:-true}
       # ว่าง = เก็บเป็นไฟล์ JSON · ตั้งค่า = ใช้ PostgreSQL (Supabase) แทน (ดู card-catalog-service/DATABASE.md)
-      DATABASE_URL: ${CATALOG_DATABASE_URL:-}
-      DATABASE_SSL: ${CATALOG_DATABASE_SSL:-}
+      DATABASE_URL: ${DATABASE_URL:-}
+      DATABASE_SSL: ${DATABASE_SSL:-}
     volumes:
       - catalog-data:/app/data
     ports:

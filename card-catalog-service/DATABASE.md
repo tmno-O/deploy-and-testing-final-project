@@ -11,9 +11,29 @@ JSON file (`data/mock-data.json`), so local development and the unit/integration
 Services depend only on the abstract repositories in `src/catalog/catalog.repositories.ts`; `catalog.module.ts` picks the
 implementation at boot.
 
-## Tables (`db/schema.sql`)
-`cards` · `packs` · `stock` (1 row per card, `reserved <= total`, cascades when a card is deleted) · `reservations`
-(`idempotency_key` unique). RLS is enabled with no policies, so Supabase's public anon/authenticated keys cannot touch
+## One database for the whole platform (`../db/schema.sql`)
+All five services share **one** Supabase database and one `DATABASE_URL`. Each table is written only by its owning service;
+other services go through that service's API.
+
+| Owner | Tables |
+|---|---|
+| user-service | `users`, `addresses` |
+| wallet-service | `wallets`, `wallet_transactions` (append-only ledger, enforced by a trigger) |
+| card-catalog-service | `cards`, `packs`, `stock`, `reservations` |
+| gacha-service | `gacha_pulls`, `gacha_pull_cards` |
+| collection-service | `collections`, `collection_pulls`, `orders`, `order_items`, `order_status_history` |
+
+Design rules:
+- Rows owned by a user reference `users(id)`; `wallet_transactions` and `gacha_pulls` reference `packs(id)`.
+- History that must survive catalog changes (collections, orders, pulled cards) stores a **snapshot** of card name/rarity/image
+  and has **no foreign key to `cards`**, so an admin can delete a card without breaking history. Orders also snapshot the
+  shipping address.
+- Integrity lives in the database: `reserved <= total`, `redeemed_quantity <= quantity`, wallet balance arithmetic
+  (`balance_after = balance_before ± amount`), credit/debit matches the transaction type, unique idempotency keys,
+  one default address per user, tracking number required once an order is SHIPPED.
+- Only card-catalog-service is connected so far; the other tables are created but unused until their owners wire them.
+
+`stock`: 1 row per card, cascades when a card is deleted. `reservations`: `idempotency_key` unique. RLS is enabled with no policies, so Supabase's public anon/authenticated keys cannot touch
 them; the service connects with the database role (which bypasses RLS) and enforces auth itself.
 
 ## Setup on Supabase
@@ -24,12 +44,12 @@ them; the service connects with the database role (which bypasses RLS) and enfor
    ```
    `DATABASE_SSL` defaults to `no-verify` (encrypted, certificate not checked). For full verification set
    `DATABASE_SSL=require` and `DATABASE_SSL_CA` to Supabase's CA certificate (Database settings > SSL).
-3. Create the tables and load the 160 sample cards:
+3. Create all tables and load the 160 sample cards (run from `card-catalog-service/`):
    ```bash
    npm run db:migrate          # applies db/schema.sql (idempotent)
    npm run db:seed             # refuses to run if cards already exist; add -- --force to replace everything
    ```
-   (Or paste `db/schema.sql` into the Supabase SQL editor.)
+   (Or paste `../db/schema.sql` into the Supabase SQL editor.)
 4. Start the service (`npm run dev`); `GET /health/ready` now pings the database.
 
 Keep `DATABASE_POOL_MAX` small (default 5): Supabase limits concurrent connections.
@@ -51,6 +71,6 @@ Keep `DATABASE_POOL_MAX` small (default 5): Supabase limits concurrent connectio
   ```
 
 ## Not covered yet
-- The other four services (user, wallet, gacha, collection) still use JSON files; each owner needs their own tables.
-  Suggestion: one Supabase project, a separate Postgres schema per service.
+- The other four services (user, wallet, gacha, collection) still use JSON files; their tables exist in `db/schema.sql`
+  but their code does not use them yet. Their mock data is not seeded (`db:seed` only loads the catalog).
 - Card listing filters in memory after `select * from cards` (160 rows today); move filtering/pagination into SQL if the catalog grows.

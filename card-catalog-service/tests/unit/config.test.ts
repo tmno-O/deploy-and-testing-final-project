@@ -69,6 +69,11 @@ describe('loadConfig', () => {
     expect(loadConfig({ ...base, DATABASE_URL: 'postgres://u:p@db.example.com/x' }).database!.ssl).toBe('no-verify');
   });
 
+  test('a blank DATABASE_SSL (as docker-compose passes it) means the default', () => {
+    expect(loadConfig({ ...base, DATABASE_URL: 'postgres://h/db', DATABASE_SSL: '' }).database!.ssl).toBe('no-verify');
+    expect(loadConfig({ ...base, DATABASE_URL: 'postgres://localhost/db', DATABASE_SSL: '' }).database!.ssl).toBe('disable');
+  });
+
   test('rejects an invalid database configuration', () => {
     expect(() => loadConfig({ ...base, DATABASE_URL: 'not a url' })).toThrow('DATABASE_URL');
     expect(() => loadConfig({ ...base, DATABASE_URL: 'postgres://h/db', DATABASE_SSL: 'maybe' })).toThrow('DATABASE_SSL');

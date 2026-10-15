@@ -4,7 +4,7 @@ import * as path from 'path';
 import { connect } from './lib/db';
 
 async function main(): Promise<void> {
-  const sql = fs.readFileSync(path.join(__dirname, '..', 'db', 'schema.sql'), 'utf8');
+  const sql = fs.readFileSync(path.join(__dirname, '..', '..', 'db', 'schema.sql'), 'utf8');
   const pool = connect();
   try {
     await pool.query(sql);
