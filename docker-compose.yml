@@ -69,12 +69,22 @@ services:
   # image / port เป็นค่าเสนอ ให้เจ้าของแต่ละ service ยืนยัน (ดู SERVICE_CONVENTIONS.md)
   wallet-service:
     profiles: ["full"]
+    build: ./wallet-service
     image: ${WALLET_IMAGE:-ghcr.io/tmno-o/deploy-and-testing-final-project/wallet-service:latest}
     environment:
       <<: [*shared-auth, *internal-auth]
+      NODE_ENV: production
       PORT: 3002
+      # ราคาแพ็กดึงจาก card-catalog-service เท่านั้น (ตั้งเป็นค่าว่างเพื่อปิดการซื้อแพ็ก)
+      CATALOG_SERVICE_URL: ${CATALOG_SERVICE_URL-http://card-catalog-service:3003}
+      # mock = เติมเครดิตฟรี ใช้ช่วงพัฒนาเท่านั้น (ดู wallet-service/link.md)
+      PAYMENT_PROVIDER: ${PAYMENT_PROVIDER:-mock}
+      PERSIST_DATA: ${PERSIST_DATA:-true}
+    volumes:
+      - wallet-data:/app/data
     ports:
       - "3002:3002"
+    restart: unless-stopped
 
   gacha-service:
     profiles: ["full"]
@@ -91,3 +101,4 @@ volumes:
   user-data:
   catalog-data:
   collection-data:
+  wallet-data:

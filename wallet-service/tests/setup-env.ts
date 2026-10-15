@@ -1,0 +1,8 @@
+process.env.NODE_ENV = 'test';
+process.env.JWT_SECRET = process.env.JWT_SECRET || 'test-secret-test-secret-test-secret-123';
+process.env.INTERNAL_API_KEY = process.env.INTERNAL_API_KEY || 'test-internal-test-internal-test-1234';
+process.env.ADMIN_USER_IDS = 'admin-1,admin-2';
+process.env.CATALOG_SERVICE_URL = 'http://catalog.test';
+process.env.PAYMENT_PROVIDER = 'mock';
+process.env.RATE_LIMIT_PER_MINUTE = '100000'; // rate-limit.test.ts lowers it for its own app
+process.env.PERSIST_DATA = 'false'; // tests must never overwrite the data file
