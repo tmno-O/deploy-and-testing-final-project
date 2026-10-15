@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -12,7 +13,7 @@ function createApp() {
   app.use(helmet());
   app.use(cors({ origin: config.corsOrigin.includes('*') ? true : config.corsOrigin }));
   app.use(express.json({ limit: '10kb' }));
-
+  app.use(express.static(path.join(__dirname, '..', 'public')));
   app.use('/health', require('./routes/health'));
   app.use('/auth', require('./routes/auth'));
   app.use('/users', require('./routes/users'));
