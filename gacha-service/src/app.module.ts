@@ -6,6 +6,7 @@ import { APP_CONFIG, type AppConfig } from './config/app-config';
 import { AppConfigModule } from './config/config.module';
 import { HealthModule } from './health/health.module';
 import { StoreModule } from './store/store.module';
+import { ClientsModule } from './clients/clients.module';
 
 @Module({
   imports: [
