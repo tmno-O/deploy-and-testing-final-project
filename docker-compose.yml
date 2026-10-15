@@ -1,8 +1,7 @@
 # รันทุก service ของ Trading Card Gacha Platform จาก root ของ repo
 #   cp .env.example .env            # แล้วแก้ค่า secret
 #   docker compose up --build       # รันทุกอย่างในคำสั่งเดียว แล้วเปิด http://localhost:8080
-#     หน้าเว็บ :8080 (เรียก API ผ่าน /api/user, /api/wallet, /api/catalog, /api/collection) · user-service :3001 · wallet-service :3002 · card-catalog-service :3003 · collection-service :3005
-#   docker compose --profile full up --build  # รวม gacha-service (เมื่อมี image บน GHCR แล้ว)
+#     หน้าเว็บ :8080 (เรียก API ผ่าน /api/user, /api/wallet, /api/catalog, /api/collection, /api/gacha) · user-service :3001 · wallet-service :3002 · card-catalog-service :3003 · collection-service :3005
 # hostname ใน network นี้ = ชื่อ service (เช่น http://user-service:3001) ดู SERVICE_CONVENTIONS.md
 
 x-shared-auth: &shared-auth
@@ -103,14 +102,11 @@ services:
       - card-catalog-service
       - wallet-service
       - collection-service
+      - gacha-service
     restart: unless-stopped
 
-  # ---- ยังไม่เสร็จ จึงอยู่ใน profile "full" ----
-  # image / port เป็นค่าเสนอ ให้เจ้าของยืนยัน (ดู SERVICE_CONVENTIONS.md)
   gacha-service:
-    profiles: ["full"]
     build: ./gacha-service
-    image: ${GACHA_IMAGE:-ghcr.io/tmno-o/deploy-and-testing-final-project/gacha-service:latest}
     environment:
       <<: [*shared-auth, *internal-auth]
       NODE_ENV: production
