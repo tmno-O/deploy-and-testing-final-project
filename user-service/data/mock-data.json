@@ -19,6 +19,16 @@
       "displayName": "somying",
       "createdAt": "2026-01-01T00:00:00.000Z",
       "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "a1b2c3d4-0003-4000-8000-000000000003",
+      "email": "demo@example.com",
+      "passwordHash": "$argon2id$v=19$m=19456,t=2,p=1$deJZpStIK+0q0y4T0gjkbA$Bvb857TezreoAhcGW6ywh0fjEA9fHYZ7luBM1nOjSGM",
+      "firstName": "Demo",
+      "lastName": "User",
+      "displayName": "demo",
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
     }
   ],
   "addresses": [
@@ -63,6 +73,21 @@
       "district": "Watthana",
       "province": "Bangkok",
       "postalCode": "10110",
+      "isDefault": true,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "b1b2c3d4-0003-4000-8000-000000000003",
+      "userId": "a1b2c3d4-0003-4000-8000-000000000003",
+      "recipientName": "Demo User",
+      "phone": "0800000000",
+      "line1": "1 Demo Road",
+      "line2": null,
+      "subdistrict": "Pathumwan",
+      "district": "Pathumwan",
+      "province": "Bangkok",
+      "postalCode": "10330",
       "isDefault": true,
       "createdAt": "2026-01-01T00:00:00.000Z",
       "updatedAt": "2026-01-01T00:00:00.000Z"

@@ -30,6 +30,7 @@ npm run dev
 |---|---|---|
 | `somchai@example.com` | Somchai | Jaidee (มี 2 ที่อยู่) |
 | `somying@example.com` | Somying | Rakdee (มี 1 ที่อยู่) |
+| `demo@example.com` | Demo | User (มี 1 ที่อยู่) |
 
 > ถ้าจะเพิ่มผู้ใช้ในไฟล์เอง ต้องใส่ `passwordHash` เป็น Argon2id (สร้างด้วย `node -e "require('./src/services/password').hash('รหัสผ่าน').then(console.log)"`)
 
