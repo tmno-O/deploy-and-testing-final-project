@@ -123,7 +123,8 @@ document.addEventListener('submit', async (e) => {
   const f = e.target, d = Object.fromEntries(new FormData(f));
   try {
     if (f.id === 'auth') {
-      setSession(await api(mode === 'login' ? '/auth/login' : '/auth/register', 'POST', d)); render();
+      setSession(await api(mode === 'login' ? '/auth/login' : '/auth/register', 'POST', d));
+      window.location.assign('/index.html');
     } else if (f.id === 'profile') {
       user = (await api('/users/me', 'PATCH', d)).user; render(); toast('บันทึกบัตรเทรนเนอร์แล้ว');
     } else if (f.id === 'pw') {
