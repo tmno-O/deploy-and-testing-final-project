@@ -91,11 +91,13 @@ img { display: block; max-width: 100%; }
 .row .stock small { display: block; font: 400 11px "IBM Plex Sans Thai", sans-serif; color: var(--muted); }
 .row .acts { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
 .pack-admin { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
-.pack-card { background: #fff; border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; }
+.pack-card { background: #fff; border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column; }
 .pack-card .band { height: 74px; position: relative; }
 .pack-card .band b { position: absolute; left: 16px; bottom: 10px; color: #fff; font: 600 19px "Mitr", sans-serif; text-shadow: 0 2px 6px rgba(0,0,0,.3); }
 .pack-card .band .off { position: absolute; right: 12px; top: 12px; }
-.pack-card .body { padding: 14px 16px 16px; }
+.pack-card .body { padding: 14px 16px 16px; flex: 1; display: flex; flex-direction: column; }
+.pack-card .meta { min-height: 3em; line-height: 1.5; }
+.pack-card .foot-row { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .pack-card .rates { margin: 10px 0 14px; }
 .pack-card .rate { box-shadow: none; background: var(--surface-2); }
 .rate-sum { font-size: 13px; font-weight: 600; }
@@ -1401,9 +1403,9 @@ async function loadAdminPacks() {
           <b>${esc(p.name)}</b>${p.active ? '' : '<span class="status s-CANCELLED off">ปิดขาย</span>'}
         </div>
         <div class="body">
-          <div class="muted small">${esc(p.id)} · ${p.cardsPerPack} ใบต่อแพ็ก · ชุด ${esc(listText(p.setIds))}</div>
+          <div class="muted small meta">${esc(p.id)} · ${p.cardsPerPack} ใบต่อแพ็ก<br>ชุด ${esc(listText(p.setIds))}</div>
           <div class="rates">${RARITIES.map((r) => `<div class="rate">${rar(r)}<b>${p.rates[r] || 0}%</b></div>`).join('')}</div>
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+          <div class="foot-row">
             <span class="cost" style="font-size:19px"><span class="coin sm"></span>${fmt(p.priceCredits)}</span>
             <div style="display:flex;gap:6px">
               <button class="btn white sm" data-act="toggle" data-id="${esc(p.id)}">${p.active ? 'ปิดขาย' : 'เปิดขาย'}</button>
