@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10221e">
+  <title>Gacha Service | Field Test</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #14231f;
+      --ink-soft: #42534d;
+      --paper: #f2f0e8;
+      --surface: #fffefa;
+      --line: #d7d8ce;
+      --green: #145c45;
+      --lime: #c7ee56;
+      --red: #c74b38;
+      --gold: #e8b947;
+      --muted: #77817a;
+      --shadow: 0 12px 34px #16241b12;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image: radial-gradient(#15251d12 .7px, transparent .7px);
+      background-size: 8px 8px;
+      font: 15px/1.5 "Trebuchet MS", "Segoe UI", sans-serif;
+    }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    button:disabled { cursor: not-allowed; opacity: .52; }
+    .shell { width: min(1180px, 100% - 40px); margin: 0 auto; padding: 26px 0 56px; }
+    .masthead { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-mark { display: grid; place-items: center; width: 42px; height: 42px; color: var(--lime); background: var(--ink); font: 700 17px Georgia, serif; transform: rotate(-5deg); }
+    .brand-name { font: 700 19px/1 Georgia, serif; letter-spacing: 0; }
+    .brand-kicker, .eyebrow { color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: 1.1px; text-transform: uppercase; }
+    .brand-kicker { margin-top: 5px; }
+    .health-strip { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
+    .health { display: inline-flex; align-items: center; gap: 6px; padding: 5px 8px; border: 1px solid var(--line); background: #fffefaab; color: var(--ink-soft); font-size: 11px; white-space: nowrap; }
+    .health::before { width: 7px; height: 7px; background: #aaa; content: ""; }
+    .health.up::before { background: #31845d; }
+    .health.down::before { background: var(--red); }
+    .intro { display: flex; align-items: end; justify-content: space-between; gap: 24px; padding: 34px 0 24px; }
+    h1 { margin: 5px 0 0; font: 400 clamp(34px, 5vw, 54px)/1.02 Georgia, "Times New Roman", serif; letter-spacing: 0; }
+    .intro-note { max-width: 330px; margin: 0; color: var(--ink-soft); font-size: 13px; }
+    .layout { display: grid; grid-template-columns: minmax(280px, .78fr) minmax(0, 1.55fr); gap: 16px; align-items: start; }
+    .panel { border: 1px solid var(--line); background: var(--surface); box-shadow: var(--shadow); }
+    .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px 17px; border-bottom: 1px solid var(--line); }
+    .panel-head h2 { margin: 0; font: 700 17px Georgia, serif; letter-spacing: 0; }
+    .panel-body { padding: 17px; }
+    .auth-state { margin-bottom: 18px; padding: 13px; background: #edf1e8; border-left: 3px solid var(--green); }
+    .auth-name { font-weight: 700; }
+    .auth-sub { color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
+    .field { margin-bottom: 13px; }
+    label { display: block; margin-bottom: 5px; color: var(--ink-soft); font-size: 12px; font-weight: 700; }
+    input, select { width: 100%; min-height: 42px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 2px; outline: 0; color: var(--ink); background: #fff; }
+    input:focus, select:focus { border-color: var(--green); box-shadow: 0 0 0 2px #145c4520; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .button { min-height: 42px; border: 1px solid var(--ink); border-radius: 2px; padding: 9px 13px; color: var(--surface); background: var(--ink); font-weight: 700; transition: transform .15s ease, background .15s ease; }
+    .button:hover:not(:disabled) { background: var(--green); transform: translateY(-1px); }
+    .button.secondary { color: var(--ink); background: transparent; }
+    .button.secondary:hover:not(:disabled) { color: var(--surface); }
+    .button.pull { width: 100%; min-height: 52px; color: var(--ink); background: var(--lime); border-color: var(--lime); font-size: 16px; }
+    .button.pull:hover:not(:disabled) { background: #b6df42; }
+    .button.full { width: 100%; }
+    .quiet-button { border: 0; padding: 4px; color: var(--green); background: transparent; font-size: 12px; font-weight: 700; }
+    .pack-meta { display: flex; justify-content: space-between; gap: 10px; margin: 0 0 16px; padding: 11px 0; border-top: 1px dashed var(--line); border-bottom: 1px dashed var(--line); color: var(--ink-soft); font-size: 12px; }
+    .pack-meta strong { color: var(--ink); font-size: 14px; }
+    .callout { min-height: 20px; margin: 10px 0 0; color: var(--muted); font-size: 12px; white-space: pre-wrap; }
+    .callout.error { color: var(--red); }
+    .callout.success { color: var(--green); }
+    .result-panel { min-height: 460px; }
+    .result-tools { display: flex; align-items: center; gap: 9px; }
+    .result-content { padding: 17px; }
+    .empty-state { display: grid; place-items: center; min-height: 320px; padding: 24px; text-align: center; color: var(--muted); }
+    .empty-stamp { display: grid; place-items: center; width: 78px; height: 78px; margin: 0 auto 15px; border: 1px solid var(--line); color: var(--green); font: 400 34px Georgia, serif; transform: rotate(-7deg); }
+    .empty-state strong { display: block; margin-bottom: 5px; color: var(--ink); font: 700 19px Georgia, serif; }
+    .pull-result { padding: 16px 0 19px; border-bottom: 1px solid var(--line); animation: arrive .32s ease both; }
+    .pull-result:first-child { padding-top: 0; }
+    .pull-result:last-child { padding-bottom: 0; border-bottom: 0; }
+    .pull-title { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .pull-title h3 { margin: 0; font: 700 16px Georgia, serif; letter-spacing: 0; }
+    .pull-meta { color: var(--muted); font-size: 11px; text-align: right; }
+    .badge { display: inline-block; margin-left: 6px; padding: 3px 7px; color: var(--green); background: #e7f0e8; font-size: 10px; font-weight: 700; }
+    .badge.failed { color: #982d21; background: #f9e7e2; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(116px, 1fr)); gap: 10px; }
+    .card { min-width: 0; padding: 7px; border: 1px solid var(--line); background: #f8f7f1; }
+    .card img { display: block; width: 100%; aspect-ratio: 63 / 88; object-fit: contain; background: #e6e6db; }
+    .card-name { margin: 7px 0 1px; overflow: hidden; font-weight: 700; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+    .rarity { color: var(--muted); font-size: 10px; text-transform: uppercase; }
+    .rarity.legendary { color: #9b6710; }
+    .rarity.epic { color: #7953a2; }
+    .history { margin-top: 16px; }
+    .history-list { display: grid; }
+    .history-row { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 13px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+    .history-row:last-child { border-bottom: 0; }
+    .history-pack { font-weight: 700; font-size: 13px; }
+    .history-date, .history-price { color: var(--muted); font-size: 11px; }
+    .history-price { text-align: right; }
+    .subhead { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .subhead h2 { margin: 0; font: 700 16px Georgia, serif; }
+    details.settings { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 13px; }
+    details.settings summary { color: var(--ink-soft); cursor: pointer; font-size: 12px; font-weight: 700; }
+    .settings-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 12px; padding-top: 8px; }
+    .settings-grid .field { margin-bottom: 9px; }
+    .settings-grid input { min-height: 36px; padding: 7px 9px; font-size: 12px; }
+    .settings-grid .wide { grid-column: 1 / -1; }
+    .fine-print { margin: 18px 0 0; color: var(--muted); font-size: 11px; }
+    @keyframes arrive { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 760px) {
+      .shell { width: min(100% - 24px, 560px); padding-top: 16px; }
+      .masthead { align-items: flex-start; flex-direction: column; }
+      .health-strip { justify-content: flex-start; }
+      .intro { align-items: flex-start; flex-direction: column; gap: 9px; padding: 25px 0 18px; }
+      .intro-note { max-width: none; }
+      .layout { grid-template-columns: 1fr; }
+      .result-panel { min-height: 350px; }
+      .empty-state { min-height: 230px; }
+    }
+    @media (max-width: 420px) {
+      .settings-grid { grid-template-columns: 1fr; }
+      .settings-grid .wide { grid-column: auto; }
+      .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .history-row { grid-template-columns: 1fr auto; gap: 4px 10px; }
+      .history-date { grid-column: 1; }
+      .history-price { grid-column: 2; grid-row: 1 / span 2; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">G</div>
+        <div><div class="brand-name">Gacha Service</div><div class="brand-kicker">Platform field test · local environment</div></div>
+      </div>
+      <div class="health-strip" id="healthStrip" aria-label="สถานะบริการ">
+        <span class="health" data-service="gacha">Gacha</span>
+        <span class="health" data-service="user">User</span>
+        <span class="health" data-service="catalog">Catalog</span>
+        <span class="health" data-service="wallet">Wallet</span>
+        <span class="health" data-service="collection">Collection</span>
+      </div>
+    </header>
+
+    <section class="intro">
+      <div><div class="eyebrow">Draw · Pay · Collect</div><h1>เปิดแพ็ก ทดสอบระบบ</h1></div>
+      <p class="intro-note">ทดลอง flow จริงตั้งแต่ล็อกอิน หักเครดิต จองสต็อก ไปจนถึงส่งการ์ดเข้าคอลเลกชัน</p>
+    </section>
+
+    <div class="layout">
+      <section class="panel" aria-labelledby="controlTitle">
+        <div class="panel-head"><h2 id="controlTitle">โต๊ะเปิดแพ็ก</h2><span class="eyebrow">01 / CONTROL</span></div>
+        <div class="panel-body">
+          <div id="loginPanel">
+            <div class="eyebrow">บัญชีผู้ใช้</div>
+            <form id="loginForm" style="margin-top:12px">
+              <div class="field"><label for="email">อีเมล</label><input id="email" type="email" value="somchai@example.com" autocomplete="username" required></div>
+              <div class="field"><label for="password">รหัสผ่าน</label><input id="password" type="password" value="password123" autocomplete="current-password" required></div>
+              <button class="button full" id="loginButton">เข้าสู่ระบบ</button>
+            </form>
+            <p class="callout" id="loginMessage" aria-live="polite">บัญชีตัวอย่าง: somchai@example.com หรือ somying@example.com · password123</p>
+          </div>
+
+          <div id="signedInPanel" hidden>
+            <div class="auth-state"><div class="eyebrow">เข้าสู่ระบบแล้ว</div><div class="auth-name" id="userName"></div><div class="auth-sub" id="userId"></div></div>
+            <div class="field"><label for="packSelect">แพ็กที่ต้องการเปิด</label><select id="packSelect"><option value="">กำลังโหลดแพ็ก...</option></select></div>
+            <div class="pack-meta"><span id="packDescription">เลือกแพ็กเพื่อดูรายละเอียด</span><strong id="packPrice">—</strong></div>
+            <div class="field"><label for="pullCount">จำนวนแพ็ก</label><input id="pullCount" type="number" min="1" max="10" value="1"></div>
+            <button class="button pull" id="openButton" disabled>เปิดแพ็ก</button>
+            <p class="callout" id="pullMessage" aria-live="polite"></p>
+            <div class="row" style="margin-top:14px">
+              <button class="button secondary" id="refreshPacks">รีเฟรชแพ็ก</button>
+              <button class="button secondary" id="logoutButton">ออกจากระบบ</button>
+            </div>
+            <details class="settings">
+              <summary>ตั้งค่า URL ของบริการ</summary>
+              <div class="settings-grid">
+                <div class="field"><label for="userUrl">User Service</label><input id="userUrl" value="http://localhost:3001" inputmode="url"></div>
+                <div class="field"><label for="catalogUrl">Card Catalog</label><input id="catalogUrl" value="http://localhost:3003" inputmode="url"></div>
+                <div class="field"><label for="gachaUrl">Gacha Service</label><input id="gachaUrl" value="http://localhost:3004" inputmode="url"></div>
+                <div class="field"><label for="walletUrl">Wallet Service</label><input id="walletUrl" value="http://localhost:3002" inputmode="url"></div>
+                <div class="field wide"><label for="collectionUrl">Collection Service</label><input id="collectionUrl" value="http://localhost:3005" inputmode="url"></div>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel result-panel" aria-labelledby="resultTitle">
+        <div class="panel-head">
+          <h2 id="resultTitle">ผลการเปิดล่าสุด</h2>
+          <div class="result-tools"><span class="eyebrow">02 / REVEAL</span><button class="quiet-button" id="clearResults" type="button">ล้างผล</button></div>
+        </div>
+        <div class="result-content" id="results" aria-live="polite">
+          <div class="empty-state"><div><div class="empty-stamp" aria-hidden="true">?</div><strong>พร้อมเปิดแพ็กหรือยัง</strong><span>ผลการสุ่มจะแสดงตรงนี้</span></div></div>
+        </div>
+      </section>
+    </div>
+
+    <section class="panel history">
+      <div class="panel-head"><div class="subhead"><h2>ประวัติการเปิด</h2></div><button class="quiet-button" id="refreshHistory" type="button">รีเฟรชประวัติ</button></div>
+      <div class="panel-body"><div class="history-list" id="historyList"><div class="muted">เข้าสู่ระบบเพื่อดูประวัติของคุณ</div></div></div>
+    </section>
+    <p class="fine-print">การชำระเงินขึ้นกับ Wallet Service ที่กำลังรันอยู่ และอาจใช้ mock provider ตาม environment ปัจจุบัน</p>
+  </main>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const defaults = {
+      userUrl: 'http://localhost:3001',
+      catalogUrl: 'http://localhost:3003',
+      gachaUrl: 'http://localhost:3004',
+      walletUrl: 'http://localhost:3002',
+      collectionUrl: 'http://localhost:3005',
+    };
+    const state = { token: null, user: null, packs: [], busy: false };
+    const session = {
+      get(key) { try { return JSON.parse(sessionStorage.getItem(key)); } catch { return null; } },
+      set(key, value) { try { sessionStorage.setItem(key, JSON.stringify(value)); } catch {} },
+      del(key) { try { sessionStorage.removeItem(key); } catch {} },
+    };
+    const preferences = {
+      get(key) { try { return localStorage.getItem(key); } catch { return null; } },
+      set(key, value) { try { localStorage.setItem(key, value); } catch {} },
+    };
+    const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+    const base = (id) => $(id).value.trim().replace(/\/$/, '');
+    const setMessage = (id, text, kind = '') => { const node = $(id); node.textContent = text; node.className = `callout ${kind}`.trim(); };
+    const headers = () => state.token ? { Authorization: `Bearer ${state.token}` } : {};
+
+    async function request(url, options = {}) {
+      let response;
+      try {
+        response = await fetch(url, options);
+      } catch {
+        throw new Error('เชื่อมต่อไม่ได้ ตรวจว่า service ทำงานอยู่ และ URL ถูกต้อง');
+      }
+      const data = response.status === 204 ? null : await response.json().catch(() => null);
+      if (!response.ok) {
+        const error = data?.error;
+        const message = error ? `${response.status} ${error.code}: ${error.message}` : `HTTP ${response.status}`;
+        if (response.status === 401 && state.token) signOut('เซสชันหมดอายุ กรุณาเข้าสู่ระบบอีกครั้ง');
+        throw new Error(message);
+      }
+      return data;
+    }
+
+    function uuid() {
+      if (crypto.randomUUID) return crypto.randomUUID();
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (char) => {
+        const value = crypto.getRandomValues(new Uint8Array(1))[0] & 15;
+        return (char === 'x' ? value : (value & 3) | 8).toString(16);
+      });
+    }
+
+    async function checkHealth() {
+      const services = [
+        ['gacha', 'Gacha', 'gachaUrl'], ['user', 'User', 'userUrl'], ['catalog', 'Catalog', 'catalogUrl'],
+        ['wallet', 'Wallet', 'walletUrl'], ['collection', 'Collection', 'collectionUrl'],
+      ];
+      await Promise.all(services.map(async ([key, , input]) => {
+        const chip = document.querySelector(`[data-service="${key}"]`);
+        chip.className = 'health';
+        try {
+          const response = await fetch(`${base(input)}/health`);
+          const data = await response.json();
+          chip.classList.add(response.ok && data.status === 'ok' ? 'up' : 'down');
+          chip.title = response.ok ? 'ตอบสนองปกติ' : `HTTP ${response.status}`;
+        } catch {
+          chip.classList.add('down');
+          chip.title = 'เชื่อมต่อไม่ได้';
+        }
+      }));
+    }
+
+    async function loadPacks() {
+      $('packSelect').innerHTML = '<option value="">กำลังโหลดแพ็ก...</option>';
+      $('openButton').disabled = true;
+      try {
+        const result = await request(`${base('catalogUrl')}/packs`);
+        state.packs = result.data || [];
+        $('packSelect').innerHTML = state.packs.map((pack) => `<option value="${esc(pack.id)}">${esc(pack.name)}</option>`).join('') || '<option value="">ไม่พบแพ็กที่เปิดขาย</option>';
+        updatePackInfo();
+        $('openButton').disabled = !state.token || !state.packs.length || state.busy;
+        setMessage('pullMessage', state.packs.length ? `${state.packs.length} แพ็กพร้อมใช้งาน` : 'ไม่มีแพ็กที่เปิดขาย', state.packs.length ? 'success' : 'error');
+      } catch (error) {
+        $('packSelect').innerHTML = '<option value="">โหลดแพ็กไม่สำเร็จ</option>';
+        setMessage('pullMessage', error.message, 'error');
+      }
+    }
+
+    function updatePackInfo() {
+      const pack = state.packs.find((item) => item.id === $('packSelect').value);
+      $('packDescription').textContent = pack ? `${pack.cardsPerPack} ใบต่อแพ็ก` : 'เลือกแพ็กเพื่อดูรายละเอียด';
+      $('packPrice').textContent = pack ? `${Number(pack.priceCredits).toLocaleString()} เครดิต` : '—';
+    }
+
+    async function loadHistory() {
+      if (!state.token) return;
+      $('historyList').innerHTML = '<div class="muted">กำลังโหลด...</div>';
+      try {
+        const result = await request(`${base('gachaUrl')}/gacha/pulls?page=1&limit=20`, { headers: headers() });
+        $('historyList').innerHTML = result.data.length ? result.data.map((pull) => {
+          const pack = state.packs.find((item) => item.id === pull.packId);
+          const date = new Date(pull.createdAt).toLocaleString('th-TH');
+          const amount = pull.price === null ? 'ยังไม่ชำระ' : `${Number(pull.price).toLocaleString()} เครดิต`;
+          return `<div class="history-row"><div><div class="history-pack">${esc(pack?.name || pull.packId)} <span class="badge ${pull.status === 'FAILED' ? 'failed' : ''}">${esc(pull.status)}</span></div><div class="history-date">${esc(date)} · ${pull.cards.length} ใบ</div></div><div class="history-price">${esc(amount)}</div><button class="quiet-button" type="button" data-pull-id="${esc(pull.id)}">ดูผล</button></div>`;
+        }).join('') : '<div class="muted">ยังไม่มีประวัติการเปิดแพ็ก</div>';
+      } catch (error) {
+        $('historyList').innerHTML = `<div class="callout error">${esc(error.message)}</div>`;
+      }
+    }
+
+    function renderPull(pull, prepend = true) {
+      const pack = state.packs.find((item) => item.id === pull.packId);
+      const cards = Array.isArray(pull.cards) ? pull.cards : [];
+      const block = document.createElement('article');
+      block.className = 'pull-result';
+      block.dataset.pullId = pull.id;
+      const statusClass = pull.status === 'FAILED' ? 'badge failed' : 'badge';
+      block.innerHTML = `<div class="pull-title"><h3>${esc(pack?.name || pull.packId)}</h3><div class="pull-meta">${pull.price === null ? 'ไม่มียอดชำระ' : `${Number(pull.price).toLocaleString()} เครดิต`} <span class="${statusClass}">${esc(pull.status)}</span></div></div>
+        ${pull.failureReason ? `<p class="callout error">${esc(pull.failureReason)}</p>` : ''}
+        <div class="cards">${cards.map((card) => `<div class="card"><img src="${esc(card.imageUrl)}" alt="${esc(card.cardName)}" loading="lazy"><div class="card-name" title="${esc(card.cardName)}">${esc(card.cardName)}</div><div class="rarity ${esc(card.rarity)}">${esc(card.rarity)}</div></div>`).join('') || '<div class="muted">ไม่มีการ์ดในผลลัพธ์นี้</div>'}</div>`;
+      const empty = $('results').querySelector('.empty-state');
+      if (empty) $('results').replaceChildren();
+      const existing = $('results').querySelector(`[data-pull-id="${CSS.escape(pull.id)}"]`);
+      if (existing) existing.replaceWith(block);
+      else if (prepend) $('results').prepend(block);
+      else $('results').append(block);
+    }
+
+    async function openPacks() {
+      if (state.busy || !state.token) return;
+      const count = Number($('pullCount').value);
+      const packId = $('packSelect').value;
+      if (!Number.isInteger(count) || count < 1 || count > 10 || !packId) {
+        setMessage('pullMessage', 'เลือกแพ็กและระบุจำนวน 1 ถึง 10', 'error');
+        return;
+      }
+      state.busy = true;
+      $('openButton').disabled = true;
+      $('refreshPacks').disabled = true;
+      $('logoutButton').disabled = true;
+      let completed = 0;
+      for (let index = 0; index < count; index++) {
+        setMessage('pullMessage', `กำลังเปิดแพ็ก ${index + 1} / ${count} ...`);
+        try {
+          const pull = await request(`${base('gachaUrl')}/gacha/pulls`, {
+            method: 'POST',
+            headers: { ...headers(), 'Content-Type': 'application/json', 'Idempotency-Key': uuid() },
+            body: JSON.stringify({ packId }),
+          });
+          renderPull(pull);
+          completed++;
+        } catch (error) {
+          setMessage('pullMessage', `เปิดแพ็ก ${index + 1} ไม่สำเร็จ: ${error.message}`, 'error');
+          break;
+        }
+      }
+      if (completed) setMessage('pullMessage', `เปิดสำเร็จ ${completed} / ${count} แพ็ก`, 'success');
+      state.busy = false;
+      $('openButton').disabled = !state.packs.length;
+      $('refreshPacks').disabled = false;
+      $('logoutButton').disabled = false;
+      await loadHistory();
+    }
+
+    function signOut(message = '') {
+      state.token = null;
+      state.user = null;
+      session.del('gacha-demo-session');
+      $('loginPanel').hidden = false;
+      $('signedInPanel').hidden = true;
+      $('historyList').innerHTML = '<div class="muted">เข้าสู่ระบบเพื่อดูประวัติของคุณ</div>';
+      if (message) setMessage('loginMessage', message, 'error');
+    }
+
+    async function signIn(token, user) {
+      state.token = token;
+      state.user = user;
+      session.set('gacha-demo-session', { token, user });
+      $('loginPanel').hidden = true;
+      $('signedInPanel').hidden = false;
+      $('userName').textContent = user.displayName || `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'ผู้ใช้';
+      $('userId').textContent = `${user.email || ''} · ${user.id || ''}`;
+      await loadPacks();
+      await loadHistory();
+    }
+
+    $('loginForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      $('loginButton').disabled = true;
+      setMessage('loginMessage', 'กำลังเข้าสู่ระบบ...');
+      try {
+        const result = await request(`${base('userUrl')}/auth/login`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: $('email').value.trim(), password: $('password').value }),
+        });
+        await signIn(result.accessToken, result.user);
+      } catch (error) {
+        setMessage('loginMessage', error.message, 'error');
+      } finally {
+        $('loginButton').disabled = false;
+      }
+    });
+    $('packSelect').addEventListener('change', updatePackInfo);
+    $('openButton').addEventListener('click', openPacks);
+    $('refreshPacks').addEventListener('click', loadPacks);
+    $('refreshHistory').addEventListener('click', loadHistory);
+    $('logoutButton').addEventListener('click', () => signOut());
+    $('clearResults').addEventListener('click', () => {
+      $('results').innerHTML = '<div class="empty-state"><div><div class="empty-stamp" aria-hidden="true">?</div><strong>พร้อมเปิดแพ็กหรือยัง</strong><span>ผลการสุ่มจะแสดงตรงนี้</span></div></div>';
+    });
+    $('historyList').addEventListener('click', async (event) => {
+      const button = event.target.closest('[data-pull-id]');
+      if (!button) return;
+      try {
+        const pull = await request(`${base('gachaUrl')}/gacha/pulls/${encodeURIComponent(button.dataset.pullId)}`, { headers: headers() });
+        renderPull(pull);
+        $('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (error) {
+        setMessage('pullMessage', error.message, 'error');
+      }
+    });
+
+    for (const [id, fallback] of Object.entries(defaults)) {
+      $(id).value = preferences.get(`gacha-demo-${id}`) || fallback;
+      $(id).addEventListener('change', () => {
+        preferences.set(`gacha-demo-${id}`, base(id));
+        checkHealth();
+      });
+    }
+    checkHealth();
+    const savedSession = session.get('gacha-demo-session');
+    if (savedSession?.token && savedSession?.user) signIn(savedSession.token, savedSession.user);
+  </script>
+</body>
+</html>

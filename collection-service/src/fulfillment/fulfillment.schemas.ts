@@ -44,6 +44,8 @@ export type CreateOrderBody = z.output<typeof createOrderBody>;
 
 export const listOrdersQuery = z.object({ ...paginationShape, status: z.enum(ORDER_STATUSES).optional() }).strict();
 
+export const adminListOrdersQuery = listOrdersQuery.extend({ userId: uuidSchema('userId').optional() }).strict();
+
 export const updateStatusBody = z
   .object({
     status: z.enum(ORDER_STATUSES),

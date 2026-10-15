@@ -10,7 +10,7 @@ Machine-readable spec: [docs/openapi.yaml](docs/openapi.yaml) (open it in https:
 | **Gacha (4)** | give a pulled card to the user | `POST /internal/collections/:userId/cards` (internal) |
 | **Gacha / Marketplace** | read any user's cards | `GET /internal/collections/:userId` (internal) |
 | **Frontend** | my cards, delivery orders | `/collections/me*`, `/fulfillments/orders*` (user JWT) |
-| **Admin UI** | move an order to the next status | `PATCH /admin/fulfillments/orders/:id/status` (admin JWT) |
+| **Admin UI** | see every order, move one to the next status | `GET /admin/fulfillments/orders`, `PATCH /admin/fulfillments/orders/:id/status` (admin JWT) |
 
 Gacha after a successful draw (stock already committed in card-catalog-service):
 
@@ -130,6 +130,10 @@ instead of `addressId` (exactly one). `cardId`s must be unique within `items`.
 ### `GET /fulfillments/orders` · `GET /fulfillments/orders/:id` · `POST /fulfillments/orders/:id/cancel`
 List (query `status`, `page`, `limit`, newest first), one order, cancel (only while `PENDING`; returns the cards and
 refunds a paid fee). Another user's order answers 404 `ORDER_NOT_FOUND`.
+
+### `GET /admin/fulfillments/orders` · `GET /admin/fulfillments/orders/:id`
+Every user's orders for the admin queue: query `status`, `userId` (UUID), `page`, `limit`, newest first → same page
+shape as above. `/:id` returns any user's order (404 `ORDER_NOT_FOUND` if missing). Non-admin JWT → 403 `FORBIDDEN`.
 
 ### `PATCH /admin/fulfillments/orders/:id/status`
 Body `{ "status": "PROCESSING" | "SHIPPED" | "DELIVERED" | "CANCELLED", "trackingNumber"?: "TH123" }` → updated order.
