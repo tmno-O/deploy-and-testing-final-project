@@ -23,28 +23,28 @@ export class PacksService {
     private readonly stock: StockRepository,
   ) {}
 
-  list() {
-    return { data: this.packs.findActive().map(toPackView) };
+  async list() {
+    return { data: (await this.packs.findActive()).map(toPackView) };
   }
 
-  get(rawId: unknown) {
-    return toPackView(this.findOrThrow(rawId));
+  async get(rawId: unknown) {
+    return toPackView(await this.findOrThrow(rawId));
   }
 
   /**
    * Cards the Gacha service may draw from, grouped by rarity. Only cards in the pack's sets that are
    * in stock are returned, so an out-of-stock card can never be drawn. Tiers with no stock stay present as [].
    */
-  pool(rawId: unknown) {
-    const pack = this.findOrThrow(rawId);
+  async pool(rawId: unknown) {
+    const pack = await this.findOrThrow(rawId);
     const sets = new Set(pack.setIds);
-    const availability = this.stock.availabilityMap();
+    const availability = await this.stock.availabilityMap();
 
     const grouped = Object.fromEntries(TIERS.map((tier) => [tier, [] as PoolCard[]])) as Record<
       Rarity,
       PoolCard[]
     >;
-    for (const card of this.cards.findAll()) {
+    for (const card of await this.cards.findAll()) {
       const available = availability.get(card.id) ?? 0;
       if (!sets.has(card.setId) || available <= 0) continue;
       grouped[card.rarity].push({
@@ -66,9 +66,9 @@ export class PacksService {
     };
   }
 
-  private findOrThrow(rawId: unknown) {
+  private async findOrThrow(rawId: unknown) {
     const id = parseOrThrow(idSchema, rawId);
-    const pack = this.packs.findActiveById(id);
+    const pack = await this.packs.findActiveById(id);
     if (!pack) throw notFound('Pack not found', 'PACK_NOT_FOUND');
     return pack;
   }

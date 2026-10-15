@@ -1,4 +1,4 @@
-# Run card-catalog-service standalone (data lives in a JSON file, no database needed)
+# Run card-catalog-service standalone (JSON file by default; set DATABASE_URL to use PostgreSQL / Supabase)
 # Usage: cp .env.example .env && docker compose up --build
 services:
   card-catalog-service:
@@ -16,6 +16,8 @@ services:
       CORS_ORIGIN: ${CORS_ORIGIN:-*}
       TRUST_PROXY: ${TRUST_PROXY:-}
       PERSIST_DATA: ${PERSIST_DATA:-true}
+      DATABASE_URL: ${DATABASE_URL:-}   # empty = JSON file; set = PostgreSQL / Supabase
+      DATABASE_SSL: ${DATABASE_SSL:-}
     volumes:
       # a new volume is seeded from the image's mock data on first run; `docker compose down -v` resets it
       - catalog-data:/app/data
