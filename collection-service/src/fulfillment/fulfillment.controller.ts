@@ -38,6 +38,16 @@ export class OrdersController {
 export class AdminOrdersController {
   constructor(private readonly fulfillment: FulfillmentService) {}
 
+  @Get()
+  list(@Query() query: Record<string, unknown>) {
+    return this.fulfillment.adminList(query);
+  }
+
+  @Get(':id')
+  get(@Param('id') id: string) {
+    return this.fulfillment.adminGet(id);
+  }
+
   @Patch(':id/status')
   updateStatus(@Param('id') id: string, @Body() body: unknown, @Ctx() ctx: CallContext) {
     return this.fulfillment.adminUpdateStatus(id, body, ctx);

@@ -11,6 +11,7 @@ import { StoreService } from '../store/store.service';
 import type { Order, OrderItem, OrderStatus, ShippingAddress } from '../store/types';
 import {
   createOrderBody,
+  adminListOrdersQuery,
   listOrdersQuery,
   orderIdParam,
   updateStatusBody,
@@ -107,6 +108,19 @@ export class FulfillmentService {
 
   cancel(userId: string, rawId: unknown, ctx: CallContext): Promise<Order> {
     return this.changeStatus(this.getOwned(userId, rawId), 'CANCELLED', 'user', undefined, ctx);
+  }
+
+  /** Every user's orders for the admin queue (filter by status and/or userId). */
+  adminList(rawQuery: unknown) {
+    const query = parseOrThrow(adminListOrdersQuery, rawQuery);
+    return paginate(this.orders.list({ userId: query.userId, status: query.status }), query);
+  }
+
+  adminGet(rawId: unknown): Order {
+    const id = parseOrThrow(orderIdParam, rawId);
+    const order = this.orders.findById(id);
+    if (!order) throw notFound('Order not found', 'ORDER_NOT_FOUND');
+    return order;
   }
 
   adminUpdateStatus(rawId: unknown, rawBody: unknown, ctx: CallContext): Promise<Order> {

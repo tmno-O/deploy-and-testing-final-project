@@ -2,361 +2,1347 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gacha Platform Demo</title>
-<!--
-  หน้าทดลองสำหรับ dev (ไม่ใช่ frontend จริง) เปิดไฟล์นี้ในเบราว์เซอร์ได้เลย
-  เรียก user-service :3001, card-catalog-service :3003 และ collection-service :3005 ที่รันอยู่ในเครื่อง
-  การ์ดในคอลเลกชันมาจาก mock data ของ collection-service (การเปิดแพ็กเป็นงานของ Gacha service ซึ่งยังไม่มี)
--->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#eaf3fc">
+<title>CardDrop · สุ่มการ์ด สะสม และส่งถึงบ้าน</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#f6f7f9; --card:#fff; --text:#1d2330; --muted:#667085; --line:#e4e7ec; --accent:#4f46e5; --danger:#d92d20; --ok:#079455;
-          --common:#667085; --rare:#1570ef; --epic:#9e2fd0; --legendary:#dc6803; }
-  @media (prefers-color-scheme: dark) { :root { --bg:#111418; --card:#1a1f26; --text:#e6e8eb; --muted:#98a2b3; --line:#2b323c; --accent:#818cf8; --danger:#f97066; --ok:#47cd89;
-          --common:#98a2b3; --rare:#53b1fd; --epic:#d6a4ff; --legendary:#fdb022; } }
-  * { box-sizing:border-box; }
-  body { margin:0; font:15px/1.5 system-ui, "Segoe UI", "Noto Sans Thai", sans-serif; background:var(--bg); color:var(--text); }
-  main { max-width:1080px; margin:0 auto; padding:24px 16px 64px; }
-  h1 { font-size:22px; margin:0 0 4px; } h2 { font-size:17px; margin:0 0 12px; } h3 { font-size:15px; margin:16px 0 8px; }
-  .muted { color:var(--muted); font-size:13px; }
-  section { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px; margin-top:16px; }
-  label { display:block; font-size:13px; color:var(--muted); margin:8px 0 4px; }
-  input, select { width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--text); font:inherit; }
-  input[type=checkbox] { width:auto; }
-  button { padding:8px 14px; border:0; border-radius:6px; background:var(--accent); color:#fff; font:inherit; cursor:pointer; }
-  button:disabled { opacity:.5; cursor:default; }
-  button.ghost { background:transparent; color:var(--accent); border:1px solid var(--line); }
-  button.danger { background:var(--danger); }
-  button.small { padding:4px 10px; font-size:13px; }
-  .row { display:flex; gap:12px; flex-wrap:wrap; align-items:end; } .row > * { flex:1 1 160px; } .row > .fit { flex:0 0 auto; }
-  .top { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
-  .msg { margin-top:12px; padding:10px 12px; border-radius:6px; font-size:14px; white-space:pre-wrap; display:none; }
-  .msg.err { display:block; background:color-mix(in srgb, var(--danger) 12%, transparent); color:var(--danger); }
-  .msg.ok { display:block; background:color-mix(in srgb, var(--ok) 12%, transparent); color:var(--ok); }
-  .hidden { display:none !important; }
-  .tabs { display:flex; gap:4px; margin-top:16px; border-bottom:1px solid var(--line); overflow-x:auto; }
-  .tabs button { background:transparent; color:var(--muted); border-radius:6px 6px 0 0; border-bottom:2px solid transparent; white-space:nowrap; }
-  .tabs button.on { color:var(--accent); border-bottom-color:var(--accent); }
-  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:12px; }
-  .tile { border:1px solid var(--line); border-radius:8px; padding:8px; display:flex; flex-direction:column; gap:4px; background:var(--bg); }
-  .tile img { width:100%; aspect-ratio:63/88; object-fit:contain; border-radius:4px; background:var(--card); }
-  .tile .name { font-weight:600; font-size:14px; }
-  .r { display:inline-block; padding:1px 8px; border-radius:999px; font-size:12px; border:1px solid currentColor; width:fit-content; }
-  .r-common { color:var(--common); } .r-rare { color:var(--rare); } .r-epic { color:var(--epic); } .r-legendary { color:var(--legendary); }
-  table { width:100%; border-collapse:collapse; font-size:14px; }
-  th, td { text-align:left; padding:8px 6px; border-bottom:1px solid var(--line); vertical-align:top; }
-  th { color:var(--muted); font-weight:500; font-size:13px; }
-  .scroll { overflow-x:auto; }
-  .pager { display:flex; gap:8px; align-items:center; justify-content:center; margin-top:12px; }
-  .qty { width:64px; padding:4px 6px; }
+:root {
+  --bg-top: #dcebfa; --bg-bottom: #f6f9fd;
+  --surface: #ffffff; --surface-2: #eef4fb; --line: #dfe8f3;
+  --text: #24314a; --muted: #7a879e; --heading: #1d2a44;
+  --accent: #19a7ce; --accent-2: #2f7de1; --accent-soft: #e2f4fb;
+  --gold: #f4b324; --ok: #22a06b; --ok-soft: #e1f6ec; --warn: #c27c00; --warn-soft: #fff4dc; --bad: #e0474c; --bad-soft: #fde8e8;
+  --d-common: #8fa3bf; --d-rare: #3fa9e6; --d-epic: #a463e8; --d-legendary: #f0a91a;
+  --radius: 20px; --radius-sm: 14px;
+  --shadow: 0 2px 6px rgba(43,74,120,.06), 0 10px 30px rgba(43,74,120,.08);
+  --shadow-lift: 0 6px 14px rgba(43,74,120,.12), 0 20px 40px rgba(43,74,120,.12);
+  --tabbar: 78px;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; }
+html { background: var(--bg-bottom); overflow-x: clip; }
+body {
+  font: 15px/1.55 "IBM Plex Sans Thai", system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--text);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255,255,255,.9), transparent 40%),
+    radial-gradient(circle at 100% 30%, rgba(186,224,250,.6), transparent 45%),
+    linear-gradient(180deg, var(--bg-top), var(--bg-bottom) 60%) fixed;
+  min-height: 100vh;
+}
+body::before { /* ลายหกเหลี่ยมจางๆ ด้านหลัง */
+  content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .35; z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34L28 66zm0 32L0 82V66l28 16 28-16v16L28 98z' fill='none' stroke='%23ffffff' stroke-width='1.2'/%3E%3C/svg%3E");
+}
+h1, h2, h3, .display { font-family: "Mitr", "IBM Plex Sans Thai", sans-serif; font-weight: 500; color: var(--heading); letter-spacing: .01em; }
+a { color: inherit; text-decoration: none; }
+button, input, select { font: inherit; color: inherit; }
+img { display: block; max-width: 100%; }
+.hidden { display: none !important; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.app { max-width: 980px; margin: 0 auto; padding: 0 18px calc(var(--tabbar) + 36px); }
+
+/* ---------- top bar ---------- */
+.topbar { position: sticky; top: 0; z-index: 30; padding: 12px 0 10px; display: flex; align-items: center; gap: 12px; }
+.topbar::before { /* พื้นหลังแถบบนยืดเต็มความกว้างจอ ไม่ตัดขอบตามกรอบเนื้อหา */
+  content: ""; position: absolute; top: 0; bottom: -12px; left: calc(50% - 50vw); right: calc(50% - 50vw); z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(220,235,250,.92), rgba(220,235,250,.7) 65%, rgba(220,235,250,0));
+  -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent); mask-image: linear-gradient(180deg, #000 70%, transparent); backdrop-filter: blur(6px);
+}
+.brand { display: flex; align-items: center; gap: 10px; font-family: "Mitr", sans-serif; font-size: 20px; font-weight: 600; color: var(--heading); }
+.brand-mark { width: 36px; height: 36px; flex: 0 0 auto; filter: drop-shadow(0 3px 6px rgba(40,60,110,.25)); transition: transform .3s; }
+.brand:hover .brand-mark { transform: rotate(-20deg); }
+.spacer { flex: 1; }
+.pill-chip { display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 6px 0 6px; border-radius: 999px; background: var(--surface); box-shadow: var(--shadow); font-weight: 600; font-family: "Mitr", sans-serif; }
+.pill-chip .plus { width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 15px; line-height: 1; margin-left: 2px; }
+.coin { width: 26px; height: 26px; border-radius: 50%; flex: 0 0 auto; background: radial-gradient(circle at 35% 30%, #fff3b8, #ffd34d 40%, #e9a400 75%, #c98500); box-shadow: inset 0 0 0 2px rgba(255,255,255,.55), 0 1px 2px rgba(150,100,0,.3); position: relative; }
+.coin::after { content: "C"; position: absolute; inset: 0; display: grid; place-items: center; font: 700 12px "Mitr", sans-serif; color: rgba(140,90,0,.75); }
+.coin.sm { width: 18px; height: 18px; }
+.coin.sm::after { font-size: 9px; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; border: 3px solid #fff; background: linear-gradient(135deg, #5fc8ef, #6f7ff5); color: #fff; display: grid; place-items: center; font: 600 16px "Mitr", sans-serif; cursor: pointer; box-shadow: var(--shadow); }
+.menu { position: absolute; right: 0; top: 60px; width: 250px; background: var(--surface); border-radius: 18px; box-shadow: var(--shadow-lift); padding: 8px; }
+.menu .head { padding: 10px 12px 12px; border-bottom: 1px solid var(--line); margin-bottom: 6px; }
+.menu a, .menu button { display: block; width: 100%; text-align: left; padding: 10px 12px; border-radius: 12px; background: none; border: 0; cursor: pointer; }
+.menu a:hover, .menu button:hover { background: var(--surface-2); }
+
+/* ---------- bottom tab bar ---------- */
+.tabbar { position: fixed; z-index: 40; left: 50%; transform: translateX(-50%); bottom: max(12px, env(safe-area-inset-bottom)); width: min(560px, calc(100% - 24px)); height: 66px; background: rgba(255,255,255,.96); border-radius: 26px; box-shadow: var(--shadow-lift); display: grid; grid-template-columns: repeat(5, 1fr); padding: 0 6px; }
+.tabbar a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 11px; font-weight: 600; color: var(--muted); position: relative; }
+.tabbar svg { width: 24px; height: 24px; }
+.tabbar a.on { color: var(--accent-2); }
+.tabbar .ic { width: 44px; height: 44px; border-radius: 16px; display: grid; place-items: center; transition: transform .2s, background .2s; }
+.tabbar a.on .ic { background: linear-gradient(135deg, #38c3ec, #2f7de1); color: #fff; transform: translateY(-14px); box-shadow: 0 8px 18px rgba(47,125,225,.35); }
+.tabbar a.on span:last-child { transform: translateY(-10px); }
+.tabbar.has-admin { grid-template-columns: repeat(6, 1fr); }
+.tabbar .admin-tab { display: none; }
+.tabbar.has-admin .admin-tab { display: flex; }
+.admin-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+.admin-stats button { border: 3px solid transparent; background: #fff; border-radius: 18px; box-shadow: var(--shadow); padding: 12px 10px; text-align: left; cursor: pointer; }
+.admin-stats button.on { border-color: var(--accent); }
+.admin-stats b { display: block; font: 600 26px "Mitr", sans-serif; color: var(--heading); line-height: 1.2; }
+.admin-stats span { font-size: 12px; color: var(--muted); }
+.customer { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--muted); margin-top: 2px; }
+.customer code { background: var(--surface-2); padding: 1px 6px; border-radius: 6px; font-size: 11px; }
+
+/* ---------- buttons / forms ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 46px; padding: 0 24px; border-radius: 999px; border: 0; background: linear-gradient(180deg, #2fc0ea, #1a94d6); color: #fff; font: 500 15px "Mitr", sans-serif; cursor: pointer; box-shadow: 0 4px 0 #1478b0, 0 8px 18px rgba(25,148,214,.3); transition: transform .08s, box-shadow .08s, filter .15s; white-space: nowrap; }
+.btn:hover { filter: brightness(1.05); }
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #1478b0, 0 4px 10px rgba(25,148,214,.25); }
+.btn:disabled { background: #c7d3e2; color: #fff; box-shadow: 0 4px 0 #aebdd0; cursor: not-allowed; filter: none; transform: none; }
+.btn.gold { background: linear-gradient(180deg, #ffd04f, #f3a712); color: #5a3a00; box-shadow: 0 4px 0 #c98400, 0 8px 18px rgba(240,170,20,.35); }
+.btn.gold:disabled { background: #e9dcb8; color: #8a7a55; box-shadow: 0 4px 0 #d3c49b; }
+.btn.white { background: #fff; color: var(--heading); box-shadow: 0 4px 0 #d3deeb, 0 8px 18px rgba(43,74,120,.1); }
+.btn.white:disabled { background: #f1f4f8; color: #b4bfcf; box-shadow: 0 4px 0 #e1e7ef; }
+.btn.danger { background: #fff; color: var(--bad); box-shadow: 0 3px 0 #f2c7c8; }
+.btn.sm { height: 36px; padding: 0 16px; font-size: 14px; }
+.btn.block { width: 100%; }
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.field label { font-size: 13px; font-weight: 600; color: #4a5872; }
+.input { width: 100%; height: 46px; padding: 0 16px; border: 2px solid var(--line); border-radius: 14px; background: var(--surface-2); outline: none; transition: border-color .15s, background .15s; }
+.input:focus { border-color: var(--accent); background: #fff; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+.form-error { color: var(--bad); font-size: 13px; white-space: pre-line; margin-bottom: 10px; }
+.form-error:empty { margin: 0; }
+
+/* ---------- common blocks ---------- */
+.page-title { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 10px 0 16px; }
+.page-title h1 { font-size: 26px; margin: 0; }
+.panel { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px; }
+.panel h3 { margin: 0 0 12px; font-size: 18px; }
+.section { margin-top: 26px; }
+.section-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.section-head h2 { margin: 0; font-size: 20px; }
+.section-head a { color: var(--accent-2); font-weight: 600; font-size: 14px; }
+.ribbon { display: inline-flex; align-items: center; gap: 6px; padding: 4px 14px; border-radius: 999px; background: #fff; box-shadow: var(--shadow); font: 500 13px "Mitr", sans-serif; color: var(--accent-2); }
+
+/* ---------- rarity diamonds ---------- */
+.rar { display: inline-flex; gap: 1px; font-size: 11px; line-height: 1; letter-spacing: -1px; white-space: nowrap; }
+.rar.common { color: var(--d-common); }
+.rar.rare { color: var(--d-rare); }
+.rar.epic { color: var(--d-epic); }
+.rar.legendary { color: var(--d-legendary); font-size: 13px; text-shadow: 0 0 6px rgba(255,200,60,.6); }
+
+/* ---------- pack stage (หน้าแรก) ---------- */
+.stage { position: relative; border-radius: 28px; padding: 18px 0; text-align: center; background: radial-gradient(ellipse at 50% 38%, rgba(255,255,255,.95), rgba(255,255,255,.4) 55%, transparent 72%); }
+.packs { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 24px calc(50% - 100px) 22px; scrollbar-width: none; }
+.packs::-webkit-scrollbar { display: none; }
+.pack { scroll-snap-align: center; flex: 0 0 200px; cursor: pointer; transition: transform .3s, opacity .3s, filter .3s; transform: scale(.8); opacity: .6; filter: saturate(.75); }
+.pack.on { transform: scale(1); opacity: 1; filter: none; }
+.foil { position: relative; height: 310px; border-radius: 12px; overflow: hidden; box-shadow: 0 18px 30px rgba(30,60,110,.28); }
+.foil::before, .foil::after { /* ขอบหยักบน-ล่างของซอง */
+  content: ""; position: absolute; left: 0; right: 0; height: 14px; z-index: 3;
+  background: repeating-linear-gradient(90deg, rgba(255,255,255,.55) 0 4px, rgba(0,0,0,.08) 4px 8px);
+}
+.foil::before { top: 0; }
+.foil::after { bottom: 0; }
+.foil .bg { position: absolute; inset: 0; }
+.foil .art { position: absolute; left: 50%; top: 52px; width: 124px; transform: translateX(-50%) rotate(-4deg); border-radius: 6px; box-shadow: 0 10px 20px rgba(0,0,0,.3); z-index: 1; }
+.foil .shine { position: absolute; inset: -40%; background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,.7) 48%, rgba(255,255,255,0) 56%); animation: sweep 3.6s ease-in-out infinite; z-index: 2; mix-blend-mode: soft-light; }
+.foil .label { position: absolute; left: 0; right: 0; bottom: 24px; z-index: 2; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+.foil .label b { display: block; font: 600 19px "Mitr", sans-serif; }
+.foil .label span { font-size: 12px; opacity: .9; }
+.pk-starter .bg { background: radial-gradient(circle at 30% 20%, #8ce3ff, transparent 50%), linear-gradient(160deg, #31b5ea, #2d6fd8 60%, #233f9e); }
+.pk-premium .bg { background: radial-gradient(circle at 70% 15%, #ffc2f1, transparent 50%), linear-gradient(160deg, #b36cf5, #e2549e 60%, #8f2c86); }
+.pk-legendary .bg { background: radial-gradient(circle at 50% 10%, #fff2b3, transparent 50%), linear-gradient(160deg, #ffcf4a, #f08a17 55%, #9c3f00); }
+.pk-other .bg { background: linear-gradient(160deg, #94a3b8, #475569); }
+.pack-info { max-width: 440px; margin: 0 auto; padding: 0 18px; }
+.pack-info .name { font: 500 22px "Mitr", sans-serif; color: var(--heading); }
+.dots { display: flex; justify-content: center; gap: 6px; margin: 0 0 12px; }
+.dots i { width: 7px; height: 7px; border-radius: 4px; background: #c3d2e4; transition: width .2s; }
+.dots i.on { background: var(--accent-2); width: 20px; }
+.rates { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 14px 0 18px; }
+.rate { background: var(--surface); border-radius: 14px; padding: 8px 4px; box-shadow: var(--shadow); }
+.rate b { display: block; font: 600 17px "Mitr", sans-serif; color: var(--heading); }
+.open-row { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+.cost { display: inline-flex; align-items: center; gap: 6px; font: 600 22px "Mitr", sans-serif; color: var(--heading); }
+.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.tile { background: var(--surface); border-radius: var(--radius-sm); box-shadow: var(--shadow); padding: 14px; display: flex; gap: 12px; align-items: center; }
+.tile .ic { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: var(--accent-soft); font-size: 20px; flex: 0 0 auto; }
+.tile b { display: block; font-family: "Mitr", sans-serif; font-weight: 500; color: var(--heading); }
+
+/* ---------- card grid (สมุดการ์ด) ---------- */
+.dex { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 16px 12px; }
+.pc { position: relative; cursor: pointer; transition: transform .15s; min-width: 0; }
+.pc:hover { transform: translateY(-4px); }
+.pc .face { aspect-ratio: 63 / 88; border-radius: 8px; overflow: hidden; background: linear-gradient(160deg, #e4ecf6, #cfdcec); box-shadow: 0 4px 10px rgba(30,60,110,.18); position: relative; }
+.pc .face img { width: 100%; height: 100%; object-fit: cover; }
+.pc.dim .face { filter: grayscale(.85) brightness(1.05); opacity: .55; }
+.pc .under { display: flex; justify-content: space-between; align-items: center; padding: 6px 2px 0; gap: 4px; }
+.pc .nm { font-size: 12px; font-weight: 600; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.pc .qty { position: absolute; right: -4px; top: -6px; z-index: 3; min-width: 28px; height: 22px; padding: 0 7px; border-radius: 999px; background: var(--heading); color: #fff; font: 600 12px "Mitr", sans-serif; display: grid; place-items: center; border: 2px solid #fff; }
+.pc .sel { position: absolute; left: 0; right: 0; top: 0; aspect-ratio: 63 / 88; z-index: 2; border-radius: 8px; box-shadow: 0 0 0 3px var(--accent), 0 0 18px rgba(25,167,206,.6); pointer-events: none; }
+.pc .shipn { position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); z-index: 2; background: var(--accent); color: #fff; font: 600 12px "Mitr", sans-serif; padding: 2px 10px; border-radius: 999px; white-space: nowrap; }
+.holo .face::after { /* ประกายบนการ์ดหายาก */
+  content: ""; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: color-dodge; opacity: .35;
+  background: linear-gradient(125deg, transparent 30%, rgba(255,120,220,.5) 42%, rgba(120,220,255,.5) 50%, rgba(255,240,120,.5) 58%, transparent 70%); background-size: 250% 250%; animation: holo 4s linear infinite;
+}
+
+/* ---------- toolbar ---------- */
+.toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+.search { position: relative; flex: 1; min-width: 200px; }
+.search .input { padding-left: 42px; background: #fff; border-color: #fff; box-shadow: var(--shadow); }
+.search .input:focus { border-color: var(--accent); }
+.search svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+.seg { display: inline-flex; background: rgba(255,255,255,.7); border-radius: 999px; padding: 4px; box-shadow: var(--shadow); flex-wrap: wrap; }
+.seg button { border: 0; background: none; height: 36px; padding: 0 14px; border-radius: 999px; cursor: pointer; font-weight: 600; font-size: 13px; color: var(--muted); display: inline-flex; align-items: center; gap: 4px; }
+.seg button.on { background: #fff; color: var(--heading); box-shadow: 0 2px 6px rgba(43,74,120,.12); }
+.pager { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 22px; }
+.count-line { margin: -6px 0 14px; font-size: 13px; color: var(--muted); }
+
+/* ---------- collection: progress + ship bar ---------- */
+.progress-card { display: flex; align-items: center; gap: 18px; }
+.ring { --p: 0; width: 66px; height: 66px; border-radius: 50%; background: conic-gradient(var(--accent) calc(var(--p) * 1%), #e3ebf5 0); display: grid; place-items: center; flex: 0 0 auto; }
+.ring span { width: 52px; height: 52px; border-radius: 50%; background: #fff; display: grid; place-items: center; font: 600 13px/1.1 "Mitr", sans-serif; text-align: center; color: var(--heading); }
+.ring small { display: block; font: 400 10px "IBM Plex Sans Thai", sans-serif; color: var(--muted); }
+.stats { display: flex; gap: 22px; flex-wrap: wrap; }
+.stats div b { display: block; font: 600 22px "Mitr", sans-serif; color: var(--heading); }
+.shipbar { position: fixed; z-index: 35; left: 50%; transform: translateX(-50%); bottom: calc(max(12px, env(safe-area-inset-bottom)) + 76px); width: min(560px, calc(100% - 24px)); background: var(--heading); color: #fff; border-radius: 22px; padding: 10px 10px 10px 18px; display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow-lift); animation: up .2s; }
+.shipbar .meta { flex: 1; min-width: 0; }
+.shipbar .meta b { font: 500 16px "Mitr", sans-serif; }
+.shipbar .meta div { font-size: 12px; opacity: .85; }
+.mini-progress { height: 5px; border-radius: 999px; background: rgba(255,255,255,.2); overflow: hidden; margin-top: 4px; }
+.mini-progress span { display: block; height: 100%; background: #6be2a6; transition: width .3s; }
+.stepper { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 6px; background: #fff; border-radius: 999px; box-shadow: var(--shadow); padding: 3px; }
+.stepper button { width: 28px; height: 28px; border-radius: 50%; border: 0; background: var(--surface-2); cursor: pointer; font-size: 16px; line-height: 1; }
+.stepper button:disabled { opacity: .35; cursor: not-allowed; }
+.stepper span { font: 500 12px "Mitr", sans-serif; white-space: nowrap; }
+
+/* ---------- address ---------- */
+.addr { border: 2px solid var(--line); border-radius: 16px; padding: 12px 14px; cursor: pointer; display: flex; gap: 10px; margin-bottom: 10px; font-size: 14px; background: #fff; }
+.addr.on { border-color: var(--accent); background: var(--accent-soft); }
+.addr input { margin-top: 4px; accent-color: var(--accent); }
+.tag { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; background: var(--accent-soft); color: var(--accent-2); vertical-align: 1px; }
+.summary-row { display: flex; justify-content: space-between; gap: 10px; padding: 5px 0; }
+.summary-row.total { border-top: 2px dashed var(--line); margin-top: 8px; padding-top: 12px; font: 500 18px "Mitr", sans-serif; color: var(--heading); }
+
+/* ---------- orders ---------- */
+.order { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 18px; margin-bottom: 14px; }
+.order-top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+.order-top b { font: 500 17px "Mitr", sans-serif; color: var(--heading); }
+.fan { display: flex; align-items: center; padding: 14px 0 4px 6px; overflow-x: auto; scrollbar-width: none; }
+.fan img { width: 54px; border-radius: 4px; box-shadow: 0 3px 8px rgba(0,0,0,.18); margin-left: -6px; border: 2px solid #fff; flex: 0 0 auto; }
+.fan .more { margin-left: 12px; font-size: 13px; color: var(--muted); white-space: nowrap; }
+.track { display: flex; margin: 14px 0 4px; }
+.track > div { flex: 1; text-align: center; position: relative; font-size: 11px; color: var(--muted); }
+.track > div::before { content: ""; position: absolute; top: 10px; left: -50%; right: 50%; height: 4px; border-radius: 4px; background: var(--line); }
+.track > div:first-child::before { display: none; }
+.track i { position: relative; z-index: 1; display: grid; place-items: center; width: 24px; height: 24px; margin: 0 auto 4px; border-radius: 50%; background: #fff; border: 3px solid var(--line); font-style: normal; font-size: 11px; color: #fff; }
+.track > div.done { color: var(--heading); font-weight: 600; }
+.track > div.done i { background: var(--ok); border-color: var(--ok); }
+.track > div.done::before { background: var(--ok); }
+.status { padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.s-PENDING { background: var(--warn-soft); color: var(--warn); }
+.s-PROCESSING { background: var(--accent-soft); color: var(--accent-2); }
+.s-SHIPPED { background: #f1e6ff; color: #8a46d6; }
+.s-DELIVERED { background: var(--ok-soft); color: var(--ok); }
+.s-CANCELLED { background: var(--bad-soft); color: var(--bad); }
+.order-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; border-top: 1px solid var(--line); margin-top: 12px; padding-top: 12px; font-size: 13px; }
+
+/* ---------- shop / wallet ---------- */
+.balance { display: flex; align-items: center; gap: 16px; padding: 22px; border-radius: 24px; color: #fff; background: radial-gradient(circle at 90% 0%, rgba(255,214,90,.55), transparent 45%), linear-gradient(135deg, #2f7de1, #19a7ce); box-shadow: var(--shadow-lift); }
+.balance .coin { width: 58px; height: 58px; }
+.balance .coin::after { font-size: 24px; }
+.balance b { display: block; font: 600 34px "Mitr", sans-serif; line-height: 1.15; }
+.shop { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.offer { background: #fff; border-radius: 18px; box-shadow: var(--shadow); padding: 16px 10px 12px; text-align: center; cursor: pointer; border: 3px solid transparent; transition: transform .15s; position: relative; }
+.offer:hover { transform: translateY(-3px); }
+.offer.on { border-color: var(--accent); }
+.offer .stack { height: 52px; display: flex; justify-content: center; align-items: end; margin-bottom: 6px; }
+.offer .stack .coin { width: 34px; height: 34px; margin-left: -14px; }
+.offer .stack .coin:first-child { margin-left: 0; }
+.offer .stack .coin::after { font-size: 14px; }
+.offer b { display: block; font: 600 20px "Mitr", sans-serif; color: var(--heading); }
+.offer .badge-best { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #5a3a00; font: 600 11px "Mitr", sans-serif; padding: 2px 10px; border-radius: 999px; white-space: nowrap; }
+.tx { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.tx:last-of-type { border-bottom: 0; }
+.tx .ic { width: 40px; height: 40px; border-radius: 14px; display: grid; place-items: center; flex: 0 0 auto; font-size: 17px; }
+.tx .ic.credit { background: var(--ok-soft); color: var(--ok); }
+.tx .ic.debit { background: var(--bad-soft); color: var(--bad); }
+.tx .mid { flex: 1; min-width: 0; }
+.tx .mid div { font-size: 12px; color: var(--muted); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.tx .amt { text-align: right; font: 600 16px "Mitr", sans-serif; white-space: nowrap; }
+.tx .amt.plus { color: var(--ok); }
+.tx .amt.minus { color: var(--bad); }
+.tx .amt div { font: 400 12px "IBM Plex Sans Thai", sans-serif; color: var(--muted); }
+
+/* ---------- modal (bottom sheet บนมือถือ) ---------- */
+.overlay { position: fixed; inset: 0; background: rgba(20,35,65,.5); z-index: 50; display: grid; place-items: center; padding: 20px; animation: fade .15s; }
+.modal { background: var(--bg-bottom); border-radius: 26px; width: 100%; max-width: 460px; max-height: calc(100vh - 40px); overflow: auto; padding: 24px; position: relative; box-shadow: 0 30px 80px rgba(0,0,0,.3); animation: pop .2s; }
+.modal.wide { max-width: 780px; }
+.modal h2 { margin: 0 0 6px; padding-right: 36px; font-size: 22px; }
+.x { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; border: 0; background: #fff; box-shadow: var(--shadow); cursor: pointer; font-size: 18px; z-index: 2; }
+.tabs2 { display: flex; background: var(--surface-2); border-radius: 999px; padding: 4px; margin: 16px 0 18px; }
+.tabs2 button { flex: 1; height: 38px; border: 0; border-radius: 999px; background: none; cursor: pointer; font-weight: 600; color: var(--muted); }
+.tabs2 button.on { background: #fff; color: var(--heading); box-shadow: 0 2px 6px rgba(43,74,120,.12); }
+.detail { display: grid; grid-template-columns: 300px 1fr; gap: 26px; align-items: start; }
+.tilt { perspective: 900px; }
+.tilt .card3d { position: relative; border-radius: 14px; overflow: hidden; transform-style: preserve-3d; transition: transform .15s ease-out; box-shadow: 0 20px 40px rgba(20,40,80,.35); }
+.tilt .card3d img { width: 100%; }
+.tilt .glare { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at var(--gx, 50%) var(--gy, 30%), rgba(255,255,255,.55), transparent 45%); mix-blend-mode: overlay; }
+.tilt .rainbow { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: color-dodge; opacity: .3; background: linear-gradient(calc(110deg + var(--ga, 0deg)), transparent 25%, #ff7ad9 40%, #7ae2ff 50%, #fff27a 60%, transparent 75%); }
+.kv { display: grid; grid-template-columns: 96px 1fr; gap: 8px 10px; font-size: 14px; margin: 14px 0; }
+.kv span:nth-child(odd) { color: var(--muted); }
+.attack { background: #fff; border-radius: 14px; padding: 10px 14px; margin-bottom: 8px; font-size: 14px; box-shadow: var(--shadow); }
+.attack b { display: flex; justify-content: space-between; font-family: "Mitr", sans-serif; font-weight: 500; }
+
+/* ---------- toast / misc ---------- */
+.toasts { position: fixed; top: 16px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; gap: 8px; z-index: 60; width: min(420px, calc(100% - 32px)); pointer-events: none; }
+.toast { background: #fff; color: var(--heading); padding: 12px 16px; border-radius: 16px; box-shadow: var(--shadow-lift); font-size: 14px; display: flex; gap: 10px; animation: drop .25s; white-space: pre-line; font-weight: 500; }
+.toast::before { flex: 0 0 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 12px; }
+.toast.ok::before { content: "✓"; background: var(--ok); }
+.toast.err::before { content: "!"; background: var(--bad); }
+.empty { text-align: center; padding: 40px 20px; background: rgba(255,255,255,.75); border-radius: var(--radius); color: var(--muted); white-space: pre-line; }
+.empty .ico { font-size: 40px; margin-bottom: 6px; }
+.empty b { display: block; color: var(--heading); font: 500 18px "Mitr", sans-serif; margin-bottom: 2px; }
+.skel { background: linear-gradient(90deg, #e3ebf5 25%, #f3f7fc 37%, #e3ebf5 63%); background-size: 400% 100%; animation: sh 1.2s infinite; border-radius: 10px; }
+.notice { display: flex; gap: 10px; padding: 12px 14px; border-radius: 14px; background: var(--warn-soft); color: #7a4a00; font-size: 14px; margin-bottom: 14px; }
+.notice.info { background: var(--accent-soft); color: #145c86; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); display: inline-block; }
+.dot.up { background: var(--ok); }
+.dot.down { background: var(--bad); }
+.health { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 400; }
+.foot { text-align: center; color: var(--muted); font-size: 12px; margin-top: 40px; }
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+@keyframes fade { from { opacity: 0; } }
+@keyframes pop { from { opacity: 0; transform: scale(.96) translateY(8px); } }
+@keyframes up { from { opacity: 0; transform: translate(-50%, 12px); } }
+@keyframes drop { from { opacity: 0; transform: translateY(-10px); } }
+@keyframes sh { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
+@keyframes sweep { 0%, 20% { transform: translateX(-60%); } 70%, 100% { transform: translateX(60%); } }
+@keyframes holo { 0% { background-position: 0% 0%; } 100% { background-position: 250% 250%; } }
+@keyframes sheet { from { transform: translateY(40px); opacity: 0; } }
+
+@media (max-width: 760px) {
+  .app { padding: 0 14px calc(var(--tabbar) + 36px); }
+  .brand span { display: none; }
+  .tiles { grid-template-columns: 1fr; }
+  .dex { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 10px; }
+  .detail { grid-template-columns: 1fr; }
+  .detail .tilt { max-width: 250px; width: 100%; margin: 0 auto; }
+  .shop { grid-template-columns: repeat(2, 1fr); }
+  .admin-stats { grid-template-columns: repeat(2, 1fr); }
+  .tabbar.has-admin a { font-size: 10px; }
+  .split { grid-template-columns: minmax(0, 1fr); }
+  .grid2 { grid-template-columns: 1fr; }
+  .overlay { place-items: end center; padding: 0; }
+  .modal { border-radius: 26px 26px 0 0; max-height: 92vh; padding-bottom: calc(24px + env(safe-area-inset-bottom)); animation: sheet .25s; }
+  .page-title h1 { font-size: 22px; }
+  .stats { gap: 14px; }
+  .stats div b { font-size: 19px; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 </style>
 </head>
 <body>
-<main>
-  <h1>Gacha Platform · Demo</h1>
-  <div class="muted">หน้าทดลองเรียก API ของ user-service, card-catalog-service และ collection-service ในเครื่อง</div>
+<div class="app">
+  <header class="topbar">
+    <a href="#/" class="brand"><svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="pbTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff6b6b"/><stop offset="1" stop-color="#e3262f"/></linearGradient><linearGradient id="pbBot" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dfe6ef"/></linearGradient></defs><circle cx="32" cy="32" r="29" fill="url(#pbBot)"/><path d="M3 32a29 29 0 0 1 58 0z" fill="url(#pbTop)"/><path d="M14 16a22 22 0 0 1 14-7" stroke="#fff" stroke-opacity=".55" stroke-width="4" stroke-linecap="round" fill="none"/><rect x="3" y="29" width="58" height="6" fill="#26304a"/><circle cx="32" cy="32" r="29" fill="none" stroke="#26304a" stroke-width="4"/><circle cx="32" cy="32" r="10" fill="#fff" stroke="#26304a" stroke-width="4"/><circle cx="32" cy="32" r="4.5" fill="none" stroke="#c9d3e0" stroke-width="2"/></svg><span>CardDrop</span></a>
+    <div class="spacer"></div>
+    <div id="navRight" style="display:flex;gap:10px;align-items:center"></div>
+    <div class="menu hidden" id="userMenu"></div>
+  </header>
+  <main id="view"></main>
+  <div class="foot">CardDrop · โปรเจควิชา Deploy and Testing · ภาพการ์ดจาก Pokémon TCG API</div>
+</div>
 
-  <section>
-    <details>
-      <summary><b>ตั้งค่า</b> <span class="muted">(URL ของแต่ละ service)</span></summary>
-      <div class="row">
-        <div><label>user-service</label><input id="userUrl" value="http://localhost:3001"></div>
-        <div><label>card-catalog-service</label><input id="catalogUrl" value="http://localhost:3003"></div>
-        <div><label>collection-service</label><input id="collUrl" value="http://localhost:3005"></div>
-      </div>
-    </details>
-  </section>
+<nav class="tabbar" id="tabbar">
+  <a href="#/" data-route="home"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/></svg></span><span>หน้าหลัก</span></a>
+  <a href="#/cards" data-route="cards"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="12" height="17" rx="2"/><path d="M19 6.5v13a1.5 1.5 0 0 1-1.5 1.5H8"/></svg></span><span>สมุดการ์ด</span></a>
+  <a href="#/collection" data-route="collection"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H10l2 2.5h6.5A1.5 1.5 0 0 1 20 8v10.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5z"/><path d="m12 10 1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z"/></svg></span><span>คอลเลกชัน</span></a>
+  <a href="#/orders" data-route="orders"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/></svg></span><span>จัดส่ง</span></a>
+  <a href="#/wallet" data-route="wallet"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h16l-1.2 11.2a1.5 1.5 0 0 1-1.5 1.3H6.7a1.5 1.5 0 0 1-1.5-1.3z"/><path d="M8.5 8V6.5a3.5 3.5 0 0 1 7 0V8"/></svg></span><span>ร้านค้า</span></a>
+  <a href="#/admin" data-route="admin" class="admin-tab"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.5 3.2 8.2 7.5 9.5 4.3-1.3 7.5-5 7.5-9.5V6z"/><path d="m9 12 2 2 4-4"/></svg></span><span>แอดมิน</span></a>
+</nav>
 
-  <section id="loginBox">
-    <h2>ล็อกอิน</h2>
-    <form id="loginForm" class="row">
-      <div><label>อีเมล</label><input id="email" value="somchai@example.com" autocomplete="username"></div>
-      <div><label>รหัสผ่าน</label><input id="password" type="password" value="password123" autocomplete="current-password"></div>
-      <div class="fit"><button>เข้าสู่ระบบ</button></div>
-    </form>
-    <div class="muted" style="margin-top:8px">บัญชีตัวอย่าง: somchai@example.com, somying@example.com (admin) รหัส password123</div>
-    <div id="loginMsg" class="msg"></div>
-  </section>
-
-  <div id="app" class="hidden">
-    <section class="top">
-      <div><b id="who"></b><div class="muted" id="whoId"></div></div>
-      <button class="ghost" id="logout">ออกจากระบบ</button>
-    </section>
-
-    <nav class="tabs" id="tabs">
-      <button data-tab="catalog" class="on">แคตตาล็อก</button>
-      <button data-tab="collection">คอลเลกชันของฉัน</button>
-      <button data-tab="orders">คำสั่งจัดส่ง</button>
-    </nav>
-
-    <!-- แคตตาล็อก -->
-    <section data-panel="catalog">
-      <div class="row">
-        <div><label>ค้นหาชื่อ</label><input id="q" placeholder="เช่น Charizard"></div>
-        <div><label>ความหายาก</label><select id="rarity"><option value="">ทั้งหมด</option><option>common</option><option>rare</option><option>epic</option><option>legendary</option></select></div>
-        <div class="fit"><button id="search">ค้นหา</button></div>
-      </div>
-      <div class="muted" id="catalogInfo" style="margin:12px 0 8px"></div>
-      <div class="grid" id="catalogGrid"></div>
-      <div class="pager"><button class="ghost small" id="prev">‹ ก่อนหน้า</button><span id="pageNo" class="muted"></span><button class="ghost small" id="next">ถัดไป ›</button></div>
-      <div id="catalogMsg" class="msg"></div>
-    </section>
-
-    <!-- คอลเลกชัน -->
-    <section data-panel="collection" class="hidden">
-      <div class="top"><h2>การ์ดของฉัน</h2><button class="ghost small" id="reloadCards">รีเฟรช</button></div>
-      <div class="grid" id="myCards"></div>
-      <h3>ขอจัดส่งการ์ดจริง</h3>
-      <div class="muted" id="feeHint">ใส่จำนวนที่จะขอส่งใต้การ์ดแต่ละใบ</div>
-      <div class="row">
-        <div><label>ที่อยู่จัดส่ง (จาก user-service)</label><select id="address"></select></div>
-        <div class="fit"><button class="ghost" id="toggleAddr">+ เพิ่มที่อยู่</button></div>
-        <div class="fit"><button id="createOrder">ขอจัดส่ง</button></div>
-      </div>
-      <form id="addrForm" class="hidden">
-        <div class="row">
-          <div><label>ชื่อผู้รับ</label><input name="recipientName" required></div>
-          <div><label>เบอร์โทร</label><input name="phone" value="0812345678" required></div>
-        </div>
-        <div class="row">
-          <div><label>ที่อยู่</label><input name="line1" required></div>
-          <div><label>อำเภอ/เขต</label><input name="district" required></div>
-          <div><label>จังหวัด</label><input name="province" required></div>
-          <div><label>รหัสไปรษณีย์</label><input name="postalCode" maxlength="5" required></div>
-          <div class="fit"><button>บันทึกที่อยู่</button></div>
-        </div>
-      </form>
-      <div id="orderMsg" class="msg"></div>
-    </section>
-
-    <!-- คำสั่งจัดส่ง -->
-    <section data-panel="orders" class="hidden">
-      <div class="top">
-        <h2>คำสั่งจัดส่งของฉัน</h2>
-        <div class="row" style="flex:0 0 auto">
-          <label class="fit" style="display:flex;gap:6px;align-items:center;margin:0"><input id="adminMode" type="checkbox"> แสดงปุ่ม admin</label>
-          <button class="ghost small fit" id="reloadOrders">รีเฟรช</button>
-        </div>
-      </div>
-      <div class="scroll"><table>
-        <thead><tr><th>วันที่</th><th>รายการ</th><th>ค่าส่ง</th><th>ชำระ</th><th>สถานะ</th><th>Tracking</th><th></th></tr></thead>
-        <tbody id="orders"></tbody>
-      </table></div>
-      <div class="muted" style="margin-top:8px">ปุ่ม admin ใช้ได้เมื่อ userId อยู่ใน ADMIN_USER_IDS (mock: somying) ถ้าไม่ใช่จะได้ 403</div>
-      <div id="ordersMsg" class="msg"></div>
-    </section>
-  </div>
-</main>
+<div class="toasts" id="toasts"></div>
+<div id="shipRoot"></div>
+<div id="modalRoot"></div>
 
 <script>
-const $ = (id) => document.getElementById(id);
-const state = { token: null, user: null, page: 1, totalPages: 1 };
-const store = (kind) => ({
+// ============================================================
+//  config / state
+// ============================================================
+// เปิดผ่านเว็บ (nginx ใน docker compose): เรียก /api/<service> บนโดเมนเดียวกัน
+// เปิดไฟล์ตรงๆ (file://) ตอนพัฒนา: เรียกพอร์ตของแต่ละ service บนเครื่อง
+const VIA_PROXY = location.protocol === 'http:' || location.protocol === 'https:';
+const SERVICES = {
+  user: { label: 'User Service', port: 3001 },
+  wallet: { label: 'Wallet Service', port: 3002 },
+  catalog: { label: 'Card Catalog Service', port: 3003 },
+  collection: { label: 'Collection Service', port: 3005 },
+};
+const baseUrl = (svc) => (VIA_PROXY ? `/api/${svc}` : `http://localhost:${SERVICES[svc].port}`);
+const RARITIES = ['common', 'rare', 'epic', 'legendary'];
+const RARITY_TH = { common: 'Common', rare: 'Rare', epic: 'Epic', legendary: 'Legendary' };
+const STATUS_TH = { PENDING: 'รอดำเนินการ', PROCESSING: 'กำลังเตรียมของ', SHIPPED: 'จัดส่งแล้ว', DELIVERED: 'ได้รับแล้ว', CANCELLED: 'ยกเลิกแล้ว' };
+const PAY_TH = { NOT_REQUIRED: 'ไม่มีค่าใช้จ่าย', PAID: 'ชำระแล้ว', REFUNDED: 'คืนเงินแล้ว' };
+const TX_TH = { topup: 'เติมเครดิต', purchase: 'ซื้อแพ็ก', charge: 'ค่าจัดส่ง', refund: 'คืนเงิน' };
+const TX_ICON = { topup: '＋', purchase: '🎴', charge: '📦', refund: '↺' };
+const NEXT = { PENDING: ['PROCESSING', 'CANCELLED'], PROCESSING: ['SHIPPED', 'CANCELLED'], SHIPPED: ['DELIVERED'] };
+const FLOW = ['PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED'];
+const FREE_AT = 5, FEE = 50;   // ตรงกับกติกาค่าส่งของ collection-service
+
+const safe = (kind) => ({
   get(k) { try { return JSON.parse(window[kind].getItem(k)); } catch { return null; } },
   set(k, v) { try { window[kind].setItem(k, JSON.stringify(v)); } catch {} },
   del(k) { try { window[kind].removeItem(k); } catch {} },
 });
-// login อยู่ใน sessionStorage (รีเฟรชหน้าไม่หลุด) ส่วน URL อยู่ใน localStorage
-const session = store('sessionStorage');
-const prefs = store('localStorage');
-const NEXT = { PENDING: ['PROCESSING', 'CANCELLED'], PROCESSING: ['SHIPPED', 'CANCELLED'], SHIPPED: ['DELIVERED'] };
+const session = safe('sessionStorage');
 
-const show = (el, text, ok) => { el.className = 'msg ' + (ok ? 'ok' : 'err'); el.textContent = text; };
-const clear = (el) => { el.className = 'msg'; el.textContent = ''; };
+const state = {
+  token: null, user: null, balance: null,
+  admin: false,      // ตรวจจาก collection-service หลังล็อกอิน (ADMIN_USER_IDS)
+  cards: { q: '', rarity: '', page: 1 },
+  ship: {},          // cardId -> จำนวนที่เลือกจะส่ง
+  addressId: null,
+  packIndex: 0,
+  txPage: 1, txType: '',
+  topup: 300,
+};
+
+// ============================================================
+//  helpers
+// ============================================================
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const rarity = (r) => `<span class="r r-${esc(r)}">${esc(r)}</span>`;
-const auth = () => ({ Authorization: `Bearer ${state.token}` });
+const fmt = (n) => Number(n || 0).toLocaleString('th-TH');
+const dateTime = (s) => new Date(s).toLocaleString('th-TH', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+// ความหายากแบบเพชร: common ◆ · rare ◆◆ · epic ◆◆◆ · legendary ★
+const rar = (r) => `<span class="rar ${esc(r)}" title="${esc(RARITY_TH[r] || r)}">${r === 'legendary' ? '★' : '◆'.repeat({ common: 1, rare: 2, epic: 3 }[r] || 1)}</span>`;
+const isHolo = (r) => r === 'epic' || r === 'legendary';
+const uuid = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 12));
+const shortId = (id) => '#' + String(id).slice(0, 8).toUpperCase();
+const initials = (u) => ((u.displayName || u.firstName || '?')[0] || '?').toUpperCase();
+const PLACEHOLDER = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 63 88"><rect width="63" height="88" fill="#dbe5f1"/><text x="31.5" y="48" font-size="8" text-anchor="middle" fill="#8fa3bf" font-family="sans-serif">no image</text></svg>');
+const img = (src, alt, cls = '') => `<img ${cls ? `class="${cls}"` : ''} src="${esc(src || PLACEHOLDER)}" alt="${esc(alt)}" loading="lazy" onerror="this.onerror=null;this.src='${PLACEHOLDER}'">`;
+const formatAddress = (a) => [a.line1, a.line2, a.subdistrict, a.district, a.province, a.postalCode].filter(Boolean).join(' ');
 
-async function api(base, path, { method = 'GET', body, headers = {} } = {}) {
-  const url = $(base).value.replace(/\/$/, '') + path;
+function toast(msg, kind = 'ok') {
+  const el = document.createElement('div');
+  el.className = 'toast ' + kind;
+  el.textContent = msg;
+  $('#toasts').append(el);
+  setTimeout(() => el.remove(), kind === 'err' ? 6000 : 3200);
+}
+
+class ApiError extends Error {
+  constructor(message, status, code) { super(message); this.status = status; this.code = code; }
+}
+
+// ข้อความที่ผู้ใช้อ่านเข้าใจ แทน error code จาก service
+const FRIENDLY = {
+  INVALID_CREDENTIALS: 'อีเมลหรือรหัสผ่านไม่ถูกต้อง',
+  EMAIL_TAKEN: 'อีเมลนี้ถูกใช้แล้ว',
+  INSUFFICIENT_BALANCE: 'เครดิตไม่พอ กรุณาเติมเครดิตก่อน',
+  FORBIDDEN: 'บัญชีนี้ไม่มีสิทธิ์ทำรายการนี้',
+  TOO_MANY_REQUESTS: 'ส่งคำขอถี่เกินไป ลองใหม่อีกครั้งในอีกสักครู่',
+  WALLET_SERVICE_UNAVAILABLE: 'ระบบชำระเงินขัดข้องชั่วคราว ลองใหม่อีกครั้ง',
+  USER_SERVICE_UNAVAILABLE: 'ระบบผู้ใช้ขัดข้องชั่วคราว ลองใหม่อีกครั้ง',
+  CATALOG_SERVICE_UNAVAILABLE: 'ระบบแคตตาล็อกขัดข้องชั่วคราว ลองใหม่อีกครั้ง',
+};
+const FIELD_TH = {
+  email: 'อีเมล', password: 'รหัสผ่าน', newPassword: 'รหัสผ่านใหม่', currentPassword: 'รหัสผ่านปัจจุบัน',
+  firstName: 'ชื่อ', lastName: 'นามสกุล', displayName: 'ชื่อผู้เล่น',
+  recipientName: 'ชื่อผู้รับ', phone: 'เบอร์โทร', line1: 'บ้านเลขที่ ถนน', line2: 'อาคาร / หมู่บ้าน',
+  subdistrict: 'ตำบล / แขวง', district: 'อำเภอ / เขต', province: 'จังหวัด', postalCode: 'รหัสไปรษณีย์', amount: 'จำนวน',
+};
+
+async function api(svc, path, { method = 'GET', body, auth = false, headers = {} } = {}) {
+  const h = { ...headers };
+  if (body) h['Content-Type'] = 'application/json';
+  if (auth) h.Authorization = `Bearer ${state.token}`;
   let res;
   try {
-    res = await fetch(url, { method, headers: { ...(body ? { 'Content-Type': 'application/json' } : {}), ...headers }, body: body ? JSON.stringify(body) : undefined });
+    res = await fetch(baseUrl(svc) + path, { method, headers: h, body: body ? JSON.stringify(body) : undefined });
   } catch {
-    throw new Error(`ติดต่อ ${$(base).value} ไม่ได้ (service รันอยู่ไหม?)`);
+    throw new ApiError(`เชื่อมต่อ ${SERVICES[svc].label} ไม่ได้`, 0, 'NETWORK');
   }
   const data = res.status === 204 ? null : await res.json().catch(() => null);
   if (!res.ok) {
-    const e = data && data.error;
-    let msg = e ? `${res.status} ${e.code}: ${e.message}` : `HTTP ${res.status}`;
-    if (res.status === 401 && headers.Authorization) { logout(); show($('loginMsg'), 'token หมดอายุหรือใช้ไม่ได้ กรุณาล็อกอินใหม่'); }
-    if (e && Array.isArray(e.details)) msg += '\n' + e.details.map((d) => d.path !== undefined ? `${d.path}: ${d.message}` : `${d.cardId}: ขอ ${d.requested} มี ${d.available}`).join('\n');
-    throw new Error(msg);
+    const e = (data && data.error) || {};
+    // 401 จาก service ที่ใช้ token = token หมดอายุหรือใช้ไม่ได้ (ยกเว้นใส่รหัสผ่านเดิมผิดตอนเปลี่ยนรหัส)
+    if (res.status === 401 && auth && e.code !== 'INVALID_CREDENTIALS') {
+      logout(true);
+      throw new ApiError('เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่', 401, e.code);
+    }
+    let msg = FRIENDLY[e.code] || e.message || `เกิดข้อผิดพลาด (HTTP ${res.status})`;
+    // รายละเอียดช่องที่กรอกผิด: user-service ใช้ field ส่วน service อื่นใช้ path
+    const fields = Array.isArray(e.details) ? e.details.filter((d) => d && d.message && (d.field !== undefined || d.path !== undefined)) : [];
+    if (fields.length) {
+      if (e.code === 'VALIDATION_ERROR') msg = 'กรุณาตรวจสอบข้อมูลที่กรอก';
+      msg += '\n' + fields.map((d) => { const f = String(d.field ?? d.path); const label = FIELD_TH[f] || f; return `• ${label ? label + ': ' : ''}${d.message}`; }).join('\n');
+    }
+    throw new ApiError(msg, res.status, e.code);
   }
   return data;
 }
 
-// ---------- ตั้งค่า / ล็อกอิน ----------
-for (const id of ['userUrl', 'catalogUrl', 'collUrl']) {
-  const saved = prefs.get('demo-' + id);
-  if (saved) $(id).value = saved;
-  $(id).onchange = () => prefs.set('demo-' + id, $(id).value);
+const skeletonDex = (n = 12) => `<div class="dex">${Array.from({ length: n }, () => `<div><div class="skel" style="aspect-ratio:63/88"></div><div class="skel" style="height:12px;width:70%;margin-top:8px"></div></div>`).join('')}</div>`;
+const empty = (ico, title, text, action = '') => `<div class="empty"><div class="ico">${ico}</div><b>${title}</b><div>${text}</div>${action ? `<div style="margin-top:16px">${action}</div>` : ''}</div>`;
+const errorBox = (err, retry) => empty('⚠️', 'โหลดข้อมูลไม่สำเร็จ', esc(err.message), retry ? `<button class="btn white sm" onclick="${retry}">ลองอีกครั้ง</button>` : '');
+
+// ============================================================
+//  modal
+// ============================================================
+function openModal(html, { wide = false } = {}) {
+  const root = $('#modalRoot');
+  root.innerHTML = `<div class="overlay"><div class="modal ${wide ? 'wide' : ''}" role="dialog" aria-modal="true"></div></div>`;
+  const overlay = $('.overlay', root), modal = $('.modal', root);
+  overlay.onmousedown = (ev) => { if (ev.target === overlay) closeModal(); };
+  setModal(modal, html);
+  return modal;
+}
+function setModal(modal, html) {
+  modal.innerHTML = `<button class="x" aria-label="ปิด">×</button>${html}`;
+  $('.x', modal).onclick = closeModal;
+}
+function closeModal() { $('#modalRoot').innerHTML = ''; }
+document.addEventListener('keydown', (ev) => { if (ev.key === 'Escape') closeModal(); });
+
+// ============================================================
+//  auth
+// ============================================================
+function openAuth(mode = 'login') {
+  const m = openModal(`
+    <div style="text-align:center;margin-bottom:4px"><svg class="brand-mark" style="display:block;margin:0 auto 10px;width:56px;height:56px" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="pbTop2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff6b6b"/><stop offset="1" stop-color="#e3262f"/></linearGradient><linearGradient id="pbBot2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dfe6ef"/></linearGradient></defs><circle cx="32" cy="32" r="29" fill="url(#pbBot2)"/><path d="M3 32a29 29 0 0 1 58 0z" fill="url(#pbTop2)"/><path d="M14 16a22 22 0 0 1 14-7" stroke="#fff" stroke-opacity=".55" stroke-width="4" stroke-linecap="round" fill="none"/><rect x="3" y="29" width="58" height="6" fill="#26304a"/><circle cx="32" cy="32" r="29" fill="none" stroke="#26304a" stroke-width="4"/><circle cx="32" cy="32" r="10" fill="#fff" stroke="#26304a" stroke-width="4"/><circle cx="32" cy="32" r="4.5" fill="none" stroke="#c9d3e0" stroke-width="2"/></svg>
+    <h2 style="padding:0">ยินดีต้อนรับสู่ CardDrop</h2>
+    <div class="muted small">เข้าสู่ระบบเพื่อสะสมการ์ดและสั่งส่งใบจริง</div></div>
+    <div class="tabs2"><button data-mode="login">เข้าสู่ระบบ</button><button data-mode="register">สมัครสมาชิก</button></div>
+    <form id="authForm" novalidate></form>`);
+  const render = (mode) => {
+    $$('.tabs2 button', m).forEach((b) => b.classList.toggle('on', b.dataset.mode === mode));
+    const f = $('#authForm', m);
+    f.dataset.mode = mode;
+    f.innerHTML = mode === 'login' ? `
+      <div class="field"><label>อีเมล</label><input class="input" name="email" type="email" autocomplete="email"></div>
+      <div class="field"><label>รหัสผ่าน</label><input class="input" name="password" type="password" autocomplete="current-password"></div>
+      <div class="form-error"></div>
+      <button class="btn block">เข้าสู่ระบบ</button>
+      <p class="small muted" style="margin:16px 0 0;text-align:center">บัญชีทดลอง: somchai@example.com หรือ somying@example.com<br>รหัสผ่าน password123</p>` : `
+      <div class="grid2">
+        <div class="field"><label>ชื่อ</label><input class="input" name="firstName"></div>
+        <div class="field"><label>นามสกุล</label><input class="input" name="lastName"></div>
+      </div>
+      <div class="field"><label>ชื่อผู้เล่น</label><input class="input" name="displayName"></div>
+      <div class="field"><label>อีเมล</label><input class="input" name="email" type="email" autocomplete="email"></div>
+      <div class="field"><label>รหัสผ่าน (อย่างน้อย 8 ตัว)</label><input class="input" name="password" type="password" autocomplete="new-password"></div>
+      <div class="form-error"></div>
+      <button class="btn block">สร้างบัญชี</button>`;
+    $('input', f).focus();
+  };
+  $('.tabs2', m).onclick = (ev) => { const b = ev.target.closest('button'); if (b) render(b.dataset.mode); };
+  $('#authForm', m).onsubmit = async (ev) => {
+    ev.preventDefault();
+    const f = ev.target, btn = $('button', f), err = $('.form-error', f), mode = f.dataset.mode;
+    err.textContent = '';
+    btn.disabled = true;
+    try {
+      const body = Object.fromEntries(new FormData(f));
+      const data = await api('user', mode === 'login' ? '/auth/login' : '/auth/register', { method: 'POST', body });
+      setSession(data.accessToken, data.user);
+      closeModal();
+      toast(mode === 'login' ? `ยินดีต้อนรับ ${data.user.displayName}` : 'สร้างบัญชีเรียบร้อย');
+      route();
+    } catch (e) { err.textContent = e.message; btn.disabled = false; }
+  };
+  render(mode);
 }
 
-$('loginForm').onsubmit = async (ev) => {
-  ev.preventDefault();
-  clear($('loginMsg'));
+function setSession(token, user) {
+  state.token = token; state.user = user;
+  session.set('cd-session', { token, user });
+  renderNav();
+  loadBalance();
+  checkAdmin();
+}
+
+// บัญชีแอดมินคือบัญชีที่เรียก GET /admin/fulfillments/orders ได้ (ไม่ใช่แอดมินจะได้ 403)
+async function checkAdmin() {
+  let admin = false;
+  if (state.token) {
+    try { await api('collection', '/admin/fulfillments/orders?limit=1', { auth: true }); admin = true; } catch {}
+  }
+  if (admin !== state.admin) {
+    state.admin = admin;
+    renderNav();
+    if (location.hash.startsWith('#/admin')) route();
+  }
+}
+
+let loggingOut = false;
+function logout(expired = false) {
+  if (loggingOut) return;
+  loggingOut = true;
+  state.token = null; state.user = null; state.balance = null; state.ship = {}; state.addressId = null; state.admin = false;
+  session.del('cd-session');
+  renderNav();
+  if (expired) { route(); toast('เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่', 'err'); openAuth('login'); }
+  else { toast('ออกจากระบบแล้ว'); if (location.hash && location.hash !== '#/') location.hash = '#/'; else route(); }
+  setTimeout(() => { loggingOut = false; }, 0);
+}
+
+function requireLogin() {
+  if (state.token) return true;
+  $('#view').innerHTML = `<div style="margin-top:20px">${empty('🔒', 'กรุณาเข้าสู่ระบบ', 'หน้านี้ต้องเข้าสู่ระบบก่อน', `<button class="btn" onclick="openAuth('login')">เข้าสู่ระบบ</button>`)}</div>`;
+  return false;
+}
+
+// ============================================================
+//  nav
+// ============================================================
+function renderNav() {
+  $('#tabbar').classList.toggle('has-admin', !!(state.token && state.admin));
+  const r = $('#navRight');
+  if (!state.token) {
+    r.innerHTML = `<button class="btn white sm" onclick="openAuth('login')">เข้าสู่ระบบ</button>`;
+    $('#userMenu').classList.add('hidden');
+    return;
+  }
+  r.innerHTML = `
+    <a class="pill-chip" href="#/wallet" title="เครดิตคงเหลือ"><span class="coin"></span><span id="navBalance">${state.balance === null ? '—' : fmt(state.balance)}</span><span class="plus">+</span></a>
+    <button class="avatar" id="avatarBtn" aria-label="บัญชีของฉัน">${esc(initials(state.user))}</button>`;
+  $('#userMenu').innerHTML = `
+    <div class="head"><b class="display" style="font-size:16px">${esc(state.user.displayName)}</b><div class="small muted">${esc(state.user.email)}</div></div>
+    <a href="#/account">โปรไฟล์และที่อยู่</a>
+    <a href="#/wallet">ร้านค้าเครดิต</a>
+    <a href="#/orders">การจัดส่งของฉัน</a>
+    ${state.admin ? '<a href="#/admin">จัดการพัสดุ (แอดมิน)</a>' : ''}
+    <button id="logoutBtn" style="color:var(--bad)">ออกจากระบบ</button>`;
+  $('#avatarBtn').onclick = (ev) => { ev.stopPropagation(); $('#userMenu').classList.toggle('hidden'); };
+  $('#logoutBtn').onclick = () => logout();
+}
+document.addEventListener('click', (ev) => {
+  if (!ev.target.closest('#avatarBtn') && !ev.target.closest('#userMenu .head')) $('#userMenu').classList.add('hidden');
+});
+
+function showBalance(b) {
+  state.balance = b;
+  for (const id of ['navBalance', 'walletBal']) { const el = document.getElementById(id); if (el) el.textContent = b === null ? '—' : fmt(b); }
+}
+async function loadBalance() {
+  if (!state.token) return;
+  try { showBalance((await api('wallet', '/wallets/me', { auth: true })).balance); } catch { showBalance(null); }
+}
+
+// ============================================================
+//  router
+// ============================================================
+const ROUTES = { home: pageHome, cards: pageCards, collection: pageCollection, orders: pageOrders, wallet: pageWallet, account: pageAccount, admin: pageAdmin };
+function route() {
+  const name = location.hash.replace(/^#\/?/, '').split('?')[0] || 'home';
+  const page = ROUTES[name] ? name : 'home';
+  $$('#tabbar a').forEach((a) => a.classList.toggle('on', a.dataset.route === page));
+  $('#shipRoot').innerHTML = '';
+  window.scrollTo(0, 0);
+  ROUTES[page]();
+}
+window.addEventListener('hashchange', () => { closeModal(); route(); });
+
+// ============================================================
+//  หน้าหลัก: เลือกแพ็ก
+// ============================================================
+let packsCache = [];
+function pageHome() {
+  $('#view').innerHTML = `
+    <div class="stage">
+      <span class="ribbon">✦ เลือกแพ็กที่จะเปิด</span>
+      <div class="packs" id="packs">${'<div class="pack on"><div class="foil skel"></div></div>'.repeat(3)}</div>
+      <div class="dots" id="packDots"></div>
+      <div class="pack-info" id="packInfo"></div>
+    </div>
+    <div class="section">
+      <div class="section-head"><h2>การ์ดหายาก</h2><a href="#/cards">ดูทั้งหมด ›</a></div>
+      <div id="featured">${skeletonDex(6)}</div>
+    </div>
+    <div class="section tiles">
+      <div class="tile"><div class="ic">🪙</div><div><b>เติมเครดิต</b><span class="muted small">1 เครดิต = 1 บาท ใช้ซื้อแพ็กและจ่ายค่าส่ง</span></div></div>
+      <div class="tile"><div class="ic">🎴</div><div><b>เปิดแพ็ก</b><span class="muted small">การ์ดเข้าคอลเลกชันทันที ดูโอกาสได้แต่ละระดับก่อนซื้อ</span></div></div>
+      <div class="tile"><div class="ic">📦</div><div><b>สั่งส่งการ์ดจริง</b><span class="muted small">ค่าส่ง ${FEE} เครดิต ครบ ${FREE_AT} ใบส่งฟรี</span></div></div>
+    </div>`;
+
+  Promise.all([api('catalog', '/packs'), api('catalog', '/cards?rarity=legendary&limit=12').catch(() => ({ data: [] }))])
+    .then(([{ data }, leg]) => {
+      if (!$('#packs')) return;
+      packsCache = data;
+      if (!data.length) { $('#packs').innerHTML = ''; $('#packInfo').innerHTML = empty('📦', 'ยังไม่มีแพ็กวางขาย', 'กลับมาดูใหม่เร็วๆ นี้'); return; }
+      const arts = leg.data.map((c) => c.imageSmall);
+      $('#packs').innerHTML = data.map((p, i) => packFoil(p, arts.length ? arts[i % arts.length] : '')).join('');
+      $('#packDots').innerHTML = data.map(() => '<i></i>').join('');
+      state.packIndex = Math.min(state.packIndex, data.length - 1);
+      bindPacks();
+    }).catch((e) => { if ($('#packs')) { $('#packs').innerHTML = ''; $('#packInfo').innerHTML = errorBox(e, 'route()'); } });
+
+  Promise.all(['legendary', 'epic'].map((r) => api('catalog', `/cards?rarity=${r}&limit=6`))).then(([leg, epic]) => {
+    if (!$('#featured')) return;
+    const list = [...leg.data, ...epic.data].slice(0, 6);
+    $('#featured').innerHTML = list.length ? `<div class="dex">${list.map(dexCard).join('')}</div>` : empty('🃏', 'ยังไม่มีการ์ด', '');
+    bindCardClicks($('#featured'));
+  }).catch((e) => { if ($('#featured')) $('#featured').innerHTML = errorBox(e, 'route()'); });
+}
+
+function packFoil(p, art) {
+  const kind = ['starter', 'premium', 'legendary'].includes(p.id) ? p.id : 'other';
+  return `<div class="pack pk-${kind}" data-id="${esc(p.id)}">
+    <div class="foil"><div class="bg"></div>${art ? img(art, '', 'art') : ''}<div class="shine"></div>
+      <div class="label"><b>${esc(p.name)}</b><span>${p.cardsPerPack} ใบต่อแพ็ก</span></div></div>
+  </div>`;
+}
+
+function bindPacks() {
+  const strip = $('#packs');
+  const packs = $$('.pack', strip);
+  const select = (i, scroll) => {
+    state.packIndex = i;
+    packs.forEach((el, j) => el.classList.toggle('on', j === i));
+    $$('#packDots i').forEach((el, j) => el.classList.toggle('on', j === i));
+    renderPackInfo(packsCache[i]);
+    if (scroll) strip.scrollTo({ left: packs[i].offsetLeft - (strip.clientWidth - packs[i].offsetWidth) / 2, behavior: 'smooth' });
+  };
+  packs.forEach((el, i) => { el.onclick = () => select(i, true); });
+  let t;
+  strip.onscroll = () => {
+    clearTimeout(t);
+    t = setTimeout(() => {
+      const mid = strip.scrollLeft + strip.clientWidth / 2;
+      let best = 0, dist = Infinity;
+      packs.forEach((el, i) => { const d = Math.abs(el.offsetLeft + el.offsetWidth / 2 - mid); if (d < dist) { dist = d; best = i; } });
+      if (best !== state.packIndex) select(best, false);
+    }, 80);
+  };
+  select(state.packIndex, false);
+  strip.scrollLeft = packs[state.packIndex].offsetLeft - (strip.clientWidth - packs[state.packIndex].offsetWidth) / 2;
+}
+
+function renderPackInfo(p) {
+  const rates = p.rates || {};
+  $('#packInfo').innerHTML = `
+    <div class="name">${esc(p.name)}</div>
+    <div class="muted small">${esc(p.description || '')}</div>
+    <div class="rates">${RARITIES.map((r) => `<div class="rate">${rar(r)}<b>${rates[r] || 0}%</b></div>`).join('')}</div>
+    <div class="open-row">
+      <span class="cost"><span class="coin"></span>${fmt(p.priceCredits)}</span>
+      <button class="btn gold" disabled title="ระบบเปิดแพ็กยังไม่เปิดให้บริการ">เปิดแพ็ก · เร็วๆ นี้</button>
+    </div>`;
+}
+
+// ============================================================
+//  สมุดการ์ด
+// ============================================================
+function dexCard(c) {
+  return `<div class="pc ${isHolo(c.rarity) ? 'holo' : ''} ${c.available > 0 ? '' : 'dim'}" data-card="${esc(c.id)}" title="${esc(c.name)}">
+    <div class="face">${img(c.imageSmall, c.name)}</div>
+    <div class="under"><span class="nm">${esc(c.name)}</span>${rar(c.rarity)}</div>
+  </div>`;
+}
+function bindCardClicks(root) {
+  root.onclick = (ev) => { const c = ev.target.closest('[data-card]'); if (c) openCard(c.dataset.card); };
+}
+
+function pageCards() {
+  const s = state.cards;
+  $('#view').innerHTML = `
+    <div class="page-title"><h1>สมุดการ์ด</h1></div>
+    <div class="toolbar">
+      <form class="search" id="searchForm">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input class="input" id="q" placeholder="ค้นหาชื่อการ์ด" value="${esc(s.q)}" maxlength="50">
+      </form>
+      <div class="seg" id="rarityPills">
+        ${['', ...RARITIES].map((r) => `<button class="${s.rarity === r ? 'on' : ''}" data-r="${r}">${r ? rar(r) : 'ทั้งหมด'}</button>`).join('')}
+      </div>
+    </div>
+    <div class="count-line" id="cardsCount">กำลังโหลด…</div>
+    <div id="cardsGrid">${skeletonDex(18)}</div>
+    <div class="pager" id="pager"></div>`;
+  let t;
+  $('#q').oninput = () => { clearTimeout(t); t = setTimeout(() => { s.q = $('#q').value.trim(); s.page = 1; loadCards(); }, 350); };
+  $('#searchForm').onsubmit = (ev) => { ev.preventDefault(); clearTimeout(t); s.q = $('#q').value.trim(); s.page = 1; loadCards(); };
+  $('#rarityPills').onclick = (ev) => {
+    const b = ev.target.closest('button'); if (!b) return;
+    s.rarity = b.dataset.r; s.page = 1;
+    $$('button', $('#rarityPills')).forEach((x) => x.classList.toggle('on', x === b));
+    loadCards();
+  };
+  bindCardClicks($('#cardsGrid'));
+  loadCards();
+}
+
+let cardsReq = 0;
+async function loadCards() {
+  const s = state.cards, my = ++cardsReq;
+  const qs = new URLSearchParams({ page: s.page, limit: 30 });
+  if (s.q) qs.set('q', s.q);
+  if (s.rarity) qs.set('rarity', s.rarity);
   try {
-    const data = await api('userUrl', '/auth/login', { method: 'POST', body: { email: $('email').value, password: $('password').value } });
-    state.token = data.accessToken;
-    state.user = data.user;
-    session.set('demo-session', { token: state.token, user: state.user });
-    enterApp();
-  } catch (err) { show($('loginMsg'), err.message); }
-};
-
-function enterApp() {
-  $('who').textContent = `สวัสดี ${state.user.displayName || state.user.firstName}`;
-  $('whoId').textContent = `${state.user.email} · userId ${state.user.id}`;
-  $('loginBox').classList.add('hidden');
-  $('app').classList.remove('hidden');
-  const tab = session.get('demo-tab');
-  openTab(LOADERS[tab] ? tab : 'catalog');
+    const res = await api('catalog', `/cards?${qs}`);
+    if (my !== cardsReq || !$('#cardsGrid')) return;
+    $('#cardsCount').textContent = `${fmt(res.total)} ใบ${s.q ? ` ที่ตรงกับ “${s.q}”` : ''} · ใบสีจาง = หมดสต็อก`;
+    $('#cardsGrid').innerHTML = res.data.length ? `<div class="dex">${res.data.map(dexCard).join('')}</div>` : empty('🔍', 'ไม่พบการ์ด', 'ลองเปลี่ยนคำค้นหรือตัวกรอง');
+    const tp = Math.max(1, res.totalPages);
+    $('#pager').innerHTML = tp > 1 ? `
+      <button class="btn white sm" ${s.page <= 1 ? 'disabled' : ''} data-p="${s.page - 1}">‹</button>
+      <span class="muted">หน้า ${s.page} / ${tp}</span>
+      <button class="btn white sm" ${s.page >= tp ? 'disabled' : ''} data-p="${s.page + 1}">›</button>` : '';
+    $('#pager').onclick = (ev) => { const b = ev.target.closest('[data-p]'); if (b && !b.disabled) { s.page = +b.dataset.p; loadCards(); window.scrollTo({ top: 0, behavior: 'smooth' }); } };
+  } catch (e) {
+    if (my === cardsReq && $('#cardsGrid')) { $('#cardsGrid').innerHTML = errorBox(e, 'loadCards()'); $('#cardsCount').textContent = ''; $('#pager').innerHTML = ''; }
+  }
 }
 
-function logout() {
-  state.token = null; state.user = null;
-  session.del('demo-session');
-  $('app').classList.add('hidden');
-  $('loginBox').classList.remove('hidden');
+// การ์ดเอียงตามเมาส์/นิ้ว พร้อมแสงสะท้อน
+function bindTilt(el) {
+  const card = $('.card3d', el);
+  el.onpointermove = (ev) => {
+    const r = el.getBoundingClientRect();
+    const px = Math.min(1, Math.max(0, (ev.clientX - r.left) / r.width)), py = Math.min(1, Math.max(0, (ev.clientY - r.top) / r.height));
+    card.style.transform = `rotateY(${(px - .5) * 22}deg) rotateX(${(.5 - py) * 22}deg)`;
+    card.style.setProperty('--gx', px * 100 + '%'); card.style.setProperty('--gy', py * 100 + '%'); card.style.setProperty('--ga', (px - .5) * 80 + 'deg');
+  };
+  el.onpointerleave = () => { card.style.transform = ''; };
 }
-$('logout').onclick = logout;
 
-// ---------- แท็บ ----------
-const LOADERS = { catalog: loadCatalog, collection: () => Promise.all([loadMyCards(), loadAddresses()]), orders: loadOrders };
-function openTab(name) {
-  document.querySelectorAll('#tabs button').forEach((b) => b.classList.toggle('on', b.dataset.tab === name));
-  document.querySelectorAll('[data-panel]').forEach((p) => p.classList.toggle('hidden', p.dataset.panel !== name));
-  session.set('demo-tab', name);
-  LOADERS[name]();
-}
-$('tabs').onclick = (ev) => { const b = ev.target.closest('button'); if (b) openTab(b.dataset.tab); };
-
-// ---------- แคตตาล็อก ----------
-async function loadCatalog() {
-  clear($('catalogMsg'));
-  const qs = new URLSearchParams({ page: state.page, limit: 24 });
-  if ($('q').value.trim()) qs.set('q', $('q').value.trim());
-  if ($('rarity').value) qs.set('rarity', $('rarity').value);
+async function openCard(id) {
+  const m = openModal(`<div class="detail"><div class="skel" style="aspect-ratio:63/88"></div><div><div class="skel" style="height:28px;width:60%"></div></div></div>`, { wide: true });
   try {
-    const res = await api('catalogUrl', `/cards?${qs}`);
-    state.totalPages = Math.max(1, res.totalPages);
-    $('catalogInfo').textContent = `พบ ${res.total} ใบ`;
-    $('pageNo').textContent = `หน้า ${res.page} / ${state.totalPages}`;
-    $('prev').disabled = res.page <= 1;
-    $('next').disabled = res.page >= state.totalPages;
-    $('catalogGrid').innerHTML = res.data.map((c) => `
-      <div class="tile"><img src="${esc(c.imageSmall)}" alt="${esc(c.name)}" loading="lazy">
-        <div class="name">${esc(c.name)}</div>${rarity(c.rarity)}
-        <div class="muted">${esc(c.id)} · ${esc(c.setName)}<br>สต็อกเหลือ ${c.available}</div></div>`).join('') || '<div class="muted">ไม่พบการ์ด</div>';
-  } catch (err) { show($('catalogMsg'), err.message); }
-}
-$('search').onclick = () => { state.page = 1; loadCatalog(); };
-$('q').onkeydown = (ev) => { if (ev.key === 'Enter') $('search').click(); };
-$('prev').onclick = () => { state.page--; loadCatalog(); };
-$('next').onclick = () => { state.page++; loadCatalog(); };
-
-// ---------- คอลเลกชัน + ขอจัดส่ง ----------
-async function loadMyCards() {
-  try {
-    const page = await api('collUrl', '/collections/me?limit=100', { headers: auth() });
-    $('myCards').innerHTML = page.data.map((c) => `
-      <div class="tile"><img src="${esc(c.cardImageUrl)}" alt="${esc(c.cardName)}" loading="lazy">
-        <div class="name">${esc(c.cardName)}</div>${rarity(c.cardRarity)}
-        <div class="muted">มี ${c.quantity} · แลกแล้ว ${c.redeemedQuantity} · เหลือ ${c.availableQuantity}</div>
-        <label style="margin:0">ขอส่ง <input class="qty" type="number" min="0" max="${c.availableQuantity}" value="0" data-card="${esc(c.cardId)}" ${c.availableQuantity ? '' : 'disabled'}></label>
-      </div>`).join('') || '<div class="muted">ยังไม่มีการ์ด (การ์ดจะเข้ามาเมื่อสุ่มผ่าน Gacha service)</div>';
-    document.querySelectorAll('.qty').forEach((i) => { i.oninput = feeHint; });
-    feeHint();
-  } catch (err) { show($('orderMsg'), err.message); }
+    const c = await api('catalog', `/cards/${encodeURIComponent(id)}`);
+    if (!m.isConnected) return;
+    setModal(m, `
+      <div class="detail">
+        <div class="tilt"><div class="card3d">${img(c.imageLarge || c.imageSmall, c.name)}${isHolo(c.rarity) ? '<div class="rainbow"></div>' : ''}<div class="glare"></div></div></div>
+        <div>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">${rar(c.rarity)}<span class="muted small">${esc(RARITY_TH[c.rarity] || c.rarity)}${c.supertype ? ' · ' + esc(c.supertype) : ''}${c.subtypes && c.subtypes.length ? ' · ' + esc(c.subtypes.join(', ')) : ''}</span></div>
+          <h2 style="margin:6px 0 0;font-size:28px">${esc(c.name)}</h2>
+          <div class="kv">
+            <span>ชุด</span><span>${esc(c.setName)}</span>
+            ${c.hp ? `<span>HP</span><span>${c.hp}</span>` : ''}
+            ${c.types && c.types.length ? `<span>ธาตุ</span><span>${esc(c.types.join(', '))}</span>` : ''}
+            ${c.weaknesses && c.weaknesses.length ? `<span>จุดอ่อน</span><span>${c.weaknesses.map((w) => esc(`${w.type} ${w.value}`)).join(', ')}</span>` : ''}
+            ${c.retreatCost != null ? `<span>ค่าถอย</span><span>${esc(c.retreatCost)}</span>` : ''}
+            ${c.artist ? `<span>ผู้วาด</span><span>${esc(c.artist)}</span>` : ''}
+            <span>คงเหลือ</span><span>${c.available > 0 ? fmt(c.available) + ' ใบ' : '<b style="color:var(--bad)">หมด</b>'}</span>
+          </div>
+          ${(c.attacks || []).map((a) => `<div class="attack"><b><span>${esc(a.name)}</span><span>${esc(a.damage || '')}</span></b>${a.text ? `<div class="muted small">${esc(a.text)}</div>` : ''}</div>`).join('')}
+        </div>
+      </div>`);
+    bindTilt($('.tilt', m));
+  } catch (e) { if (m.isConnected) setModal(m, errorBox(e)); }
 }
 
-const selectedItems = () => [...document.querySelectorAll('.qty')]
-  .map((i) => ({ cardId: i.dataset.card, quantity: parseInt(i.value, 10) || 0 }))
-  .filter((i) => i.quantity > 0);
-function feeHint() {
-  const total = selectedItems().reduce((s, i) => s + i.quantity, 0);
-  $('feeHint').textContent = total ? `เลือก ${total} ใบ · ค่าส่ง ${total >= 5 ? 'ฟรี' : '50 บาท'} (ครบ 5 ใบส่งฟรี)` : 'ใส่จำนวนที่จะขอส่งใต้การ์ดแต่ละใบ';
+// ============================================================
+//  คอลเลกชัน + สั่งจัดส่ง
+// ============================================================
+let collectionCache = [];
+let addressCache = [];
+
+async function pageCollection() {
+  if (!requireLogin()) return;
+  $('#view').innerHTML = `
+    <div class="page-title"><h1>คอลเลกชันของฉัน</h1></div>
+    <div class="panel progress-card" id="colStats"><div class="skel" style="height:66px;width:100%"></div></div>
+    <p class="muted small" style="margin:16px 4px 12px">กด + ใต้การ์ดเพื่อเลือกใบที่อยากได้ใบจริง แล้วกด “สั่งจัดส่ง” ด้านล่าง</p>
+    <div id="colGrid">${skeletonDex(9)}</div>`;
+  try {
+    const [page, addr] = await Promise.all([
+      api('collection', '/collections/me?limit=100', { auth: true }),
+      api('user', '/users/me/addresses', { auth: true }),
+    ]);
+    if (!$('#colGrid')) return;
+    collectionCache = page.data;
+    addressCache = addr.addresses;
+    if (!addressCache.some((a) => a.id === state.addressId)) state.addressId = (addressCache.find((a) => a.isDefault) || addressCache[0] || {}).id || null;
+    for (const id of Object.keys(state.ship)) {
+      const c = collectionCache.find((x) => x.cardId === id);
+      if (!c || !c.availableQuantity) delete state.ship[id]; else state.ship[id] = Math.min(state.ship[id], c.availableQuantity);
+    }
+    renderCollection();
+  } catch (e) {
+    if ($('#colGrid')) { $('#colGrid').innerHTML = errorBox(e, 'route()'); $('#colStats').classList.add('hidden'); }
+  }
 }
 
-async function loadAddresses() {
-  try {
-    const { addresses } = await api('userUrl', '/users/me/addresses', { headers: auth() });
-    $('address').innerHTML = addresses.length
-      ? addresses.map((a) => `<option value="${esc(a.id)}">${a.isDefault ? '★ ' : ''}${esc(a.recipientName)} · ${esc(a.line1)} ${esc(a.district)} ${esc(a.province)} ${esc(a.postalCode)}</option>`).join('')
-      : '<option value="">ยังไม่มีที่อยู่ กด "+ เพิ่มที่อยู่"</option>';
-  } catch (err) { show($('orderMsg'), err.message); }
+function renderCollection() {
+  const sum = (k) => collectionCache.reduce((s, c) => s + c[k], 0);
+  const total = sum('quantity'), avail = sum('availableQuantity'), sent = sum('redeemedQuantity');
+  $('#colStats').innerHTML = `
+    <div class="ring" style="--p:${total ? Math.round((avail / total) * 100) : 0}"><span>${collectionCache.length}<small>แบบ</small></span></div>
+    <div class="stats">
+      <div><span class="muted small">การ์ดทั้งหมด</span><b>${fmt(total)}</b></div>
+      <div><span class="muted small">พร้อมส่ง</span><b>${fmt(avail)}</b></div>
+      <div><span class="muted small">สั่งส่งแล้ว</span><b>${fmt(sent)}</b></div>
+    </div>`;
+  $('#colGrid').innerHTML = collectionCache.length ? `<div class="dex">${collectionCache.map((c) => {
+    const q = state.ship[c.cardId] || 0;
+    return `<div class="pc ${isHolo(c.cardRarity) ? 'holo' : ''} ${c.availableQuantity ? '' : 'dim'}" data-id="${esc(c.cardId)}" title="${esc(c.cardName)}">
+      ${c.quantity > 1 ? `<span class="qty">×${c.quantity}</span>` : ''}
+      <div class="face">${img(c.cardImageUrl, c.cardName)}${q ? `<span class="shipn">ส่ง ${q}</span>` : ''}</div>
+      ${q ? '<div class="sel"></div>' : ''}
+      <div class="under"><span class="nm">${esc(c.cardName)}</span>${rar(c.cardRarity)}</div>
+      <div class="stepper">
+        <button data-d="-1" ${q <= 0 ? 'disabled' : ''} aria-label="ลด">−</button>
+        <span>${c.availableQuantity ? `${q} / ${c.availableQuantity}` : 'ส่งครบแล้ว'}</span>
+        <button data-d="1" ${q >= c.availableQuantity ? 'disabled' : ''} aria-label="เพิ่ม">+</button>
+      </div>
+    </div>`;
+  }).join('')}</div>` : empty('🃏', 'ยังไม่มีการ์ดในคอลเลกชัน', 'การ์ดจะเข้ามาที่นี่เมื่อคุณเปิดแพ็ก', `<a class="btn" href="#/">ไปเลือกแพ็ก</a>`);
+  $('#colGrid').onclick = (ev) => {
+    const tile = ev.target.closest('[data-id]');
+    if (!tile) return;
+    const b = ev.target.closest('[data-d]');
+    if (!b) { if (!ev.target.closest('.stepper')) openCard(tile.dataset.id); return; }
+    const id = tile.dataset.id;
+    const c = collectionCache.find((x) => x.cardId === id);
+    const q = Math.max(0, Math.min(c.availableQuantity, (state.ship[id] || 0) + +b.dataset.d));
+    if (q) state.ship[id] = q; else delete state.ship[id];
+    renderCollection();
+  };
+  renderShipBar();
 }
-$('toggleAddr').onclick = () => $('addrForm').classList.toggle('hidden');
-$('addrForm').onsubmit = async (ev) => {
-  ev.preventDefault();
-  clear($('orderMsg'));
-  try {
-    const body = Object.fromEntries(new FormData(ev.target));
-    await api('userUrl', '/users/me/addresses', { method: 'POST', headers: auth(), body });
-    ev.target.reset();
-    $('addrForm').classList.add('hidden');
-    show($('orderMsg'), 'บันทึกที่อยู่แล้ว', true);
-    await loadAddresses();
-  } catch (err) { show($('orderMsg'), err.message); }
-};
 
-$('createOrder').onclick = async () => {
-  clear($('orderMsg'));
-  const items = selectedItems();
-  if (!items.length) return show($('orderMsg'), 'ใส่จำนวนการ์ดที่จะขอส่งก่อน');
-  if (!$('address').value) return show($('orderMsg'), 'ยังไม่มีที่อยู่จัดส่ง');
-  try {
-    const order = await api('collUrl', '/fulfillments/orders', { method: 'POST', headers: auth(), body: { items, addressId: $('address').value } });
-    show($('orderMsg'), `สร้าง order แล้ว · ส่งไป ${order.shippingAddress.province} · ค่าส่ง ${order.shippingFee} บาท · สถานะ ${order.status} (ดูในแท็บ "คำสั่งจัดส่ง")`, true);
-    await loadMyCards();
-  } catch (err) { show($('orderMsg'), err.message); }
-};
-$('reloadCards').onclick = loadMyCards;
+const shipCount = () => Object.values(state.ship).reduce((s, n) => s + n, 0);
+const shipFee = (n) => (n === 0 || n >= FREE_AT ? 0 : FEE);
 
-// ---------- คำสั่งจัดส่ง ----------
+function renderShipBar() {
+  const n = shipCount();
+  if (!n) { $('#shipRoot').innerHTML = ''; return; }
+  const left = Math.max(0, FREE_AT - n);
+  $('#shipRoot').innerHTML = `<div class="shipbar">
+    <div class="meta"><b>เลือกแล้ว ${n} ใบ</b><div>${left ? `เพิ่มอีก ${left} ใบ ส่งฟรี · ตอนนี้ค่าส่ง ${FEE} เครดิต` : 'ได้สิทธิ์ส่งฟรี 🎉'}</div>
+      <div class="mini-progress"><span style="width:${Math.min(100, (n / FREE_AT) * 100)}%"></span></div></div>
+    <button class="btn sm" id="openCheckout">สั่งจัดส่ง</button>
+  </div>`;
+  $('#openCheckout').onclick = openCheckout;
+}
+
+function openCheckout() {
+  const m = openModal('<h2>ยืนยันการจัดส่ง</h2><div id="checkout"></div>');
+  const render = () => {
+    const items = Object.entries(state.ship).map(([cardId, quantity]) => ({ cardId, quantity, card: collectionCache.find((c) => c.cardId === cardId) }));
+    const n = shipCount(), fee = shipFee(n);
+    $('#checkout', m).innerHTML = `
+      <div class="fan" style="padding-top:10px">${items.slice(0, 8).map((i) => img(i.card && i.card.cardImageUrl, i.card ? i.card.cardName : i.cardId)).join('')}${items.length > 8 ? `<span class="more">+${items.length - 8}</span>` : ''}</div>
+      ${items.map((i) => `<div class="summary-row small"><span>${esc(i.card ? i.card.cardName : i.cardId)}</span><span>×${i.quantity}</span></div>`).join('')}
+      <div style="margin:16px 0 8px;display:flex;justify-content:space-between;align-items:center"><b>ที่อยู่จัดส่ง</b><button class="btn white sm" id="addAddrBtn">+ เพิ่ม</button></div>
+      <div id="addrList">${addressCache.length ? addressCache.map((a) => `
+        <label class="addr ${a.id === state.addressId ? 'on' : ''}"><input type="radio" name="addr" value="${a.id}" ${a.id === state.addressId ? 'checked' : ''}>
+          <span><b>${esc(a.recipientName)}</b> ${a.isDefault ? '<span class="tag">หลัก</span>' : ''}<br><span class="muted small">${esc(formatAddress(a))}</span></span></label>`).join('') : '<div class="notice">ยังไม่มีที่อยู่ กด “+ เพิ่ม” ก่อน</div>'}</div>
+      <div class="summary-row"><span class="muted">จำนวนการ์ด</span><span>${n} ใบ</span></div>
+      <div class="summary-row"><span class="muted">ค่าจัดส่ง</span><span>${fee ? fmt(fee) + ' เครดิต' : 'ฟรี'}</span></div>
+      <div class="summary-row total"><span>ยอดชำระ</span><span style="display:inline-flex;gap:6px;align-items:center"><span class="coin sm"></span>${fmt(fee)}</span></div>
+      ${fee && state.balance !== null && state.balance < fee ? `<div class="notice" style="margin:10px 0 0">เครดิตคงเหลือ ${fmt(state.balance)} อาจไม่พอ&nbsp;<a href="#/wallet" style="font-weight:600;text-decoration:underline">เติมเครดิต</a></div>` : ''}
+      <button class="btn block" id="placeOrder" style="margin-top:16px" ${n && state.addressId ? '' : 'disabled'}>ยืนยันการจัดส่ง</button>`;
+    $('#addrList', m).onchange = (ev) => { state.addressId = ev.target.value; render(); };
+    $('#addAddrBtn', m).onclick = () => openAddressForm(null, async (a) => {
+      addressCache = (await api('user', '/users/me/addresses', { auth: true })).addresses;
+      if (a && a.id) state.addressId = a.id;
+      openCheckout();
+    }, openCheckout);
+    $('#placeOrder', m).onclick = () => placeOrder(m);
+  };
+  render();
+}
+
+async function placeOrder(m) {
+  const btn = $('#placeOrder', m);
+  btn.disabled = true; btn.textContent = 'กำลังสร้างคำสั่ง…';
+  try {
+    const items = Object.entries(state.ship).map(([cardId, quantity]) => ({ cardId, quantity }));
+    const order = await api('collection', '/fulfillments/orders', { method: 'POST', auth: true, body: { items, addressId: state.addressId } });
+    const imgs = Object.fromEntries(collectionCache.map((c) => [c.cardId, c.cardImageUrl]));
+    state.ship = {};
+    loadBalance();
+    pageCollection();
+    const done = openModal(`
+      <div style="text-align:center">
+        <div class="fan" style="justify-content:center;padding:6px 0 14px">${order.items.slice(0, 6).map((i) => img(imgs[i.cardId], i.cardName)).join('')}</div>
+        <h2 style="padding:0">สั่งจัดส่งเรียบร้อย!</h2>
+        <p class="muted">คำสั่ง ${shortId(order.id)} · ${order.items.reduce((s, i) => s + i.quantity, 0)} ใบ · ${order.shippingFee ? `ค่าส่ง ${fmt(order.shippingFee)} เครดิต` : 'ส่งฟรี'}<br>ส่งถึง ${esc(order.shippingAddress.recipientName)}, ${esc(order.shippingAddress.province)}</p>
+        <div style="display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap">
+          <button class="btn white" id="keep">เลือกการ์ดต่อ</button>
+          <a class="btn" href="#/orders">ติดตามพัสดุ</a>
+        </div>
+      </div>`);
+    $('#keep', done).onclick = closeModal;
+  } catch (e) {
+    toast(e.message, 'err');
+    if (btn.isConnected) { btn.disabled = false; btn.textContent = 'ยืนยันการจัดส่ง'; }
+  }
+}
+
+function openAddressForm(addr, onSaved, onCancel) {
+  const a = addr || {};
+  const m = openModal(`
+    <h2>${addr ? 'แก้ไขที่อยู่' : 'เพิ่มที่อยู่ใหม่'}</h2>
+    <form id="addrForm" style="margin-top:16px" novalidate>
+      <div class="grid2">
+        <div class="field"><label>ชื่อผู้รับ</label><input class="input" name="recipientName" value="${esc(a.recipientName)}"></div>
+        <div class="field"><label>เบอร์โทร</label><input class="input" name="phone" value="${esc(a.phone)}" inputmode="tel" placeholder="0812345678"></div>
+      </div>
+      <div class="field"><label>บ้านเลขที่ ถนน</label><input class="input" name="line1" value="${esc(a.line1)}"></div>
+      <div class="field"><label>อาคาร / หมู่บ้าน (ถ้ามี)</label><input class="input" name="line2" value="${esc(a.line2)}"></div>
+      <div class="grid2">
+        <div class="field"><label>ตำบล / แขวง</label><input class="input" name="subdistrict" value="${esc(a.subdistrict)}"></div>
+        <div class="field"><label>อำเภอ / เขต</label><input class="input" name="district" value="${esc(a.district)}"></div>
+        <div class="field"><label>จังหวัด</label><input class="input" name="province" value="${esc(a.province)}"></div>
+        <div class="field"><label>รหัสไปรษณีย์</label><input class="input" name="postalCode" value="${esc(a.postalCode)}" maxlength="5" inputmode="numeric"></div>
+      </div>
+      ${addr && addr.isDefault ? '' : `<label style="display:flex;gap:8px;align-items:center;margin-bottom:14px"><input type="checkbox" name="isDefault"> ตั้งเป็นที่อยู่หลัก</label>`}
+      <div class="form-error"></div>
+      <button class="btn block">บันทึกที่อยู่</button>
+    </form>`);
+  if (onCancel) $('.x', m).onclick = onCancel;
+  $('input', m).focus();
+  $('#addrForm', m).onsubmit = async (ev) => {
+    ev.preventDefault();
+    const f = ev.target, btn = $('button', f), err = $('.form-error', f);
+    err.textContent = ''; btn.disabled = true;
+    const body = {};
+    for (const [k, v] of new FormData(f)) {
+      if (k === 'isDefault') continue;
+      const val = v.trim();
+      if (val || (addr && addr[k])) body[k] = val;   // ช่องที่ไม่บังคับ: เว้นว่างไว้ได้
+    }
+    if (f.isDefault && f.isDefault.checked) body.isDefault = true;
+    try {
+      const res = addr
+        ? await api('user', `/users/me/addresses/${addr.id}`, { method: 'PATCH', auth: true, body })
+        : await api('user', '/users/me/addresses', { method: 'POST', auth: true, body });
+      closeModal();
+      toast('บันทึกที่อยู่แล้ว');
+      if (onSaved) onSaved(res && (res.address || res));
+    } catch (e) { err.textContent = e.message; btn.disabled = false; }
+  };
+}
+
+// ============================================================
+//  การจัดส่ง
+// ============================================================
+function pageOrders() {
+  if (!requireLogin()) return;
+  $('#view').innerHTML = `
+    <div class="page-title"><h1>การจัดส่ง</h1><a class="btn white sm" href="#/collection">+ สั่งส่งใหม่</a></div>
+    <div id="orderList">${'<div class="order"><div class="skel" style="height:150px"></div></div>'.repeat(2)}</div>`;
+  loadOrders();
+}
+
 async function loadOrders() {
-  clear($('ordersMsg'));
   try {
-    const page = await api('collUrl', '/fulfillments/orders?limit=100', { headers: auth() });
-    const admin = $('adminMode').checked;
-    $('orders').innerHTML = page.data.map((o) => {
-      const actions = [];
-      if (o.status === 'PENDING') actions.push(`<button class="danger small" data-cancel="${o.id}">ยกเลิก</button>`);
-      if (admin) (NEXT[o.status] || []).forEach((s) => actions.push(`<button class="ghost small" data-id="${o.id}" data-status="${s}">→ ${s}</button>`));
-      return `<tr><td>${new Date(o.createdAt).toLocaleString('th-TH')}</td>
-        <td>${o.items.map((i) => `${esc(i.cardName)} ×${i.quantity}`).join('<br>')}</td>
-        <td>${o.shippingFee}</td><td class="muted">${o.paymentStatus}</td><td><b>${o.status}</b></td>
-        <td>${esc(o.trackingNumber || '-')}</td><td style="white-space:nowrap">${actions.join(' ')}</td></tr>`;
-    }).join('') || '<tr><td colspan="7" class="muted">ยังไม่มี order</td></tr>';
-  } catch (err) { show($('ordersMsg'), err.message); }
+    const [page, col] = await Promise.all([
+      api('collection', '/fulfillments/orders?limit=100', { auth: true }),
+      api('collection', '/collections/me?limit=100', { auth: true }).catch(() => ({ data: [] })),
+    ]);
+    const el = $('#orderList'); if (!el) return;
+    const imgs = Object.fromEntries(col.data.map((c) => [c.cardId, c.cardImageUrl]));
+    el.innerHTML = page.data.length ? page.data.map((o) => orderCard(o, imgs)).join('') : empty('📭', 'ยังไม่มีคำสั่งจัดส่ง', 'เลือกการ์ดจากคอลเลกชันแล้วกดสั่งจัดส่งได้เลย', `<a class="btn" href="#/collection">ไปที่คอลเลกชัน</a>`);
+    el.onclick = (ev) => onOrderAction(ev, loadOrders);
+  } catch (e) { if ($('#orderList')) $('#orderList').innerHTML = errorBox(e, 'loadOrders()'); }
 }
-$('orders').onclick = async (ev) => {
-  const b = ev.target.closest('button');
-  if (!b) return;
-  clear($('ordersMsg'));
+
+const ADMIN_ACTION = { PROCESSING: 'เริ่มเตรียมของ', SHIPPED: 'ส่งพัสดุ', DELIVERED: 'ยืนยันว่าได้รับแล้ว', CANCELLED: 'ยกเลิก' };
+function orderCard(o, imgs, { admin = false } = {}) {
+  const count = o.items.reduce((s, i) => s + i.quantity, 0);
+  const idx = FLOW.indexOf(o.status);
+  const actions = [];
+  if (admin) (NEXT[o.status] || []).forEach((s) => actions.push(s === 'CANCELLED'
+    ? `<button class="btn danger sm" data-id="${o.id}" data-status="${s}">${ADMIN_ACTION[s]}</button>`
+    : `<button class="btn sm" data-id="${o.id}" data-status="${s}">${ADMIN_ACTION[s]} ›</button>`));
+  else if (o.status === 'PENDING') actions.push(`<button class="btn danger sm" data-cancel="${o.id}">ยกเลิก</button>`);
+  const at = (s) => { const h = (o.statusHistory || []).filter((x) => x.status === s).pop(); return h ? dateTime(h.at) : ''; };
+  const addr = o.shippingAddress || {};
+  return `<div class="order">
+    <div class="order-top">
+      <div><b>คำสั่ง ${shortId(o.id)}</b><div class="small muted">${dateTime(o.createdAt)} · ${count} ใบ</div>
+        ${admin ? `<div class="customer">ลูกค้า ${esc((o.shippingAddress || {}).recipientName)} · ${esc((o.shippingAddress || {}).phone || '')} <code title="userId">${esc(String(o.userId).slice(0, 8))}</code></div>` : ''}</div>
+      <span class="status s-${o.status}">${STATUS_TH[o.status] || o.status}</span>
+    </div>
+    <div class="fan">${o.items.slice(0, 8).map((i) => img(imgs[i.cardId], i.cardName)).join('')}<span class="more">${esc(o.items.map((i) => `${i.cardName} ×${i.quantity}`).join(', '))}</span></div>
+    ${o.status === 'CANCELLED'
+      ? `<div class="notice" style="margin:12px 0 0;background:var(--bad-soft);color:var(--bad)">ยกเลิกเมื่อ ${at('CANCELLED')} การ์ดกลับเข้าคอลเลกชันแล้ว${o.paymentStatus === 'REFUNDED' ? ' และคืนค่าส่งเข้ากระเป๋าแล้ว' : ''}</div>`
+      : `<div class="track">${FLOW.map((s, i) => `<div class="${i <= idx ? 'done' : ''}"><i>${i <= idx ? '✓' : ''}</i>${STATUS_TH[s]}<small class="muted" style="display:block;font-weight:400">${at(s)}</small></div>`).join('')}</div>`}
+    <div class="order-foot">
+      <div>
+        <div><span class="muted">ส่งถึง</span> ${admin ? esc(formatAddress(addr)) : `${esc(addr.recipientName)} · ${esc(addr.province)} ${esc(addr.postalCode)}`}</div>
+        <div class="muted">ค่าส่ง ${o.shippingFee ? fmt(o.shippingFee) + ' เครดิต · ' + (PAY_TH[o.paymentStatus] || o.paymentStatus) : 'ฟรี'}${o.trackingNumber ? ` · เลขพัสดุ <b style="color:var(--heading)">${esc(o.trackingNumber)}</b>` : ''}</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">${actions.join('')}</div>
+    </div>
+  </div>`;
+}
+
+async function onOrderAction(ev, reload) {
+  const b = ev.target.closest('button'); if (!b) return;
   try {
     if (b.dataset.cancel) {
-      await api('collUrl', `/fulfillments/orders/${b.dataset.cancel}/cancel`, { method: 'POST', headers: auth() });
-    } else {
+      if (!confirm('ยืนยันยกเลิกคำสั่งนี้? การ์ดจะกลับเข้าคอลเลกชัน')) return;
+      b.disabled = true;
+      await api('collection', `/fulfillments/orders/${b.dataset.cancel}/cancel`, { method: 'POST', auth: true });
+      toast('ยกเลิกคำสั่งแล้ว');
+      loadBalance();
+    } else if (b.dataset.status) {
       const body = { status: b.dataset.status };
       if (body.status === 'SHIPPED') {
-        const t = prompt('Tracking number', 'TH' + Date.now().toString().slice(-10));
-        if (!t) return;
-        body.trackingNumber = t;
+        const t = prompt('เลขพัสดุ (Tracking number)', 'TH' + Date.now().toString().slice(-10));
+        if (!t || !t.trim()) return;
+        body.trackingNumber = t.trim();
       }
-      await api('collUrl', `/admin/fulfillments/orders/${b.dataset.id}/status`, { method: 'PATCH', headers: auth(), body });
-    }
-    await loadOrders();
-  } catch (err) { show($('ordersMsg'), err.message); }
-};
-$('adminMode').onchange = loadOrders;
-$('reloadOrders').onclick = loadOrders;
+      if (body.status === 'CANCELLED' && !confirm('ยืนยันยกเลิกคำสั่งนี้? การ์ดจะกลับเข้าคอลเลกชันของลูกค้าและคืนค่าส่ง')) return;
+      b.disabled = true;
+      await api('collection', `/admin/fulfillments/orders/${b.dataset.id}/status`, { method: 'PATCH', auth: true, body });
+      toast(`อัปเดตสถานะเป็น “${STATUS_TH[body.status]}” แล้ว`);
+    } else return;
+    reload();
+  } catch (e) { toast(e.message, 'err'); if (b.isConnected) b.disabled = false; }
+}
 
-// กลับเข้าหน้าเดิมถ้าเคยล็อกอินไว้ในแท็บนี้
-const saved = session.get('demo-session');
-if (saved && saved.token && saved.user) { state.token = saved.token; state.user = saved.user; enterApp(); }
+// ============================================================
+//  แอดมิน: คิวคำสั่งจัดส่งของทุกคน
+// ============================================================
+const cardImgCache = new Map();
+async function cardImages(ids) {
+  const missing = [...new Set(ids)].filter((id) => !cardImgCache.has(id));
+  await Promise.all(missing.map((id) => api('catalog', `/cards/${encodeURIComponent(id)}`)
+    .then((c) => cardImgCache.set(id, c.imageSmall)).catch(() => cardImgCache.set(id, ''))));
+  return Object.fromEntries(ids.map((id) => [id, cardImgCache.get(id)]));
+}
+
+const adminState = { status: 'PENDING', page: 1 };
+function pageAdmin() {
+  if (!requireLogin()) return;
+  if (!state.admin) {
+    $('#view').innerHTML = `<div style="margin-top:20px">${empty('🛡️', 'สำหรับผู้ดูแลเท่านั้น', 'บัญชีนี้ไม่มีสิทธิ์เข้าหน้านี้')}</div>`;
+    return;
+  }
+  $('#view').innerHTML = `
+    <div class="page-title"><h1>จัดการพัสดุ</h1><button class="btn white sm" id="adminRefresh">↻ รีเฟรช</button></div>
+    <div class="admin-stats" id="adminStats">${FLOW.map((s) => `<button data-s="${s}"><span>${STATUS_TH[s]}</span><b>…</b></button>`).join('')}</div>
+    <div class="toolbar">
+      <div class="seg" id="adminFilter">${['', ...FLOW, 'CANCELLED'].map((s) => `<button data-s="${s}">${s ? STATUS_TH[s] : 'ทั้งหมด'}</button>`).join('')}</div>
+    </div>
+    <div id="adminList">${'<div class="order"><div class="skel" style="height:150px"></div></div>'.repeat(2)}</div>
+    <div class="pager" id="adminPager"></div>`;
+  const pick = (s) => { adminState.status = s; adminState.page = 1; loadAdmin(); };
+  $('#adminStats').onclick = (ev) => { const b = ev.target.closest('[data-s]'); if (b) pick(b.dataset.s); };
+  $('#adminFilter').onclick = (ev) => { const b = ev.target.closest('[data-s]'); if (b) pick(b.dataset.s); };
+  $('#adminRefresh').onclick = loadAdmin;
+  $('#adminList').onclick = (ev) => onOrderAction(ev, loadAdmin);
+  $('#adminPager').onclick = (ev) => { const b = ev.target.closest('[data-p]'); if (b && !b.disabled) { adminState.page = +b.dataset.p; loadAdmin(); window.scrollTo({ top: 0, behavior: 'smooth' }); } };
+  loadAdmin();
+}
+
+async function loadAdmin() {
+  const s = adminState;
+  $$('#adminFilter button').forEach((b) => b.classList.toggle('on', b.dataset.s === s.status));
+  $$('#adminStats button').forEach((b) => b.classList.toggle('on', b.dataset.s === s.status));
+  // จำนวนคำสั่งในแต่ละสถานะ (ใช้ total ของแต่ละหน้า)
+  Promise.all(FLOW.map((st) => api('collection', `/admin/fulfillments/orders?status=${st}&limit=1`, { auth: true }).then((r) => r.total).catch(() => '–')))
+    .then((totals) => totals.forEach((t, i) => { const el = $(`#adminStats [data-s="${FLOW[i]}"] b`); if (el) el.textContent = t; }));
+  const qs = new URLSearchParams({ page: s.page, limit: 10 });
+  if (s.status) qs.set('status', s.status);
+  try {
+    const res = await api('collection', `/admin/fulfillments/orders?${qs}`, { auth: true });
+    const imgs = await cardImages(res.data.flatMap((o) => o.items.map((i) => i.cardId)));
+    const el = $('#adminList'); if (!el) return;
+    el.innerHTML = res.data.length ? res.data.map((o) => orderCard(o, imgs, { admin: true })).join('')
+      : empty('✅', 'ไม่มีคำสั่งค้าง', s.status ? `ไม่มีคำสั่งสถานะ “${STATUS_TH[s.status]}”` : 'ยังไม่มีคำสั่งจัดส่งในระบบ');
+    const tp = Math.max(1, res.totalPages);
+    $('#adminPager').innerHTML = tp > 1 ? `
+      <button class="btn white sm" ${s.page <= 1 ? 'disabled' : ''} data-p="${s.page - 1}">‹</button>
+      <span class="muted">หน้า ${s.page} / ${tp}</span>
+      <button class="btn white sm" ${s.page >= tp ? 'disabled' : ''} data-p="${s.page + 1}">›</button>` : '';
+  } catch (e) {
+    if (e.status === 403) { state.admin = false; renderNav(); route(); return; }
+    if ($('#adminList')) $('#adminList').innerHTML = errorBox(e, 'loadAdmin()');
+  }
+}
+
+// ============================================================
+//  ร้านค้า (กระเป๋าเครดิต)
+// ============================================================
+const OFFERS = [100, 300, 500, 1000];
+let topupInfo = null;
+function pageWallet() {
+  if (!requireLogin()) return;
+  $('#view').innerHTML = `
+    <div class="page-title"><h1>ร้านค้า</h1></div>
+    <div class="balance"><span class="coin"></span><div><span style="opacity:.85">เครดิตคงเหลือ</span><b id="walletBal">${state.balance === null ? '—' : fmt(state.balance)}</b><span class="small" style="opacity:.8">1 เครดิต = 1 บาท</span></div></div>
+    <div class="section">
+      <div class="section-head"><h2>เติมเครดิต</h2></div>
+      <div id="topupBox"><div class="skel" style="height:150px"></div></div>
+    </div>
+    <div class="section panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px">
+        <h3 style="margin:0">ประวัติรายการ</h3>
+        <div class="seg" id="txFilter">${['', 'topup', 'purchase', 'charge', 'refund'].map((t) => `<button class="${state.txType === t ? 'on' : ''}" data-t="${t}">${t ? TX_TH[t] : 'ทั้งหมด'}</button>`).join('')}</div>
+      </div>
+      <div id="txList"><div class="skel" style="height:160px;margin-top:10px"></div></div>
+    </div>`;
+  $('#txFilter').onclick = (ev) => {
+    const b = ev.target.closest('button'); if (!b) return;
+    state.txType = b.dataset.t; state.txPage = 1;
+    $$('button', $('#txFilter')).forEach((x) => x.classList.toggle('on', x === b));
+    loadTx();
+  };
+  api('wallet', '/wallets/me', { auth: true }).then((w) => showBalance(w.balance)).catch((e) => { showBalance(null); toast(e.message, 'err'); });
+  loadTx();
+  (topupInfo ? Promise.resolve(topupInfo) : api('wallet', '/wallets/topup-methods'))
+    .then((t) => { topupInfo = t; if ($('#topupBox')) renderTopup(); })
+    .catch((e) => { if ($('#topupBox')) $('#topupBox').innerHTML = `<div class="notice">${esc(e.message)}</div>`; });
+}
+
+function renderTopup() {
+  const t = topupInfo;
+  const coins = (v) => '<span class="coin"></span>'.repeat(v >= 1000 ? 4 : v >= 500 ? 3 : v >= 300 ? 2 : 1);
+  $('#topupBox').innerHTML = `
+    <div class="shop">${OFFERS.map((v) => `<div class="offer ${state.topup === v ? 'on' : ''}" data-v="${v}">${v === 1000 ? '<span class="badge-best">ยอดนิยม</span>' : ''}<div class="stack">${coins(v)}</div><b>${fmt(v)}</b><span class="muted small">เครดิต</span></div>`).join('')}</div>
+    <div class="panel" style="margin-top:14px">
+      <div class="field" style="margin-bottom:12px"><label>หรือระบุจำนวนเอง</label><input class="input" id="topupAmt" type="number" min="${t.minAmount}" max="${t.maxAmount}" step="1" value="${state.topup}"></div>
+      ${t.provider === 'mock' ? '<div class="notice info small">ระบบทดลอง: เติมเครดิตได้ฟรี ไม่มีการตัดเงินจริง</div>' : ''}
+      <button class="btn gold block" id="topupBtn">เติม ${fmt(state.topup)} เครดิต</button>
+      <div class="small muted" style="margin-top:10px;text-align:center">ขั้นต่ำ ${fmt(t.minAmount)} สูงสุด ${fmt(t.maxAmount)} เครดิตต่อครั้ง</div>
+    </div>`;
+  $('.shop').onclick = (ev) => { const b = ev.target.closest('.offer'); if (b) { state.topup = +b.dataset.v; renderTopup(); } };
+  $('#topupAmt').oninput = (ev) => {
+    state.topup = Math.floor(+ev.target.value) || 0;
+    $$('.offer').forEach((p) => p.classList.toggle('on', +p.dataset.v === state.topup));
+    $('#topupBtn').textContent = `เติม ${fmt(state.topup)} เครดิต`;
+  };
+  $('#topupBtn').onclick = async () => {
+    const amount = state.topup;
+    if (!(amount >= t.minAmount && amount <= t.maxAmount)) return toast(`จำนวนต้องอยู่ระหว่าง ${fmt(t.minAmount)} ถึง ${fmt(t.maxAmount)}`, 'err');
+    const btn = $('#topupBtn'); btn.disabled = true; btn.textContent = 'กำลังเติมเครดิต…';
+    try {
+      const res = await api('wallet', '/wallets/me/topups', { method: 'POST', auth: true, headers: { 'Idempotency-Key': 'topup-' + uuid() }, body: { amount, method: t.methods[0] } });
+      showBalance(res.balance);
+      toast(`เติม ${fmt(amount)} เครดิตสำเร็จ`);
+      state.txPage = 1; loadTx();
+    } catch (e) { toast(e.message, 'err'); }
+    if (btn.isConnected) { btn.disabled = false; btn.textContent = `เติม ${fmt(state.topup)} เครดิต`; }
+  };
+}
+
+async function loadTx() {
+  const qs = new URLSearchParams({ page: state.txPage, limit: 10 });
+  if (state.txType) qs.set('type', state.txType);
+  try {
+    const res = await api('wallet', `/wallets/me/transactions?${qs}`, { auth: true });
+    const el = $('#txList'); if (!el) return;
+    if (!res.data.length) { el.innerHTML = `<div class="muted" style="padding:28px 0;text-align:center">ยังไม่มีรายการ</div>`; return; }
+    const tp = Math.max(1, res.totalPages);
+    el.innerHTML = res.data.map((t) => `<div class="tx">
+        <div class="ic ${t.direction}">${TX_ICON[t.type] || '•'}</div>
+        <div class="mid"><b>${TX_TH[t.type] || esc(t.type)}</b><div>${dateTime(t.createdAt)}${t.reason ? ' · ' + esc(t.reason) : ''}</div></div>
+        <div class="amt ${t.direction === 'credit' ? 'plus' : 'minus'}">${t.direction === 'credit' ? '+' : '−'}${fmt(t.amount)}<div>คงเหลือ ${fmt(t.balanceAfter)}</div></div>
+      </div>`).join('') +
+      (tp > 1 ? `<div class="pager"><button class="btn white sm" data-p="${state.txPage - 1}" ${state.txPage <= 1 ? 'disabled' : ''}>‹</button><span class="muted small">หน้า ${state.txPage} / ${tp}</span><button class="btn white sm" data-p="${state.txPage + 1}" ${state.txPage >= tp ? 'disabled' : ''}>›</button></div>` : '');
+    el.onclick = (ev) => { const b = ev.target.closest('[data-p]'); if (b && !b.disabled) { state.txPage = +b.dataset.p; loadTx(); } };
+  } catch (e) { if ($('#txList')) $('#txList').innerHTML = `<div class="notice">${esc(e.message)}</div>`; }
+}
+
+// ============================================================
+//  โปรไฟล์
+// ============================================================
+function pageAccount() {
+  if (!requireLogin()) return;
+  const u = state.user;
+  $('#view').innerHTML = `
+    <div class="panel" style="display:flex;align-items:center;gap:16px;margin-top:10px">
+      <div class="avatar" style="width:66px;height:66px;font-size:26px;cursor:default">${esc(initials(u))}</div>
+      <div><h1 style="margin:0;font-size:24px">${esc(u.displayName)}</h1><div class="muted small">${esc(u.email)}</div></div>
+    </div>
+    <div class="split section">
+      <div class="panel">
+        <h3>ข้อมูลส่วนตัว</h3>
+        <form id="profileForm" novalidate>
+          <div class="grid2">
+            <div class="field"><label>ชื่อ</label><input class="input" name="firstName" value="${esc(u.firstName)}"></div>
+            <div class="field"><label>นามสกุล</label><input class="input" name="lastName" value="${esc(u.lastName)}"></div>
+          </div>
+          <div class="field"><label>ชื่อผู้เล่น</label><input class="input" name="displayName" value="${esc(u.displayName)}"></div>
+          <div class="field"><label>อีเมล</label><input class="input" name="email" type="email" value="${esc(u.email)}"></div>
+          <div class="form-error"></div>
+          <button class="btn">บันทึกข้อมูล</button>
+        </form>
+        <h3 style="margin-top:28px">เปลี่ยนรหัสผ่าน</h3>
+        <form id="pwForm" novalidate>
+          <div class="field"><label>รหัสผ่านปัจจุบัน</label><input class="input" name="currentPassword" type="password" autocomplete="current-password"></div>
+          <div class="field"><label>รหัสผ่านใหม่ (อย่างน้อย 8 ตัว)</label><input class="input" name="newPassword" type="password" autocomplete="new-password"></div>
+          <div class="form-error"></div>
+          <button class="btn white">เปลี่ยนรหัสผ่าน</button>
+        </form>
+      </div>
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3 style="margin:0">ที่อยู่จัดส่ง</h3><button class="btn white sm" id="newAddr">+ เพิ่ม</button></div>
+        <div id="addrBook"><div class="skel" style="height:120px"></div></div>
+      </div>
+    </div>`;
+
+  $('#profileForm').onsubmit = async (ev) => {
+    ev.preventDefault();
+    const f = ev.target, btn = $('button', f), err = $('.form-error', f);
+    err.textContent = ''; btn.disabled = true;
+    try {
+      const { user } = await api('user', '/users/me', { method: 'PATCH', auth: true, body: Object.fromEntries(new FormData(f)) });
+      state.user = user; session.set('cd-session', { token: state.token, user });
+      renderNav(); showBalance(state.balance);
+      toast('บันทึกข้อมูลแล้ว');
+      pageAccount();
+      return;
+    } catch (e) { err.textContent = e.message; }
+    if (btn.isConnected) btn.disabled = false;
+  };
+  $('#pwForm').onsubmit = async (ev) => {
+    ev.preventDefault();
+    const f = ev.target, btn = $('button', f), err = $('.form-error', f);
+    err.textContent = ''; btn.disabled = true;
+    try {
+      await api('user', '/users/me/password', { method: 'PUT', auth: true, body: Object.fromEntries(new FormData(f)) });
+      f.reset(); toast('เปลี่ยนรหัสผ่านแล้ว');
+    } catch (e) { err.textContent = e.code === 'INVALID_CREDENTIALS' ? 'รหัสผ่านปัจจุบันไม่ถูกต้อง' : e.message; }
+    if (btn.isConnected) btn.disabled = false;
+  };
+  $('#newAddr').onclick = () => openAddressForm(null, loadAddressBook);
+  loadAddressBook();
+}
+
+async function loadAddressBook() {
+  try {
+    const { addresses } = await api('user', '/users/me/addresses', { auth: true });
+    addressCache = addresses;
+    const el = $('#addrBook'); if (!el) return;
+    el.innerHTML = addresses.length ? addresses.map((a) => `
+      <div class="addr" style="cursor:default;display:block">
+        <div style="display:flex;justify-content:space-between;gap:8px"><b>${esc(a.recipientName)} ${a.isDefault ? '<span class="tag">ที่อยู่หลัก</span>' : ''}</b><span class="muted small">${esc(a.phone)}</span></div>
+        <div class="muted small" style="margin:4px 0 10px">${esc(formatAddress(a))}</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="btn white sm" data-edit="${a.id}">แก้ไข</button>
+          ${a.isDefault ? '' : `<button class="btn white sm" data-default="${a.id}">ตั้งเป็นหลัก</button><button class="btn danger sm" data-del="${a.id}">ลบ</button>`}
+        </div>
+      </div>`).join('') : empty('🏠', 'ยังไม่มีที่อยู่', 'เพิ่มที่อยู่เพื่อใช้สั่งจัดส่งการ์ด');
+    el.onclick = async (ev) => {
+      const b = ev.target.closest('button'); if (!b) return;
+      try {
+        if (b.dataset.edit) return openAddressForm(addresses.find((a) => a.id === b.dataset.edit), loadAddressBook);
+        if (b.dataset.default) { await api('user', `/users/me/addresses/${b.dataset.default}`, { method: 'PATCH', auth: true, body: { isDefault: true } }); toast('ตั้งเป็นที่อยู่หลักแล้ว'); }
+        if (b.dataset.del) { if (!confirm('ลบที่อยู่นี้?')) return; await api('user', `/users/me/addresses/${b.dataset.del}`, { method: 'DELETE', auth: true }); toast('ลบที่อยู่แล้ว'); }
+        loadAddressBook();
+      } catch (e) { toast(e.message, 'err'); }
+    };
+  } catch (e) { if ($('#addrBook')) $('#addrBook').innerHTML = `<div class="notice">${esc(e.message)}</div>`; }
+}
+
+
+// ============================================================
+//  เริ่มต้น
+// ============================================================
+const saved = session.get('cd-session');
+if (saved && saved.token && saved.user) { state.token = saved.token; state.user = saved.user; }
+renderNav();
+loadBalance();
+checkAdmin();
+route();
 </script>
 </body>
 </html>

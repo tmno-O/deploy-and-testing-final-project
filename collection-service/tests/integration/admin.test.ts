@@ -92,3 +92,69 @@ describe('PATCH /admin/fulfillments/orders/:id/status', () => {
     expect(missing.body.error.code).toBe('ORDER_NOT_FOUND');
   });
 });
+
+describe('GET /admin/fulfillments/orders', () => {
+  let app: INestApplication;
+  let store: StoreService;
+
+  beforeAll(async () => ({ app, store } = await createTestApp()));
+  beforeEach(() => store.reset());
+  afterAll(() => app.close());
+
+  const http = () => request(app.getHttpServer());
+  const list = (query = '', headers: Record<string, string> = adminAuth()) =>
+    http().get(`/admin/fulfillments/orders${query}`).set(headers);
+
+  async function twoUsersWithOrders() {
+    const a = await userWithCards(app, { 'base1-1': 1 });
+    const b = await userWithCards(app, { 'base1-1': 1 });
+    const orderA = (await createOrder(app, a.auth, [{ cardId: 'base1-1', quantity: 1 }])).body.id as string;
+    const orderB = (await createOrder(app, b.auth, [{ cardId: 'base1-1', quantity: 1 }])).body.id as string;
+    return { a, b, orderA, orderB };
+  }
+
+  test('requires a token (401) and an admin user (403)', async () => {
+    const { a, orderA } = await twoUsersWithOrders();
+    expect((await list('', {})).status).toBe(401);
+    expect((await list('', a.auth)).status).toBe(403);
+    expect((await http().get(`/admin/fulfillments/orders/${orderA}`).set(a.auth)).status).toBe(403);
+  });
+
+  test("lists every user's orders", async () => {
+    const { orderA, orderB } = await twoUsersWithOrders();
+    const res = await list();
+    expect(res.status).toBe(200);
+    expect(res.body.total).toBe(2);
+    expect(res.body.data.map((o: { id: string }) => o.id).sort()).toEqual([orderA, orderB].sort());
+  });
+
+  test('filters by status and userId', async () => {
+    const { a, orderA, orderB } = await twoUsersWithOrders();
+    await http().patch(`/admin/fulfillments/orders/${orderB}/status`).set(adminAuth()).send({ status: 'PROCESSING' });
+
+    const pending = await list('?status=PENDING');
+    expect(pending.body.data.map((o: { id: string }) => o.id)).toEqual([orderA]);
+    const processing = await list('?status=PROCESSING');
+    expect(processing.body.data.map((o: { id: string }) => o.id)).toEqual([orderB]);
+    const ofA = await list(`?userId=${a.userId}`);
+    expect(ofA.body.data.map((o: { id: string }) => o.id)).toEqual([orderA]);
+  });
+
+  test('validates the query', async () => {
+    expect((await list('?status=LOST')).status).toBe(400);
+    expect((await list('?userId=abc')).status).toBe(400);
+    expect((await list('?limit=101')).status).toBe(400);
+    expect((await list('?foo=1')).status).toBe(400);
+  });
+
+  test("returns any user's order by id, 404 for a missing one and 400 for a bad id", async () => {
+    const { orderA } = await twoUsersWithOrders();
+    const one = await http().get(`/admin/fulfillments/orders/${orderA}`).set(adminAuth());
+    expect(one.status).toBe(200);
+    expect(one.body.id).toBe(orderA);
+    const missing = await http().get(`/admin/fulfillments/orders/${newId()}`).set(adminAuth());
+    expect(missing.status).toBe(404);
+    expect(missing.body.error.code).toBe('ORDER_NOT_FOUND');
+    expect((await http().get('/admin/fulfillments/orders/abc').set(adminAuth())).status).toBe(400);
+  });
+});
