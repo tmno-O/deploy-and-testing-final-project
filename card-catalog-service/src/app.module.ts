@@ -16,7 +16,8 @@ import { StoreModule } from './store/store.module';
 @Module({
   imports: [
     // only used to load .env into process.env before AppConfigModule validates it
-    ConfigModule.forRoot({ ignoreEnvVars: true, isGlobal: false }),
+    // the service's own .env wins; the repo-root .env (shared by docker compose) fills in anything missing
+    ConfigModule.forRoot({ ignoreEnvVars: true, isGlobal: false, envFilePath: ['.env', '../.env'] }),
     AppConfigModule,
     StoreModule,
     DatabaseModule,

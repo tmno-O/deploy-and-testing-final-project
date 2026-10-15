@@ -3,3 +3,5 @@ process.env.JWT_SECRET = process.env.JWT_SECRET || 'test-secret-test-secret-test
 process.env.INTERNAL_API_KEY = process.env.INTERNAL_API_KEY || 'test-internal-test-internal-test-1234';
 process.env.PERSIST_DATA = 'false'; // tests must never overwrite the mock data file
 process.env.ADMIN_USER_IDS = 'admin-1,admin-2';
+// tests use the JSON store unless a test opts in (postgres.test.ts); never inherit a real DATABASE_URL from a .env file
+process.env.DATABASE_URL = '';
