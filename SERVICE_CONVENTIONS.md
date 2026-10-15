@@ -26,7 +26,7 @@
 - 1 โฟลเดอร์ต่อ 1 service ที่ root ของ repo · stack: NestJS 11 + TypeScript (ตาม card-catalog-service) (`user-service/`, `collection-service/`, ...)
 - workflow อยู่ที่ `.github/workflows/<service>-ci.yml` (GitHub ไม่รัน workflow ที่อยู่ในโฟลเดอร์ย่อย) และกรองด้วย `paths: ['<service>/**']`
 - image: `ghcr.io/<owner>/<repo>/<service>` tag `sha-xxxx` + `latest` เมื่อ push เข้า `main`
-- release: tag `<service>-vX.Y.Z` → image `:X.Y.Z`, `:X.Y`, `:latest` + GitHub Release (ดูตัวอย่างที่ `collection-service-release.yml`)
+- release: tag `<service>-vX.Y.Z` → image `:X.Y.Z`, `:X.Y`, `:latest` + GitHub Release ด้วย workflow กลาง `.github/workflows/release.yml` (ดู [DEPLOYMENT.md](DEPLOYMENT.md))
 
 ## รันทั้งระบบ
 ```bash
