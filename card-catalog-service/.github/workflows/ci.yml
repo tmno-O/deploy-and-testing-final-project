@@ -1,0 +1,77 @@
+name: Card Catalog CI/CD
+
+on:
+  push:
+    branches: [main]
+    paths: ['card-catalog-service/**']
+  pull_request:
+    paths: ['card-catalog-service/**']
+
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository }}/card-catalog-service
+
+defaults:
+  run:
+    working-directory: card-catalog-service
+
+jobs:
+  test:
+    name: Lint & Test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      NODE_ENV: test
+      JWT_SECRET: ci-only-secret-ci-only-secret-ci-only-1234
+      INTERNAL_API_KEY: ci-only-internal-ci-only-internal-1234
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: card-catalog-service/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run build
+      - run: npm run test:coverage
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage
+          path: card-catalog-service/coverage/
+
+  docker:
+    name: Build & Push Docker image
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Login to GHCR
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha
+            type=raw,value=latest,enable={{is_default_branch}}
+      # PR: build only to verify the Dockerfile / push: build and push to GHCR
+      - uses: docker/build-push-action@v6
+        with:
+          context: card-catalog-service
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
