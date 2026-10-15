@@ -88,17 +88,32 @@ services:
 
   gacha-service:
     profiles: ["full"]
+    build: ./gacha-service
     image: ${GACHA_IMAGE:-ghcr.io/tmno-o/deploy-and-testing-final-project/gacha-service:latest}
     environment:
       <<: [*shared-auth, *internal-auth]
+      NODE_ENV: production
       PORT: 3004
       CATALOG_SERVICE_URL: http://card-catalog-service:3003
+      WALLET_SERVICE_URL: http://wallet-service:3002
       COLLECTION_SERVICE_URL: http://collection-service:3005
+      PERSIST_DATA: ${PERSIST_DATA:-true}
+    volumes:
+      - gacha-data:/app/data
     ports:
       - "3004:3004"
+    depends_on:
+      card-catalog-service:
+        condition: service_healthy
+      wallet-service:
+        condition: service_started
+      collection-service:
+        condition: service_healthy
+    restart: unless-stopped
 
 volumes:
   user-data:
   catalog-data:
   collection-data:
   wallet-data:
+  gacha-data:
