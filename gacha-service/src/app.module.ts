@@ -7,12 +7,15 @@ import { AppConfigModule } from './config/config.module';
 import { HealthModule } from './health/health.module';
 import { StoreModule } from './store/store.module';
 import { ClientsModule } from './clients/clients.module';
+import { PullsModule } from './pulls/pulls.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ ignoreEnvVars: true, isGlobal: false }),
     AppConfigModule,
     StoreModule,
+    ClientsModule,
+    PullsModule,
     ThrottlerModule.forRootAsync({
       inject: [APP_CONFIG],
       useFactory: (config: AppConfig) => [{ ttl: 60_000, limit: config.rateLimitPerMinute }],
