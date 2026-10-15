@@ -1,0 +1,35 @@
+# Run collection-service standalone (data lives in a JSON file, no database needed)
+# Usage: cp .env.example .env && docker compose up --build
+# addressId needs user-service too: use the docker-compose.yml at the repo root for that
+services:
+  collection-service:
+    build: .
+    environment:
+      NODE_ENV: production
+      PORT: 3005
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env (at least 32 characters)}
+      JWT_ISSUER: ${JWT_ISSUER:-user-service}
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY:?Set INTERNAL_API_KEY in .env (at least 32 characters)}
+      ADMIN_USER_IDS: ${ADMIN_USER_IDS:-}
+      RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-300}
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
+      TRUST_PROXY: ${TRUST_PROXY:-}
+      PERSIST_DATA: ${PERSIST_DATA:-true}
+      SHIPPING_FLAT_FEE: ${SHIPPING_FLAT_FEE:-50}
+      FREE_SHIPPING_MIN_CARDS: ${FREE_SHIPPING_MIN_CARDS:-5}
+      MAX_CARDS_PER_ORDER: ${MAX_CARDS_PER_ORDER:-50}
+      USER_SERVICE_URL: ${USER_SERVICE_URL:-http://host.docker.internal:3001}
+      CATALOG_SERVICE_URL: ${CATALOG_SERVICE_URL:-}
+      WALLET_ENABLED: ${WALLET_ENABLED:-false}
+      WALLET_SERVICE_URL: ${WALLET_SERVICE_URL:-}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      # a new volume is seeded from the image's mock data on first run; `docker compose down -v` resets it
+      - collection-data:/app/data
+    ports:
+      - "3005:3005"
+    restart: unless-stopped
+
+volumes:
+  collection-data:

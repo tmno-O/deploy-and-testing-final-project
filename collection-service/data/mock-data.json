@@ -1,0 +1,78 @@
+{
+  "collections": [
+    {
+      "id": "c0110000-0001-4000-8000-000000000001",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "sv3pt5-199",
+      "cardName": "Charizard ex",
+      "cardRarity": "legendary",
+      "cardImageUrl": "https://images.pokemontcg.io/sv3pt5/199.png",
+      "quantity": 2,
+      "redeemedQuantity": 0,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "c0110000-0002-4000-8000-000000000002",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "base1-23",
+      "cardName": "Arcanine",
+      "cardRarity": "common",
+      "cardImageUrl": "https://images.pokemontcg.io/base1/23.png",
+      "quantity": 5,
+      "redeemedQuantity": 0,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "c0110000-0003-4000-8000-000000000003",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "base1-17",
+      "cardName": "Beedrill",
+      "cardRarity": "rare",
+      "cardImageUrl": "https://images.pokemontcg.io/base1/17.png",
+      "quantity": 1,
+      "redeemedQuantity": 0,
+      "createdAt": "2026-01-02T00:00:00.000Z",
+      "updatedAt": "2026-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "c0110000-0004-4000-8000-000000000004",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "base1-1",
+      "cardName": "Alakazam",
+      "cardRarity": "epic",
+      "cardImageUrl": "https://images.pokemontcg.io/base1/1.png",
+      "quantity": 1,
+      "redeemedQuantity": 0,
+      "createdAt": "2026-01-02T00:00:00.000Z",
+      "updatedAt": "2026-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "c0110000-0005-4000-8000-000000000005",
+      "userId": "a1b2c3d4-0002-4000-8000-000000000002",
+      "cardId": "swsh7-166",
+      "cardName": "Leafeon V",
+      "cardRarity": "legendary",
+      "cardImageUrl": "https://images.pokemontcg.io/swsh7/166.png",
+      "quantity": 1,
+      "redeemedQuantity": 0,
+      "createdAt": "2026-01-03T00:00:00.000Z",
+      "updatedAt": "2026-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "c0110000-0006-4000-8000-000000000006",
+      "userId": "a1b2c3d4-0002-4000-8000-000000000002",
+      "cardId": "sv3pt5-1",
+      "cardName": "Bulbasaur",
+      "cardRarity": "common",
+      "cardImageUrl": "https://images.pokemontcg.io/sv3pt5/1.png",
+      "quantity": 3,
+      "redeemedQuantity": 0,
+      "createdAt": "2026-01-03T00:00:00.000Z",
+      "updatedAt": "2026-01-03T00:00:00.000Z"
+    }
+  ],
+  "pulls": [],
+  "orders": []
+}

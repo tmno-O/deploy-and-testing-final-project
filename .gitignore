@@ -1,2 +1,23 @@
 # Local project docs (not tracked)
 /docs/
+
+# Dependencies and build output (every service)
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+*.log
+
+# Secrets: only the .env.example templates are committed
+.env
+.env.*
+!.env.example
+
+# Temp files left by an interrupted JSON store save
+*.tmp
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

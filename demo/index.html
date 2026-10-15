@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gacha Platform Demo</title>
+<!--
+  หน้าทดลองสำหรับ dev (ไม่ใช่ frontend จริง) เปิดไฟล์นี้ในเบราว์เซอร์ได้เลย
+  เรียก user-service :3001, card-catalog-service :3003 และ collection-service :3005 ที่รันอยู่ในเครื่อง
+  การ์ดในคอลเลกชันมาจาก mock data ของ collection-service (การเปิดแพ็กเป็นงานของ Gacha service ซึ่งยังไม่มี)
+-->
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --text:#1d2330; --muted:#667085; --line:#e4e7ec; --accent:#4f46e5; --danger:#d92d20; --ok:#079455;
+          --common:#667085; --rare:#1570ef; --epic:#9e2fd0; --legendary:#dc6803; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#111418; --card:#1a1f26; --text:#e6e8eb; --muted:#98a2b3; --line:#2b323c; --accent:#818cf8; --danger:#f97066; --ok:#47cd89;
+          --common:#98a2b3; --rare:#53b1fd; --epic:#d6a4ff; --legendary:#fdb022; } }
+  * { box-sizing:border-box; }
+  body { margin:0; font:15px/1.5 system-ui, "Segoe UI", "Noto Sans Thai", sans-serif; background:var(--bg); color:var(--text); }
+  main { max-width:1080px; margin:0 auto; padding:24px 16px 64px; }
+  h1 { font-size:22px; margin:0 0 4px; } h2 { font-size:17px; margin:0 0 12px; } h3 { font-size:15px; margin:16px 0 8px; }
+  .muted { color:var(--muted); font-size:13px; }
+  section { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px; margin-top:16px; }
+  label { display:block; font-size:13px; color:var(--muted); margin:8px 0 4px; }
+  input, select { width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--text); font:inherit; }
+  input[type=checkbox] { width:auto; }
+  button { padding:8px 14px; border:0; border-radius:6px; background:var(--accent); color:#fff; font:inherit; cursor:pointer; }
+  button:disabled { opacity:.5; cursor:default; }
+  button.ghost { background:transparent; color:var(--accent); border:1px solid var(--line); }
+  button.danger { background:var(--danger); }
+  button.small { padding:4px 10px; font-size:13px; }
+  .row { display:flex; gap:12px; flex-wrap:wrap; align-items:end; } .row > * { flex:1 1 160px; } .row > .fit { flex:0 0 auto; }
+  .top { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .msg { margin-top:12px; padding:10px 12px; border-radius:6px; font-size:14px; white-space:pre-wrap; display:none; }
+  .msg.err { display:block; background:color-mix(in srgb, var(--danger) 12%, transparent); color:var(--danger); }
+  .msg.ok { display:block; background:color-mix(in srgb, var(--ok) 12%, transparent); color:var(--ok); }
+  .hidden { display:none !important; }
+  .tabs { display:flex; gap:4px; margin-top:16px; border-bottom:1px solid var(--line); overflow-x:auto; }
+  .tabs button { background:transparent; color:var(--muted); border-radius:6px 6px 0 0; border-bottom:2px solid transparent; white-space:nowrap; }
+  .tabs button.on { color:var(--accent); border-bottom-color:var(--accent); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:12px; }
+  .tile { border:1px solid var(--line); border-radius:8px; padding:8px; display:flex; flex-direction:column; gap:4px; background:var(--bg); }
+  .tile img { width:100%; aspect-ratio:63/88; object-fit:contain; border-radius:4px; background:var(--card); }
+  .tile .name { font-weight:600; font-size:14px; }
+  .r { display:inline-block; padding:1px 8px; border-radius:999px; font-size:12px; border:1px solid currentColor; width:fit-content; }
+  .r-common { color:var(--common); } .r-rare { color:var(--rare); } .r-epic { color:var(--epic); } .r-legendary { color:var(--legendary); }
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  th, td { text-align:left; padding:8px 6px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--muted); font-weight:500; font-size:13px; }
+  .scroll { overflow-x:auto; }
+  .pager { display:flex; gap:8px; align-items:center; justify-content:center; margin-top:12px; }
+  .qty { width:64px; padding:4px 6px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Gacha Platform · Demo</h1>
+  <div class="muted">หน้าทดลองเรียก API ของ user-service, card-catalog-service และ collection-service ในเครื่อง</div>
+
+  <section>
+    <details>
+      <summary><b>ตั้งค่า</b> <span class="muted">(URL ของแต่ละ service)</span></summary>
+      <div class="row">
+        <div><label>user-service</label><input id="userUrl" value="http://localhost:3001"></div>
+        <div><label>card-catalog-service</label><input id="catalogUrl" value="http://localhost:3003"></div>
+        <div><label>collection-service</label><input id="collUrl" value="http://localhost:3005"></div>
+      </div>
+    </details>
+  </section>
+
+  <section id="loginBox">
+    <h2>ล็อกอิน</h2>
+    <form id="loginForm" class="row">
+      <div><label>อีเมล</label><input id="email" value="somchai@example.com" autocomplete="username"></div>
+      <div><label>รหัสผ่าน</label><input id="password" type="password" value="password123" autocomplete="current-password"></div>
+      <div class="fit"><button>เข้าสู่ระบบ</button></div>
+    </form>
+    <div class="muted" style="margin-top:8px">บัญชีตัวอย่าง: somchai@example.com, somying@example.com (admin) รหัส password123</div>
+    <div id="loginMsg" class="msg"></div>
+  </section>
+
+  <div id="app" class="hidden">
+    <section class="top">
+      <div><b id="who"></b><div class="muted" id="whoId"></div></div>
+      <button class="ghost" id="logout">ออกจากระบบ</button>
+    </section>
+
+    <nav class="tabs" id="tabs">
+      <button data-tab="catalog" class="on">แคตตาล็อก</button>
+      <button data-tab="collection">คอลเลกชันของฉัน</button>
+      <button data-tab="orders">คำสั่งจัดส่ง</button>
+    </nav>
+
+    <!-- แคตตาล็อก -->
+    <section data-panel="catalog">
+      <div class="row">
+        <div><label>ค้นหาชื่อ</label><input id="q" placeholder="เช่น Charizard"></div>
+        <div><label>ความหายาก</label><select id="rarity"><option value="">ทั้งหมด</option><option>common</option><option>rare</option><option>epic</option><option>legendary</option></select></div>
+        <div class="fit"><button id="search">ค้นหา</button></div>
+      </div>
+      <div class="muted" id="catalogInfo" style="margin:12px 0 8px"></div>
+      <div class="grid" id="catalogGrid"></div>
+      <div class="pager"><button class="ghost small" id="prev">‹ ก่อนหน้า</button><span id="pageNo" class="muted"></span><button class="ghost small" id="next">ถัดไป ›</button></div>
+      <div id="catalogMsg" class="msg"></div>
+    </section>
+
+    <!-- คอลเลกชัน -->
+    <section data-panel="collection" class="hidden">
+      <div class="top"><h2>การ์ดของฉัน</h2><button class="ghost small" id="reloadCards">รีเฟรช</button></div>
+      <div class="grid" id="myCards"></div>
+      <h3>ขอจัดส่งการ์ดจริง</h3>
+      <div class="muted" id="feeHint">ใส่จำนวนที่จะขอส่งใต้การ์ดแต่ละใบ</div>
+      <div class="row">
+        <div><label>ที่อยู่จัดส่ง (จาก user-service)</label><select id="address"></select></div>
+        <div class="fit"><button class="ghost" id="toggleAddr">+ เพิ่มที่อยู่</button></div>
+        <div class="fit"><button id="createOrder">ขอจัดส่ง</button></div>
+      </div>
+      <form id="addrForm" class="hidden">
+        <div class="row">
+          <div><label>ชื่อผู้รับ</label><input name="recipientName" required></div>
+          <div><label>เบอร์โทร</label><input name="phone" value="0812345678" required></div>
+        </div>
+        <div class="row">
+          <div><label>ที่อยู่</label><input name="line1" required></div>
+          <div><label>อำเภอ/เขต</label><input name="district" required></div>
+          <div><label>จังหวัด</label><input name="province" required></div>
+          <div><label>รหัสไปรษณีย์</label><input name="postalCode" maxlength="5" required></div>
+          <div class="fit"><button>บันทึกที่อยู่</button></div>
+        </div>
+      </form>
+      <div id="orderMsg" class="msg"></div>
+    </section>
+
+    <!-- คำสั่งจัดส่ง -->
+    <section data-panel="orders" class="hidden">
+      <div class="top">
+        <h2>คำสั่งจัดส่งของฉัน</h2>
+        <div class="row" style="flex:0 0 auto">
+          <label class="fit" style="display:flex;gap:6px;align-items:center;margin:0"><input id="adminMode" type="checkbox"> แสดงปุ่ม admin</label>
+          <button class="ghost small fit" id="reloadOrders">รีเฟรช</button>
+        </div>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>วันที่</th><th>รายการ</th><th>ค่าส่ง</th><th>ชำระ</th><th>สถานะ</th><th>Tracking</th><th></th></tr></thead>
+        <tbody id="orders"></tbody>
+      </table></div>
+      <div class="muted" style="margin-top:8px">ปุ่ม admin ใช้ได้เมื่อ userId อยู่ใน ADMIN_USER_IDS (mock: somying) ถ้าไม่ใช่จะได้ 403</div>
+      <div id="ordersMsg" class="msg"></div>
+    </section>
+  </div>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const state = { token: null, user: null, page: 1, totalPages: 1 };
+const store = (kind) => ({
+  get(k) { try { return JSON.parse(window[kind].getItem(k)); } catch { return null; } },
+  set(k, v) { try { window[kind].setItem(k, JSON.stringify(v)); } catch {} },
+  del(k) { try { window[kind].removeItem(k); } catch {} },
+});
+// login อยู่ใน sessionStorage (รีเฟรชหน้าไม่หลุด) ส่วน URL อยู่ใน localStorage
+const session = store('sessionStorage');
+const prefs = store('localStorage');
+const NEXT = { PENDING: ['PROCESSING', 'CANCELLED'], PROCESSING: ['SHIPPED', 'CANCELLED'], SHIPPED: ['DELIVERED'] };
+
+const show = (el, text, ok) => { el.className = 'msg ' + (ok ? 'ok' : 'err'); el.textContent = text; };
+const clear = (el) => { el.className = 'msg'; el.textContent = ''; };
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const rarity = (r) => `<span class="r r-${esc(r)}">${esc(r)}</span>`;
+const auth = () => ({ Authorization: `Bearer ${state.token}` });
+
+async function api(base, path, { method = 'GET', body, headers = {} } = {}) {
+  const url = $(base).value.replace(/\/$/, '') + path;
+  let res;
+  try {
+    res = await fetch(url, { method, headers: { ...(body ? { 'Content-Type': 'application/json' } : {}), ...headers }, body: body ? JSON.stringify(body) : undefined });
+  } catch {
+    throw new Error(`ติดต่อ ${$(base).value} ไม่ได้ (service รันอยู่ไหม?)`);
+  }
+  const data = res.status === 204 ? null : await res.json().catch(() => null);
+  if (!res.ok) {
+    const e = data && data.error;
+    let msg = e ? `${res.status} ${e.code}: ${e.message}` : `HTTP ${res.status}`;
+    if (res.status === 401 && headers.Authorization) { logout(); show($('loginMsg'), 'token หมดอายุหรือใช้ไม่ได้ กรุณาล็อกอินใหม่'); }
+    if (e && Array.isArray(e.details)) msg += '\n' + e.details.map((d) => d.path !== undefined ? `${d.path}: ${d.message}` : `${d.cardId}: ขอ ${d.requested} มี ${d.available}`).join('\n');
+    throw new Error(msg);
+  }
+  return data;
+}
+
+// ---------- ตั้งค่า / ล็อกอิน ----------
+for (const id of ['userUrl', 'catalogUrl', 'collUrl']) {
+  const saved = prefs.get('demo-' + id);
+  if (saved) $(id).value = saved;
+  $(id).onchange = () => prefs.set('demo-' + id, $(id).value);
+}
+
+$('loginForm').onsubmit = async (ev) => {
+  ev.preventDefault();
+  clear($('loginMsg'));
+  try {
+    const data = await api('userUrl', '/auth/login', { method: 'POST', body: { email: $('email').value, password: $('password').value } });
+    state.token = data.accessToken;
+    state.user = data.user;
+    session.set('demo-session', { token: state.token, user: state.user });
+    enterApp();
+  } catch (err) { show($('loginMsg'), err.message); }
+};
+
+function enterApp() {
+  $('who').textContent = `สวัสดี ${state.user.displayName || state.user.firstName}`;
+  $('whoId').textContent = `${state.user.email} · userId ${state.user.id}`;
+  $('loginBox').classList.add('hidden');
+  $('app').classList.remove('hidden');
+  const tab = session.get('demo-tab');
+  openTab(LOADERS[tab] ? tab : 'catalog');
+}
+
+function logout() {
+  state.token = null; state.user = null;
+  session.del('demo-session');
+  $('app').classList.add('hidden');
+  $('loginBox').classList.remove('hidden');
+}
+$('logout').onclick = logout;
+
+// ---------- แท็บ ----------
+const LOADERS = { catalog: loadCatalog, collection: () => Promise.all([loadMyCards(), loadAddresses()]), orders: loadOrders };
+function openTab(name) {
+  document.querySelectorAll('#tabs button').forEach((b) => b.classList.toggle('on', b.dataset.tab === name));
+  document.querySelectorAll('[data-panel]').forEach((p) => p.classList.toggle('hidden', p.dataset.panel !== name));
+  session.set('demo-tab', name);
+  LOADERS[name]();
+}
+$('tabs').onclick = (ev) => { const b = ev.target.closest('button'); if (b) openTab(b.dataset.tab); };
+
+// ---------- แคตตาล็อก ----------
+async function loadCatalog() {
+  clear($('catalogMsg'));
+  const qs = new URLSearchParams({ page: state.page, limit: 24 });
+  if ($('q').value.trim()) qs.set('q', $('q').value.trim());
+  if ($('rarity').value) qs.set('rarity', $('rarity').value);
+  try {
+    const res = await api('catalogUrl', `/cards?${qs}`);
+    state.totalPages = Math.max(1, res.totalPages);
+    $('catalogInfo').textContent = `พบ ${res.total} ใบ`;
+    $('pageNo').textContent = `หน้า ${res.page} / ${state.totalPages}`;
+    $('prev').disabled = res.page <= 1;
+    $('next').disabled = res.page >= state.totalPages;
+    $('catalogGrid').innerHTML = res.data.map((c) => `
+      <div class="tile"><img src="${esc(c.imageSmall)}" alt="${esc(c.name)}" loading="lazy">
+        <div class="name">${esc(c.name)}</div>${rarity(c.rarity)}
+        <div class="muted">${esc(c.id)} · ${esc(c.setName)}<br>สต็อกเหลือ ${c.available}</div></div>`).join('') || '<div class="muted">ไม่พบการ์ด</div>';
+  } catch (err) { show($('catalogMsg'), err.message); }
+}
+$('search').onclick = () => { state.page = 1; loadCatalog(); };
+$('q').onkeydown = (ev) => { if (ev.key === 'Enter') $('search').click(); };
+$('prev').onclick = () => { state.page--; loadCatalog(); };
+$('next').onclick = () => { state.page++; loadCatalog(); };
+
+// ---------- คอลเลกชัน + ขอจัดส่ง ----------
+async function loadMyCards() {
+  try {
+    const page = await api('collUrl', '/collections/me?limit=100', { headers: auth() });
+    $('myCards').innerHTML = page.data.map((c) => `
+      <div class="tile"><img src="${esc(c.cardImageUrl)}" alt="${esc(c.cardName)}" loading="lazy">
+        <div class="name">${esc(c.cardName)}</div>${rarity(c.cardRarity)}
+        <div class="muted">มี ${c.quantity} · แลกแล้ว ${c.redeemedQuantity} · เหลือ ${c.availableQuantity}</div>
+        <label style="margin:0">ขอส่ง <input class="qty" type="number" min="0" max="${c.availableQuantity}" value="0" data-card="${esc(c.cardId)}" ${c.availableQuantity ? '' : 'disabled'}></label>
+      </div>`).join('') || '<div class="muted">ยังไม่มีการ์ด (การ์ดจะเข้ามาเมื่อสุ่มผ่าน Gacha service)</div>';
+    document.querySelectorAll('.qty').forEach((i) => { i.oninput = feeHint; });
+    feeHint();
+  } catch (err) { show($('orderMsg'), err.message); }
+}
+
+const selectedItems = () => [...document.querySelectorAll('.qty')]
+  .map((i) => ({ cardId: i.dataset.card, quantity: parseInt(i.value, 10) || 0 }))
+  .filter((i) => i.quantity > 0);
+function feeHint() {
+  const total = selectedItems().reduce((s, i) => s + i.quantity, 0);
+  $('feeHint').textContent = total ? `เลือก ${total} ใบ · ค่าส่ง ${total >= 5 ? 'ฟรี' : '50 บาท'} (ครบ 5 ใบส่งฟรี)` : 'ใส่จำนวนที่จะขอส่งใต้การ์ดแต่ละใบ';
+}
+
+async function loadAddresses() {
+  try {
+    const { addresses } = await api('userUrl', '/users/me/addresses', { headers: auth() });
+    $('address').innerHTML = addresses.length
+      ? addresses.map((a) => `<option value="${esc(a.id)}">${a.isDefault ? '★ ' : ''}${esc(a.recipientName)} · ${esc(a.line1)} ${esc(a.district)} ${esc(a.province)} ${esc(a.postalCode)}</option>`).join('')
+      : '<option value="">ยังไม่มีที่อยู่ กด "+ เพิ่มที่อยู่"</option>';
+  } catch (err) { show($('orderMsg'), err.message); }
+}
+$('toggleAddr').onclick = () => $('addrForm').classList.toggle('hidden');
+$('addrForm').onsubmit = async (ev) => {
+  ev.preventDefault();
+  clear($('orderMsg'));
+  try {
+    const body = Object.fromEntries(new FormData(ev.target));
+    await api('userUrl', '/users/me/addresses', { method: 'POST', headers: auth(), body });
+    ev.target.reset();
+    $('addrForm').classList.add('hidden');
+    show($('orderMsg'), 'บันทึกที่อยู่แล้ว', true);
+    await loadAddresses();
+  } catch (err) { show($('orderMsg'), err.message); }
+};
+
+$('createOrder').onclick = async () => {
+  clear($('orderMsg'));
+  const items = selectedItems();
+  if (!items.length) return show($('orderMsg'), 'ใส่จำนวนการ์ดที่จะขอส่งก่อน');
+  if (!$('address').value) return show($('orderMsg'), 'ยังไม่มีที่อยู่จัดส่ง');
+  try {
+    const order = await api('collUrl', '/fulfillments/orders', { method: 'POST', headers: auth(), body: { items, addressId: $('address').value } });
+    show($('orderMsg'), `สร้าง order แล้ว · ส่งไป ${order.shippingAddress.province} · ค่าส่ง ${order.shippingFee} บาท · สถานะ ${order.status} (ดูในแท็บ "คำสั่งจัดส่ง")`, true);
+    await loadMyCards();
+  } catch (err) { show($('orderMsg'), err.message); }
+};
+$('reloadCards').onclick = loadMyCards;
+
+// ---------- คำสั่งจัดส่ง ----------
+async function loadOrders() {
+  clear($('ordersMsg'));
+  try {
+    const page = await api('collUrl', '/fulfillments/orders?limit=100', { headers: auth() });
+    const admin = $('adminMode').checked;
+    $('orders').innerHTML = page.data.map((o) => {
+      const actions = [];
+      if (o.status === 'PENDING') actions.push(`<button class="danger small" data-cancel="${o.id}">ยกเลิก</button>`);
+      if (admin) (NEXT[o.status] || []).forEach((s) => actions.push(`<button class="ghost small" data-id="${o.id}" data-status="${s}">→ ${s}</button>`));
+      return `<tr><td>${new Date(o.createdAt).toLocaleString('th-TH')}</td>
+        <td>${o.items.map((i) => `${esc(i.cardName)} ×${i.quantity}`).join('<br>')}</td>
+        <td>${o.shippingFee}</td><td class="muted">${o.paymentStatus}</td><td><b>${o.status}</b></td>
+        <td>${esc(o.trackingNumber || '-')}</td><td style="white-space:nowrap">${actions.join(' ')}</td></tr>`;
+    }).join('') || '<tr><td colspan="7" class="muted">ยังไม่มี order</td></tr>';
+  } catch (err) { show($('ordersMsg'), err.message); }
+}
+$('orders').onclick = async (ev) => {
+  const b = ev.target.closest('button');
+  if (!b) return;
+  clear($('ordersMsg'));
+  try {
+    if (b.dataset.cancel) {
+      await api('collUrl', `/fulfillments/orders/${b.dataset.cancel}/cancel`, { method: 'POST', headers: auth() });
+    } else {
+      const body = { status: b.dataset.status };
+      if (body.status === 'SHIPPED') {
+        const t = prompt('Tracking number', 'TH' + Date.now().toString().slice(-10));
+        if (!t) return;
+        body.trackingNumber = t;
+      }
+      await api('collUrl', `/admin/fulfillments/orders/${b.dataset.id}/status`, { method: 'PATCH', headers: auth(), body });
+    }
+    await loadOrders();
+  } catch (err) { show($('ordersMsg'), err.message); }
+};
+$('adminMode').onchange = loadOrders;
+$('reloadOrders').onclick = loadOrders;
+
+// กลับเข้าหน้าเดิมถ้าเคยล็อกอินไว้ในแท็บนี้
+const saved = session.get('demo-session');
+if (saved && saved.token && saved.user) { state.token = saved.token; state.user = saved.user; enterApp(); }
+</script>
+</body>
+</html>
