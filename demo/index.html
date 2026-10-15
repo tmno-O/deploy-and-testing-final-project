@@ -397,7 +397,8 @@ img { display: block; max-width: 100%; }
 // ============================================================
 // เปิดผ่านเว็บ (nginx ใน docker compose): เรียก /api/<service> บนโดเมนเดียวกัน
 // เปิดไฟล์ตรงๆ (file://) ตอนพัฒนา: เรียกพอร์ตของแต่ละ service บนเครื่อง
-const VIA_PROXY = location.protocol === 'http:' || location.protocol === 'https:';
+const VIA_PROXY = !new URLSearchParams(location.search).has('local')
+  && (location.protocol === 'http:' || location.protocol === 'https:');
 const SERVICES = {
   user: { label: 'User Service', port: 3001 },
   wallet: { label: 'Wallet Service', port: 3002 },

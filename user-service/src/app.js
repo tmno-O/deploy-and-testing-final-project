@@ -10,6 +10,9 @@ function createApp() {
   app.set('trust proxy', config.trustProxy);
   app.disable('x-powered-by');
 
+  if (config.env !== 'production') {
+    app.use('/demo', express.static(path.join(__dirname, '..', '..', 'demo')));
+  }
   app.use(helmet());
   app.use(cors({ origin: config.corsOrigin.includes('*') ? true : config.corsOrigin }));
   app.use(express.json({ limit: '10kb' }));

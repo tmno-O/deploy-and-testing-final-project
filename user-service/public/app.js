@@ -38,9 +38,16 @@ const field = (n, l, t = 'text', v = '', req = true, x = '') =>
 
 function logout(expired) {
   token = null; user = null; localStorage.removeItem('tk');
+  sessionStorage.removeItem('cd-session');
   render(); if (expired) toast('เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่', true);
 }
-function setSession(d) { token = d.accessToken; user = d.user; localStorage.setItem('tk', token); tab = 'card'; }
+function setSession(d) {
+  token = d.accessToken;
+  user = d.user;
+  localStorage.setItem('tk', token);
+  sessionStorage.setItem('cd-session', JSON.stringify({ token, user }));
+  tab = 'card';
+}
 
 const authView = () => {
   const login = mode === 'login';
@@ -124,7 +131,7 @@ document.addEventListener('submit', async (e) => {
   try {
     if (f.id === 'auth') {
       setSession(await api(mode === 'login' ? '/auth/login' : '/auth/register', 'POST', d));
-      window.location.assign('/index.html');
+      window.location.assign('/demo/?local=1');
     } else if (f.id === 'profile') {
       user = (await api('/users/me', 'PATCH', d)).user; render(); toast('บันทึกบัตรเทรนเนอร์แล้ว');
     } else if (f.id === 'pw') {

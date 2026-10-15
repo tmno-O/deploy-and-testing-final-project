@@ -19,6 +19,7 @@ npm install
 cp .env.example .env
 npm run dev
 ```
+เปิด `http://localhost:3001` แล้วล็อกอินเพื่อไปหน้า Demo ที่ `/demo/` โดยตรง (ไม่ต้องใช้ Docker) หน้า Demo เรียก service อื่นผ่านพอร์ต local จึงต้องเปิด `card-catalog-service` (:3003), `wallet-service` (:3002) และ `collection-service` (:3005) ไว้ด้วย และตั้งค่า `JWT_SECRET` / `INTERNAL_API_KEY` ให้ตรงกันทุก service
 
 ## Mock data
 ข้อมูลทั้งหมดเก็บในไฟล์ [`data/mock-data.json`](data/mock-data.json) (`users` และ `addresses`) โหลดเข้า memory ตอนเริ่ม server
