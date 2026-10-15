@@ -1,29 +1,31 @@
-# รัน collection-service เดี่ยว ๆ (ข้อมูลเก็บในไฟล์ JSON ไม่ต้องมี database)
-# ใช้งาน: cp .env.example .env แล้ว docker compose up --build
-# ถ้าจะใช้ addressId ต้องมี user-service รันอยู่ด้วย → ใช้ docker-compose.yml ที่ root ของ repo แทน
+# Run collection-service standalone (data lives in a JSON file, no database needed)
+# Usage: cp .env.example .env && docker compose up --build
+# addressId needs user-service too: use the docker-compose.yml at the repo root for that
 services:
   collection-service:
     build: .
     environment:
       NODE_ENV: production
       PORT: 3005
-      JWT_SECRET: ${JWT_SECRET:?กรุณาตั้ง JWT_SECRET ในไฟล์ .env (อย่างน้อย 32 ตัวอักษร)}
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env (at least 32 characters)}
       JWT_ISSUER: ${JWT_ISSUER:-user-service}
-      SERVICE_API_KEY: ${SERVICE_API_KEY:?กรุณาตั้ง SERVICE_API_KEY ในไฟล์ .env (อย่างน้อย 32 ตัวอักษร)}
-      ADMIN_API_KEY: ${ADMIN_API_KEY:?กรุณาตั้ง ADMIN_API_KEY ในไฟล์ .env (อย่างน้อย 32 ตัวอักษร)}
-      USER_SERVICE_URL: ${USER_SERVICE_URL:-http://host.docker.internal:3001}
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY:?Set INTERNAL_API_KEY in .env (at least 32 characters)}
+      ADMIN_USER_IDS: ${ADMIN_USER_IDS:-}
+      RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-300}
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
+      TRUST_PROXY: ${TRUST_PROXY:-}
+      PERSIST_DATA: ${PERSIST_DATA:-true}
       SHIPPING_FLAT_FEE: ${SHIPPING_FLAT_FEE:-50}
       FREE_SHIPPING_MIN_CARDS: ${FREE_SHIPPING_MIN_CARDS:-5}
       MAX_CARDS_PER_ORDER: ${MAX_CARDS_PER_ORDER:-50}
+      USER_SERVICE_URL: ${USER_SERVICE_URL:-http://host.docker.internal:3001}
       CATALOG_SERVICE_URL: ${CATALOG_SERVICE_URL:-}
       WALLET_ENABLED: ${WALLET_ENABLED:-false}
       WALLET_SERVICE_URL: ${WALLET_SERVICE_URL:-}
-      CORS_ORIGIN: ${CORS_ORIGIN:-*}
-      PERSIST_DATA: ${PERSIST_DATA:-true}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-      # volume ใหม่จะถูกเติมด้วย mock data จาก image ครั้งแรก; ลบ volume (docker compose down -v) เพื่อรีเซ็ตข้อมูล
+      # a new volume is seeded from the image's mock data on first run; `docker compose down -v` resets it
       - collection-data:/app/data
     ports:
       - "3005:3005"

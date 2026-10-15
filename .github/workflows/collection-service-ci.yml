@@ -13,7 +13,7 @@ defaults:
 
 jobs:
   test:
-    name: Lint & Test
+    name: Lint, Typecheck, Build & Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,6 +24,8 @@ jobs:
           cache-dependency-path: collection-service/package-lock.json
       - run: npm ci
       - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run build
       # coverageThreshold 80% ใน package.json → ต่ำกว่านั้น job นี้แดง
       - run: npm run test:coverage
       - uses: actions/upload-artifact@v4

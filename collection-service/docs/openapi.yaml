@@ -3,8 +3,10 @@ info:
   title: Collection & Fulfillment Service
   version: 1.0.0
   description: |
-    Service 5 ของ Online Trading Card Gacha Platform: คอลเลกชันการ์ดดิจิทัลและการขอจัดส่งการ์ดจริง
-    ทุก response มี header `X-Request-Id` (ส่งมาเองได้ ถ้าไม่ส่งจะสร้างให้)
+    Service 5 of the Online Trading Card Gacha Platform: digital card collections and physical card delivery.
+    Conventions follow card-catalog-service: `X-Internal-Key` for service calls, admin = JWT whose `sub` is in
+    ADMIN_USER_IDS, page/limit pagination and `{ error: { code, message, details? } }` errors.
+    Every response carries `X-Request-Id` (sent by the caller if valid, otherwise generated).
 servers:
   - url: http://localhost:3005
 tags:
@@ -20,25 +22,27 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: JWT จาก user-service (HS256, iss=user-service, sub=userId)
-    serviceKey:
+      description: JWT from user-service (HS256, iss=user-service, sub=userId)
+    adminJwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Same JWT; its `sub` must be listed in ADMIN_USER_IDS (403 FORBIDDEN otherwise)
+    internalKey:
       type: apiKey
       in: header
-      name: X-Service-Key
-    adminKey:
-      type: apiKey
-      in: header
-      name: X-Admin-Key
+      name: X-Internal-Key
+      description: Shared INTERNAL_API_KEY for service-to-service calls
 
   parameters:
     limit:
       name: limit
       in: query
       schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
-    offset:
-      name: offset
+    page:
+      name: page
       in: query
-      schema: { type: integer, minimum: 0, default: 0 }
+      schema: { type: integer, minimum: 1, maximum: 10000, default: 1 }
     rarity:
       name: rarity
       in: query
@@ -57,7 +61,7 @@ components:
   schemas:
     Rarity:
       type: string
-      enum: [COMMON, RARE, SUPER_RARE, ULTRA_RARE, SECRET_RARE]
+      enum: [common, rare, epic, legendary]
     OrderStatus:
       type: string
       enum: [PENDING, PROCESSING, SHIPPED, DELIVERED, CANCELLED]
@@ -77,34 +81,35 @@ components:
       additionalProperties: false
       required: [cardId, cardName, cardRarity, cardImageUrl, quantity, redeemedQuantity, availableQuantity, createdAt, updatedAt]
       properties:
-        cardId: { type: string, example: CARD-001 }
+        cardId: { type: string, pattern: '^[A-Za-z0-9._-]{1,40}$', example: base1-1 }
         cardName: { type: string }
         cardRarity: { $ref: '#/components/schemas/Rarity' }
         cardImageUrl: { type: string, format: uri }
         quantity: { type: integer, minimum: 0 }
-        redeemedQuantity: { type: integer, minimum: 0, description: จำนวนที่ถูกแลกเป็นการ์ดจริง (รวมที่อยู่ใน order ที่ยังไม่ยกเลิก) }
+        redeemedQuantity: { type: integer, minimum: 0, description: cards held by orders that are not cancelled }
         availableQuantity: { type: integer, minimum: 0, description: quantity - redeemedQuantity }
         createdAt: { type: string, format: date-time }
         updatedAt: { type: string, format: date-time }
     CardPage:
       type: object
       additionalProperties: false
-      required: [data, total, limit, offset]
+      required: [data, page, limit, total, totalPages]
       properties:
         data: { type: array, items: { $ref: '#/components/schemas/Card' } }
-        total: { type: integer }
+        page: { type: integer }
         limit: { type: integer }
-        offset: { type: integer }
+        total: { type: integer }
+        totalPages: { type: integer }
     AddCardRequest:
       type: object
       additionalProperties: false
       required: [pullId, cardId]
       properties:
-        pullId: { type: string, format: uuid, description: idempotency key ของการสุ่มครั้งนั้น }
-        cardId: { type: string, example: CARD-001 }
-        cardName: { type: string, description: บังคับเมื่อปิด Catalog }
+        pullId: { type: string, format: uuid, description: idempotency key of that Gacha pull }
+        cardId: { type: string, pattern: '^[A-Za-z0-9._-]{1,40}$', example: base1-1 }
+        cardName: { type: string, description: required while the catalog is disabled }
         cardRarity: { $ref: '#/components/schemas/Rarity' }
-        cardImageUrl: { type: string, format: uri, description: บังคับเมื่อปิด Catalog }
+        cardImageUrl: { type: string, format: uri, description: required while the catalog is disabled }
         quantity: { type: integer, minimum: 1, maximum: 100, default: 1 }
     AddCardResponse:
       type: object
@@ -112,7 +117,7 @@ components:
       required: [pullId, created, card]
       properties:
         pullId: { type: string, format: uuid }
-        created: { type: boolean, description: false = pullId นี้เคยถูกใช้แล้ว ไม่ได้เพิ่มซ้ำ }
+        created: { type: boolean, description: 'false = this pullId was already applied and nothing was added' }
         card: { $ref: '#/components/schemas/Card' }
     ShippingAddress:
       type: object
@@ -132,19 +137,19 @@ components:
       additionalProperties: false
       required: [cardId, quantity]
       properties:
-        cardId: { type: string }
+        cardId: { type: string, pattern: '^[A-Za-z0-9._-]{1,40}$' }
         quantity: { type: integer, minimum: 1 }
     CreateOrderRequest:
       type: object
       additionalProperties: false
       required: [items]
-      description: ต้องมี addressId หรือ shippingAddress อย่างใดอย่างหนึ่ง
+      description: exactly one of addressId or shippingAddress
       properties:
         items:
           type: array
           minItems: 1
           items: { $ref: '#/components/schemas/OrderItemRequest' }
-        addressId: { type: string, format: uuid, description: id ที่อยู่ใน user-service }
+        addressId: { type: string, format: uuid, description: address id in user-service }
         shippingAddress: { $ref: '#/components/schemas/ShippingAddress' }
     Order:
       type: object
@@ -160,12 +165,12 @@ components:
             additionalProperties: false
             required: [cardId, cardName, quantity]
             properties:
-              cardId: { type: string }
+              cardId: { type: string, pattern: '^[A-Za-z0-9._-]{1,40}$' }
               cardName: { type: string }
               quantity: { type: integer }
         addressId: { type: string, format: uuid, nullable: true }
         shippingAddress: { $ref: '#/components/schemas/ShippingAddress' }
-        shippingFee: { type: integer, description: บาท (จำนวนเต็ม) }
+        shippingFee: { type: integer, description: whole baht }
         status: { $ref: '#/components/schemas/OrderStatus' }
         trackingNumber: { type: string, nullable: true }
         paymentStatus: { type: string, enum: [NOT_REQUIRED, PAID, REFUNDED] }
@@ -181,28 +186,23 @@ components:
               at: { type: string, format: date-time }
         createdAt: { type: string, format: date-time }
         updatedAt: { type: string, format: date-time }
-    OrderEnvelope:
-      type: object
-      additionalProperties: false
-      required: [order]
-      properties:
-        order: { $ref: '#/components/schemas/Order' }
     OrderPage:
       type: object
       additionalProperties: false
-      required: [data, total, limit, offset]
+      required: [data, page, limit, total, totalPages]
       properties:
         data: { type: array, items: { $ref: '#/components/schemas/Order' } }
-        total: { type: integer }
+        page: { type: integer }
         limit: { type: integer }
-        offset: { type: integer }
+        total: { type: integer }
+        totalPages: { type: integer }
     UpdateStatusRequest:
       type: object
       additionalProperties: false
       required: [status]
       properties:
         status: { $ref: '#/components/schemas/OrderStatus' }
-        trackingNumber: { type: string, description: บังคับเมื่อ status = SHIPPED }
+        trackingNumber: { type: string, description: required when status is SHIPPED }
 
   responses:
     Error:
@@ -228,7 +228,7 @@ paths:
   /health/ready:
     get:
       tags: [health]
-      summary: Readiness (store โหลดแล้ว)
+      summary: Readiness (store loaded)
       responses:
         '200':
           description: Ready
@@ -243,11 +243,11 @@ paths:
   /collections/me:
     get:
       tags: [collection]
-      summary: การ์ดทั้งหมดของฉัน
+      summary: My cards
       security: [{ userJwt: [] }]
       parameters:
         - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/rarity'
       responses:
         '200':
@@ -260,7 +260,7 @@ paths:
   /collections/me/{cardId}:
     get:
       tags: [collection]
-      summary: การ์ด 1 ใบของฉัน
+      summary: One of my cards
       security: [{ userJwt: [] }]
       parameters:
         - name: cardId
@@ -272,19 +272,15 @@ paths:
           description: OK
           content:
             application/json:
-              schema:
-                type: object
-                additionalProperties: false
-                required: [card]
-                properties: { card: { $ref: '#/components/schemas/Card' } }
+              schema: { $ref: '#/components/schemas/Card' }
         '401': { $ref: '#/components/responses/Error' }
         '404': { $ref: '#/components/responses/Error' }
 
   /internal/collections/{userId}/cards:
     post:
       tags: [internal]
-      summary: (Gacha) เพิ่มการ์ดให้ผู้ใช้ แบบ idempotent ด้วย pullId
-      security: [{ serviceKey: [] }]
+      summary: (Gacha) add a pulled card, idempotent by pullId
+      security: [{ internalKey: [] }]
       parameters:
         - $ref: '#/components/parameters/userId'
       requestBody:
@@ -294,24 +290,24 @@ paths:
             schema: { $ref: '#/components/schemas/AddCardRequest' }
       responses:
         '200':
-          description: pullId นี้เคยถูกใช้แล้ว คืนผลเดิม ไม่เพิ่มซ้ำ
+          description: pullId already applied; the first result is returned, nothing is added
           content:
             application/json:
               schema: { $ref: '#/components/schemas/AddCardResponse' }
         '201':
-          description: เพิ่มการ์ดแล้ว
+          description: Card added
           content:
             application/json:
               schema: { $ref: '#/components/schemas/AddCardResponse' }
         '400': { $ref: '#/components/responses/Error' }
         '401': { $ref: '#/components/responses/Error' }
         '409':
-          description: PULL_ID_CONFLICT (pullId เดิมแต่คนละ user หรือคนละการ์ด)
+          description: PULL_ID_CONFLICT (same pullId for another user or card)
           content:
             application/json:
               schema: { $ref: '#/components/schemas/Error' }
         '422':
-          description: CARD_NOT_FOUND (เมื่อเปิด Catalog)
+          description: CARD_NOT_FOUND (catalog enabled)
           content:
             application/json:
               schema: { $ref: '#/components/schemas/Error' }
@@ -323,12 +319,12 @@ paths:
   /internal/collections/{userId}:
     get:
       tags: [internal]
-      summary: คอลเลกชันของผู้ใช้ใดก็ได้
-      security: [{ serviceKey: [] }]
+      summary: Any user's collection
+      security: [{ internalKey: [] }]
       parameters:
         - $ref: '#/components/parameters/userId'
         - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/rarity'
       responses:
         '200':
@@ -342,7 +338,7 @@ paths:
   /fulfillments/orders:
     post:
       tags: [fulfillment]
-      summary: ขอจัดส่งการ์ดจริง (all-or-nothing)
+      summary: Request physical delivery (all-or-nothing)
       security: [{ userJwt: [] }]
       requestBody:
         required: true
@@ -351,19 +347,19 @@ paths:
             schema: { $ref: '#/components/schemas/CreateOrderRequest' }
       responses:
         '201':
-          description: สร้าง order แล้ว
+          description: Order created
           content:
             application/json:
-              schema: { $ref: '#/components/schemas/OrderEnvelope' }
+              schema: { $ref: '#/components/schemas/Order' }
         '400': { $ref: '#/components/responses/Error' }
         '401': { $ref: '#/components/responses/Error' }
         '402':
-          description: INSUFFICIENT_BALANCE (เมื่อเปิด Wallet)
+          description: INSUFFICIENT_BALANCE (wallet enabled)
           content:
             application/json:
               schema: { $ref: '#/components/schemas/Error' }
         '409':
-          description: INSUFFICIENT_QUANTITY (details บอกใบที่ไม่พอ)
+          description: INSUFFICIENT_QUANTITY (details lists the short cards)
           content:
             application/json:
               schema: { $ref: '#/components/schemas/Error' }
@@ -379,11 +375,11 @@ paths:
               schema: { $ref: '#/components/schemas/Error' }
     get:
       tags: [fulfillment]
-      summary: order ของฉัน (ใหม่สุดก่อน)
+      summary: My orders (newest first)
       security: [{ userJwt: [] }]
       parameters:
         - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/page'
         - name: status
           in: query
           schema: { $ref: '#/components/schemas/OrderStatus' }
@@ -398,7 +394,7 @@ paths:
   /fulfillments/orders/{id}:
     get:
       tags: [fulfillment]
-      summary: order 1 รายการ (ของคนอื่นตอบ 404)
+      summary: One order (someone else's answers 404)
       security: [{ userJwt: [] }]
       parameters:
         - $ref: '#/components/parameters/orderId'
@@ -407,14 +403,14 @@ paths:
           description: OK
           content:
             application/json:
-              schema: { $ref: '#/components/schemas/OrderEnvelope' }
+              schema: { $ref: '#/components/schemas/Order' }
         '400': { $ref: '#/components/responses/Error' }
         '401': { $ref: '#/components/responses/Error' }
         '404': { $ref: '#/components/responses/Error' }
   /fulfillments/orders/{id}/cancel:
     post:
       tags: [fulfillment]
-      summary: ยกเลิก order (เฉพาะ PENDING) คืนการ์ด และคืนค่าส่งถ้าจ่ายแล้ว
+      summary: Cancel a PENDING order; returns the cards and refunds a paid fee
       security: [{ userJwt: [] }]
       parameters:
         - $ref: '#/components/parameters/orderId'
@@ -423,7 +419,7 @@ paths:
           description: OK
           content:
             application/json:
-              schema: { $ref: '#/components/schemas/OrderEnvelope' }
+              schema: { $ref: '#/components/schemas/Order' }
         '401': { $ref: '#/components/responses/Error' }
         '404': { $ref: '#/components/responses/Error' }
         '409':
@@ -432,7 +428,7 @@ paths:
             application/json:
               schema: { $ref: '#/components/schemas/Error' }
         '503':
-          description: WALLET_SERVICE_UNAVAILABLE (คืนเงินไม่สำเร็จ order ไม่เปลี่ยน)
+          description: WALLET_SERVICE_UNAVAILABLE (refund failed, order unchanged)
           content:
             application/json:
               schema: { $ref: '#/components/schemas/Error' }
@@ -440,11 +436,11 @@ paths:
   /admin/fulfillments/orders/{id}/status:
     patch:
       tags: [admin]
-      summary: เปลี่ยนสถานะ order ตาม state machine
+      summary: Change order status (state machine)
       description: |
         PENDING → PROCESSING → SHIPPED → DELIVERED, PENDING/PROCESSING → CANCELLED
-        SHIPPED ต้องมี trackingNumber
-      security: [{ adminKey: [] }]
+        SHIPPED needs a trackingNumber. A user may only cancel while PENDING.
+      security: [{ adminJwt: [] }]
       parameters:
         - $ref: '#/components/parameters/orderId'
       requestBody:
@@ -457,9 +453,10 @@ paths:
           description: OK
           content:
             application/json:
-              schema: { $ref: '#/components/schemas/OrderEnvelope' }
+              schema: { $ref: '#/components/schemas/Order' }
         '400': { $ref: '#/components/responses/Error' }
         '401': { $ref: '#/components/responses/Error' }
+        '403': { $ref: '#/components/responses/Error' }
         '404': { $ref: '#/components/responses/Error' }
         '409':
           description: INVALID_STATUS_TRANSITION
