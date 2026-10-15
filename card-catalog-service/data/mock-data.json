@@ -7211,7 +7211,7 @@
     },
     {
       "cardId": "swsh7-3",
-      "total": 200,
+      "total": 199,
       "reserved": 0
     },
     {
@@ -7311,7 +7311,7 @@
     },
     {
       "cardId": "sv3pt5-12",
-      "total": 200,
+      "total": 199,
       "reserved": 0
     },
     {
@@ -7361,7 +7361,7 @@
     },
     {
       "cardId": "swsh7-25",
-      "total": 200,
+      "total": 199,
       "reserved": 0
     },
     {
@@ -7496,7 +7496,7 @@
     },
     {
       "cardId": "swsh7-1",
-      "total": 80,
+      "total": 79,
       "reserved": 0
     },
     {
@@ -7556,7 +7556,7 @@
     },
     {
       "cardId": "swsh7-38",
-      "total": 80,
+      "total": 79,
       "reserved": 0
     },
     {
@@ -7566,7 +7566,7 @@
     },
     {
       "cardId": "sv3pt5-26",
-      "total": 80,
+      "total": 79,
       "reserved": 0
     },
     {
@@ -7591,12 +7591,12 @@
     },
     {
       "cardId": "swsh7-77",
-      "total": 80,
+      "total": 79,
       "reserved": 0
     },
     {
       "cardId": "sv3pt5-40",
-      "total": 80,
+      "total": 79,
       "reserved": 0
     },
     {
@@ -7826,7 +7826,7 @@
     },
     {
       "cardId": "sv3pt5-175",
-      "total": 25,
+      "total": 24,
       "reserved": 0
     },
     {
@@ -7861,7 +7861,7 @@
     },
     {
       "cardId": "swsh7-29",
-      "total": 25,
+      "total": 24,
       "reserved": 0
     },
     {
@@ -7906,7 +7906,7 @@
     },
     {
       "cardId": "sv3pt5-200",
-      "total": 5,
+      "total": 4,
       "reserved": 0
     },
     {
@@ -7985,5 +7985,80 @@
       "reserved": 0
     }
   ],
-  "reservations": []
+  "reservations": [
+    {
+      "id": "ed0058af-2f44-4fbd-9b9c-79a712a4ca3c",
+      "idempotencyKey": "demo-f7c0eaf2-4d37-420a-b2a3-04193082b82f",
+      "items": [
+        {
+          "cardId": "sv3pt5-12",
+          "qty": 1
+        },
+        {
+          "cardId": "sv3pt5-26",
+          "qty": 1
+        },
+        {
+          "cardId": "swsh7-1",
+          "qty": 1
+        },
+        {
+          "cardId": "swsh7-25",
+          "qty": 1
+        },
+        {
+          "cardId": "swsh7-3",
+          "qty": 1
+        }
+      ],
+      "status": "committed",
+      "expiresAt": "2026-10-15T03:49:37.136Z",
+      "createdAt": "2026-10-15T03:39:37.136Z",
+      "updatedAt": "2026-10-15T03:39:37.153Z"
+    },
+    {
+      "id": "4c02abe0-befe-4802-8237-3378a32aa01a",
+      "idempotencyKey": "demo-60e9b58c-16bc-4ca6-99cd-a4536265427a",
+      "items": [
+        {
+          "cardId": "sv3pt5-175",
+          "qty": 1
+        },
+        {
+          "cardId": "swsh7-29",
+          "qty": 1
+        },
+        {
+          "cardId": "swsh7-38",
+          "qty": 1
+        }
+      ],
+      "status": "committed",
+      "expiresAt": "2026-10-15T03:50:24.235Z",
+      "createdAt": "2026-10-15T03:40:24.235Z",
+      "updatedAt": "2026-10-15T03:40:24.249Z"
+    },
+    {
+      "id": "1a0fe0ea-5aac-4ee5-8221-dbb45c7b2602",
+      "idempotencyKey": "demo-293d58f5-5406-4a49-8607-eb3b7513c4e4",
+      "items": [
+        {
+          "cardId": "sv3pt5-200",
+          "qty": 1
+        },
+        {
+          "cardId": "sv3pt5-40",
+          "qty": 1
+        },
+        {
+          "cardId": "swsh7-77",
+          "qty": 1
+        }
+      ],
+      "status": "committed",
+      "expiresAt": "2026-10-15T03:50:29.151Z",
+      "createdAt": "2026-10-15T03:40:29.151Z",
+      "updatedAt": "2026-10-15T03:40:29.164Z"
+    }
+  ]
 }

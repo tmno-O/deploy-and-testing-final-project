@@ -58,5 +58,7 @@ describe('responses match docs/openapi.yaml', () => {
     expect(await status({ status: 'PROCESSING' })).toSatisfyApiSpec();
     expect(await http().post(`/fulfillments/orders/${id}/cancel`).set(auth)).toSatisfyApiSpec();
     expect(await status({ status: 'SHIPPED', trackingNumber: 'TH1' })).toSatisfyApiSpec();
+    expect(await http().get('/admin/fulfillments/orders?status=CANCELLED').set(adminAuth())).toSatisfyApiSpec();
+    expect(await http().get(`/admin/fulfillments/orders/${id}`).set(adminAuth())).toSatisfyApiSpec();
   });
 });

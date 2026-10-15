@@ -71,8 +71,297 @@
       "redeemedQuantity": 0,
       "createdAt": "2026-01-03T00:00:00.000Z",
       "updatedAt": "2026-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "c64cce60-ee06-4670-bcd4-8102210cab05",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "swsh7-25",
+      "cardName": "Golduck",
+      "cardRarity": "common",
+      "cardImageUrl": "https://images.pokemontcg.io/swsh7/25.png",
+      "quantity": 1,
+      "redeemedQuantity": 1,
+      "createdAt": "2026-10-15T03:39:37.196Z",
+      "updatedAt": "2026-10-15T04:18:40.085Z"
+    },
+    {
+      "id": "98560932-9839-48d5-bfb2-a74c3159ed87",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "swsh7-3",
+      "cardName": "Skiploom",
+      "cardRarity": "common",
+      "cardImageUrl": "https://images.pokemontcg.io/swsh7/3.png",
+      "quantity": 1,
+      "redeemedQuantity": 0,
+      "createdAt": "2026-10-15T03:39:37.206Z",
+      "updatedAt": "2026-10-15T03:39:37.206Z"
+    },
+    {
+      "id": "c2409e91-a0f7-4017-a024-65669376962e",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "swsh7-1",
+      "cardName": "Pinsir",
+      "cardRarity": "rare",
+      "cardImageUrl": "https://images.pokemontcg.io/swsh7/1.png",
+      "quantity": 1,
+      "redeemedQuantity": 1,
+      "createdAt": "2026-10-15T03:39:37.215Z",
+      "updatedAt": "2026-10-15T04:18:40.085Z"
+    },
+    {
+      "id": "a52e8d58-9bb1-45c7-85d4-cc3f0fa6cac1",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "sv3pt5-12",
+      "cardName": "Butterfree",
+      "cardRarity": "common",
+      "cardImageUrl": "https://images.pokemontcg.io/sv3pt5/12.png",
+      "quantity": 1,
+      "redeemedQuantity": 0,
+      "createdAt": "2026-10-15T03:39:37.224Z",
+      "updatedAt": "2026-10-15T03:39:37.224Z"
+    },
+    {
+      "id": "649c5683-884f-48bc-b29c-b885c3902401",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "sv3pt5-26",
+      "cardName": "Raichu",
+      "cardRarity": "rare",
+      "cardImageUrl": "https://images.pokemontcg.io/sv3pt5/26.png",
+      "quantity": 1,
+      "redeemedQuantity": 1,
+      "createdAt": "2026-10-15T03:39:37.233Z",
+      "updatedAt": "2026-10-15T04:53:54.331Z"
+    },
+    {
+      "id": "577c2df0-f41b-4c50-8bc7-4e5c8e3e1108",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "swsh7-29",
+      "cardName": "Gyarados VMAX",
+      "cardRarity": "epic",
+      "cardImageUrl": "https://images.pokemontcg.io/swsh7/29.png",
+      "quantity": 1,
+      "redeemedQuantity": 0,
+      "createdAt": "2026-10-15T03:40:24.268Z",
+      "updatedAt": "2026-10-15T03:40:24.268Z"
+    },
+    {
+      "id": "356cb755-4ed6-44ac-8e99-9ed925ffe7de",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "sv3pt5-175",
+      "cardName": "Psyduck",
+      "cardRarity": "epic",
+      "cardImageUrl": "https://images.pokemontcg.io/sv3pt5/175.png",
+      "quantity": 1,
+      "redeemedQuantity": 0,
+      "createdAt": "2026-10-15T03:40:24.277Z",
+      "updatedAt": "2026-10-15T03:40:24.277Z"
+    },
+    {
+      "id": "e1f815df-1772-4a07-948e-4c9ee651e49c",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "swsh7-38",
+      "cardName": "Milotic",
+      "cardRarity": "rare",
+      "cardImageUrl": "https://images.pokemontcg.io/swsh7/38.png",
+      "quantity": 1,
+      "redeemedQuantity": 0,
+      "createdAt": "2026-10-15T03:40:24.289Z",
+      "updatedAt": "2026-10-15T03:40:24.289Z"
+    },
+    {
+      "id": "81faa5a3-5c51-4f2c-8d6b-3fda52a54de4",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "swsh7-77",
+      "cardName": "Gourgeist",
+      "cardRarity": "rare",
+      "cardImageUrl": "https://images.pokemontcg.io/swsh7/77.png",
+      "quantity": 1,
+      "redeemedQuantity": 0,
+      "createdAt": "2026-10-15T03:40:29.176Z",
+      "updatedAt": "2026-10-15T03:40:29.176Z"
+    },
+    {
+      "id": "c600e406-606d-4a47-b915-dc7077b880ba",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "sv3pt5-200",
+      "cardName": "Blastoise ex",
+      "cardRarity": "legendary",
+      "cardImageUrl": "https://images.pokemontcg.io/sv3pt5/200.png",
+      "quantity": 1,
+      "redeemedQuantity": 1,
+      "createdAt": "2026-10-15T03:40:29.187Z",
+      "updatedAt": "2026-10-15T04:53:54.331Z"
+    },
+    {
+      "id": "1136892c-0e01-4596-b453-45673875cff1",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "sv3pt5-40",
+      "cardName": "Wigglytuff ex",
+      "cardRarity": "rare",
+      "cardImageUrl": "https://images.pokemontcg.io/sv3pt5/40.png",
+      "quantity": 1,
+      "redeemedQuantity": 0,
+      "createdAt": "2026-10-15T03:40:29.198Z",
+      "updatedAt": "2026-10-15T03:40:29.198Z"
     }
   ],
-  "pulls": [],
-  "orders": []
+  "pulls": [
+    {
+      "pullId": "021ae029-aafa-4025-9b58-1c93e4528c53",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "swsh7-25",
+      "quantity": 1,
+      "createdAt": "2026-10-15T03:39:37.196Z"
+    },
+    {
+      "pullId": "69396fd0-eba5-4073-a6b8-7bf291de7ebd",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "swsh7-3",
+      "quantity": 1,
+      "createdAt": "2026-10-15T03:39:37.206Z"
+    },
+    {
+      "pullId": "17c31eb1-1447-48c0-8117-5070dafebf70",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "swsh7-1",
+      "quantity": 1,
+      "createdAt": "2026-10-15T03:39:37.215Z"
+    },
+    {
+      "pullId": "1022743a-9106-4b6a-a042-40220c243eb6",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "sv3pt5-12",
+      "quantity": 1,
+      "createdAt": "2026-10-15T03:39:37.224Z"
+    },
+    {
+      "pullId": "8e103976-ce3a-4e61-8196-833456f1d2d0",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "sv3pt5-26",
+      "quantity": 1,
+      "createdAt": "2026-10-15T03:39:37.233Z"
+    },
+    {
+      "pullId": "a4ff9c8c-2dd5-46f7-9583-1c84084f961a",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "swsh7-29",
+      "quantity": 1,
+      "createdAt": "2026-10-15T03:40:24.268Z"
+    },
+    {
+      "pullId": "7917bb1e-1559-44aa-aa1e-aad2f0920f84",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "sv3pt5-175",
+      "quantity": 1,
+      "createdAt": "2026-10-15T03:40:24.277Z"
+    },
+    {
+      "pullId": "5be8074d-ff26-4373-a5ea-091443dcaa71",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "swsh7-38",
+      "quantity": 1,
+      "createdAt": "2026-10-15T03:40:24.289Z"
+    },
+    {
+      "pullId": "9c0b3176-7efd-4e9e-8f06-34ff03233eeb",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "swsh7-77",
+      "quantity": 1,
+      "createdAt": "2026-10-15T03:40:29.176Z"
+    },
+    {
+      "pullId": "538b4aa2-34d9-4294-8379-1412cfca86ff",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "sv3pt5-200",
+      "quantity": 1,
+      "createdAt": "2026-10-15T03:40:29.187Z"
+    },
+    {
+      "pullId": "bca2d58f-516b-43c8-9da1-c9585851e6fb",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "cardId": "sv3pt5-40",
+      "quantity": 1,
+      "createdAt": "2026-10-15T03:40:29.198Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": "4607b3ea-0c02-4971-b8af-a7a9e70d36e7",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "items": [
+        {
+          "cardId": "swsh7-1",
+          "cardName": "Pinsir",
+          "quantity": 1
+        },
+        {
+          "cardId": "swsh7-25",
+          "cardName": "Golduck",
+          "quantity": 1
+        }
+      ],
+      "addressId": "b1b2c3d4-0001-4000-8000-000000000001",
+      "shippingAddress": {
+        "recipientName": "Somchai Jaidee",
+        "phone": "0812345678",
+        "line1": "99/1 Moo 3",
+        "subdistrict": "Suthep",
+        "district": "Mueang",
+        "province": "Chiang Mai",
+        "postalCode": "50000"
+      },
+      "shippingFee": 50,
+      "status": "PENDING",
+      "trackingNumber": null,
+      "paymentStatus": "NOT_REQUIRED",
+      "paymentRef": null,
+      "statusHistory": [
+        {
+          "status": "PENDING",
+          "at": "2026-10-15T04:18:40.084Z"
+        }
+      ],
+      "createdAt": "2026-10-15T04:18:40.084Z",
+      "updatedAt": "2026-10-15T04:18:40.084Z"
+    },
+    {
+      "id": "f83cafef-067c-4e0e-b1eb-c8e887395f23",
+      "userId": "a1b2c3d4-0001-4000-8000-000000000001",
+      "items": [
+        {
+          "cardId": "sv3pt5-200",
+          "cardName": "Blastoise ex",
+          "quantity": 1
+        },
+        {
+          "cardId": "sv3pt5-26",
+          "cardName": "Raichu",
+          "quantity": 1
+        }
+      ],
+      "addressId": "b1b2c3d4-0001-4000-8000-000000000001",
+      "shippingAddress": {
+        "recipientName": "Somchai Jaidee",
+        "phone": "0812345678",
+        "line1": "99/1 Moo 3",
+        "subdistrict": "Suthep",
+        "district": "Mueang",
+        "province": "Chiang Mai",
+        "postalCode": "50000"
+      },
+      "shippingFee": 50,
+      "status": "PENDING",
+      "trackingNumber": null,
+      "paymentStatus": "NOT_REQUIRED",
+      "paymentRef": null,
+      "statusHistory": [
+        {
+          "status": "PENDING",
+          "at": "2026-10-15T04:53:54.331Z"
+        }
+      ],
+      "createdAt": "2026-10-15T04:53:54.331Z",
+      "updatedAt": "2026-10-15T04:53:54.331Z"
+    }
+  ]
 }

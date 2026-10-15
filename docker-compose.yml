@@ -1,13 +1,15 @@
 # รันทุก service ของ Trading Card Gacha Platform จาก root ของ repo
 #   cp .env.example .env            # แล้วแก้ค่า secret
-#   docker compose up --build       # user-service :3001 + card-catalog-service :3003 + collection-service :3005
-#   docker compose --profile full up  # รวม service ของเพื่อน (เมื่อมี image บน GHCR แล้ว)
+#   docker compose up --build       # รันทุกอย่างในคำสั่งเดียว แล้วเปิด http://localhost:8080
+#     หน้าเว็บ :8080 (เรียก API ผ่าน /api/user, /api/wallet, /api/catalog, /api/collection) · user-service :3001 · wallet-service :3002 · card-catalog-service :3003 · collection-service :3005
+#   docker compose --profile full up --build  # รวม gacha-service (เมื่อมี image บน GHCR แล้ว)
 # hostname ใน network นี้ = ชื่อ service (เช่น http://user-service:3001) ดู SERVICE_CONVENTIONS.md
 
 x-shared-auth: &shared-auth
   JWT_SECRET: ${JWT_SECRET:?กรุณาตั้ง JWT_SECRET ในไฟล์ .env (อย่างน้อย 32 ตัวอักษร)}
   JWT_ISSUER: ${JWT_ISSUER:-user-service}
   CORS_ORIGIN: ${CORS_ORIGIN:-*}
+  TRUST_PROXY: ${TRUST_PROXY:-1}   # อยู่หลัง nginx (web) 1 ชั้น: ใช้ IP จริงของผู้ใช้ใน rate limit
 
 x-internal-auth: &internal-auth
   INTERNAL_API_KEY: ${INTERNAL_API_KEY:?กรุณาตั้ง INTERNAL_API_KEY ในไฟล์ .env (อย่างน้อย 32 ตัวอักษร)}
@@ -50,9 +52,9 @@ services:
       USER_SERVICE_URL: http://user-service:3001
       # ว่าง = ไม่ถาม Catalog (เชื่อข้อมูลการ์ดที่ Gacha ส่งมา)
       CATALOG_SERVICE_URL: ${CATALOG_SERVICE_URL-http://card-catalog-service:3003}
-      # เปิด Wallet เมื่อ wallet-service พร้อม (ใช้คู่กับ --profile full)
-      WALLET_ENABLED: ${WALLET_ENABLED:-false}
-      WALLET_SERVICE_URL: ${WALLET_SERVICE_URL:-}
+      # ตัดค่าส่งจาก wallet-service (ตั้ง WALLET_ENABLED=false ใน .env เพื่อปิด)
+      WALLET_ENABLED: ${WALLET_ENABLED:-true}
+      WALLET_SERVICE_URL: ${WALLET_SERVICE_URL:-http://wallet-service:3002}
       PERSIST_DATA: ${PERSIST_DATA:-true}
     volumes:
       - collection-data:/app/data
@@ -63,12 +65,11 @@ services:
         condition: service_healthy
       card-catalog-service:
         condition: service_healthy
+      wallet-service:
+        condition: service_healthy
     restart: unless-stopped
 
-  # ---- service ของเพื่อนในทีม: ยังไม่เสร็จ จึงอยู่ใน profile "full" ----
-  # image / port เป็นค่าเสนอ ให้เจ้าของแต่ละ service ยืนยัน (ดู SERVICE_CONVENTIONS.md)
   wallet-service:
-    profiles: ["full"]
     build: ./wallet-service
     image: ${WALLET_IMAGE:-ghcr.io/tmno-o/deploy-and-testing-final-project/wallet-service:latest}
     environment:
@@ -84,8 +85,28 @@ services:
       - wallet-data:/app/data
     ports:
       - "3002:3002"
+    depends_on:
+      card-catalog-service:
+        condition: service_healthy
     restart: unless-stopped
 
+  # หน้าเว็บ (demo/index.html) เปิดที่ http://localhost:8080
+  web:
+    image: nginx:1.27-alpine
+    volumes:
+      - ./demo:/usr/share/nginx/html:ro
+      - ./web/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    depends_on:
+      - user-service
+      - card-catalog-service
+      - wallet-service
+      - collection-service
+    restart: unless-stopped
+
+  # ---- ยังไม่เสร็จ จึงอยู่ใน profile "full" ----
+  # image / port เป็นค่าเสนอ ให้เจ้าของยืนยัน (ดู SERVICE_CONVENTIONS.md)
   gacha-service:
     profiles: ["full"]
     image: ${GACHA_IMAGE:-ghcr.io/tmno-o/deploy-and-testing-final-project/gacha-service:latest}

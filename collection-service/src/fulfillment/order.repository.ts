@@ -25,8 +25,13 @@ export class OrderRepository {
 
   /** Newest first. */
   listByUser(userId: string, status?: OrderStatus): Order[] {
+    return this.list({ userId, status });
+  }
+
+  /** Every user's orders, newest first; both filters are optional. */
+  list({ userId, status }: { userId?: string; status?: OrderStatus } = {}): Order[] {
     return this.store.data.orders
-      .filter((o) => o.userId === userId && (!status || o.status === status))
+      .filter((o) => (!userId || o.userId === userId) && (!status || o.status === status))
       .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
       .map(clone);
   }
