@@ -324,6 +324,34 @@ release tag (`<service>-vX.Y.Z`, pushed one or two at a time) publishes the imag
 
 Also add `docker-compose.prod.yml` to the repo in the same PR **only if it contains no secrets** (it does not: secrets come from `.env.prod`).
 
+## 11.1 คำอธิบายภาษาไทย: ระบบ Auto Re-deploy ทำงานอย่างไร (สำหรับคน ไม่ใช่สำหรับ Claude)
+
+**คำถาม:** ถ้ามี Release ใหม่จาก GitHub ระบบบนแล็ปท็อปจะ re-deploy เองไหม?
+**คำตอบ:** ใช่ ถ้าตั้งระบบครบตามเอกสารนี้แล้ว โดยไม่ต้องมีคนสั่งหรือเปิด Claude
+
+Claude ทำหน้าที่ **ตั้งระบบครั้งเดียว** (ขั้น A ถึง J) ไม่ได้เป็นคน deploy ทุกครั้ง หลังตั้งเสร็จ GitHub Actions กับ runner บนแล็ปท็อปจะทำงานต่อเอง
+
+**ลำดับเหตุการณ์ทุกครั้งที่ออกเวอร์ชันใหม่**
+1. คนในทีม push tag ชื่อ `<service>-vX.Y.Z` เช่น `card-catalog-service-v1.1.0`
+2. workflow `Release service` ทดสอบ, build image และส่งขึ้น GHCR เป็น `:1.1.0` กับ `:latest` พร้อมสร้าง GitHub Release
+3. เมื่อ Release สำเร็จ workflow `Deploy to laptop server` ทำงานต่อบน runner ของแล็ปท็อป: ดึง image ใหม่ (`docker compose pull`), รีสตาร์ตเฉพาะ container ที่เปลี่ยน (`up -d`) และเช็กสุขภาพ
+4. ระบบบนแล็ปท็อปเป็นเวอร์ชันใหม่ ข้อมูลใน Docker volume ไม่หาย
+
+compose บนแล็ปท็อปใช้ tag `latest` เป็นค่าเริ่มต้น จึงได้ image ที่ release เพิ่งส่งขึ้นทันที ถ้าต้องการล็อกเวอร์ชัน ให้ตั้งตัวแปร เช่น `USER_VERSION=1.0.0` ใน `.env.prod`
+
+**เงื่อนไขที่ต้องครบก่อนจะอัตโนมัติจริง**
+- ไฟล์ `deploy-laptop.yml` ถูก merge เข้า `main` แล้ว (workflow แบบนี้ต้องอยู่บน branch หลักถึงจะทำงาน และ Claude ถูกห้าม merge เอง คนต้อง merge)
+- self-hosted runner บนแล็ปท็อปออนไลน์ (เปิดเครื่อง ต่ออินเทอร์เน็ต ไม่หลับ)
+- ตั้งตัวแปร `LAPTOP_REPO_DIR` ใน GitHub แล้ว (Settings, Secrets and variables, Actions, Variables)
+- ถ้าแล็ปท็อปปิดอยู่ตอน release งาน deploy จะรอจนเครื่องกลับมาออนไลน์ แล้วจึงทำงาน
+
+**ข้อควรระวัง**
+- ให้สร้าง Release โดย **push tag เท่านั้น** ห้ามกดปุ่ม "Create a new release" บนหน้าเว็บ GitHub เพราะจะสร้างหน้า Release ก่อน แล้วขั้นสุดท้ายของ workflow ที่พยายามสร้างซ้ำจะ error ทำให้ deploy ไม่เกิด
+- ห้าม push tag เกิน 3 ตัวพร้อมกัน เพราะ GitHub จะไม่ทริกเกอร์ workflow เลย ให้ push ทีละตัวหรือสองตัว
+- การ push เข้า `main` ธรรมดาจะ build image `latest` แต่ **ไม่ทำให้แล็ปท็อปอัปเดต** ต้องผ่านการ release (tag) เท่านั้น ถ้าต้องการให้ทุก push เข้า `main` deploy ด้วย ต้องแก้ trigger ของ workflow
+- runner รันโค้ดของ workflow บนแล็ปท็อปจริง จึงต้องตั้งไม่ให้ PR จากคนนอกรันบนเครื่องนี้ (ดูขั้น J ข้อ 3)
+- ส่วนอื่นของไฟล์นี้เขียนเป็นภาษาอังกฤษเพราะเป็นคำสั่งให้ Claude อ่าน
+
 ## 12. Operations cheat sheet
 
 ```bash
