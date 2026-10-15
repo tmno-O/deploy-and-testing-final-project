@@ -332,6 +332,28 @@ img { display: block; max-width: 100%; }
 .health { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 400; }
 .foot { text-align: center; color: var(--muted); font-size: 12px; margin-top: 40px; }
 .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+/* ---------- เปิดแพ็ก ---------- */
+.modal.opening { background: transparent; box-shadow: none; overflow: visible; }
+.modal.opening .x { display: none; }
+.rip { display: grid; place-items: center; padding: 20px 0; text-align: center; }
+.rip .pack { flex: none; width: 210px; cursor: default; }
+.shaking { animation: shake .5s ease-in-out infinite; }
+.reveal { display: grid; grid-template-columns: repeat(var(--n, 5), minmax(0, 132px)); justify-content: center; gap: 14px; margin: 18px 0 8px; perspective: 1000px; }
+.flip { cursor: pointer; animation: deal .35s both; }
+.flip .inner { position: relative; aspect-ratio: 63 / 88; transform-style: preserve-3d; transition: transform .55s cubic-bezier(.2,.8,.3,1); }
+.flip.open .inner { transform: rotateY(180deg); }
+.flip .back, .flip .front { position: absolute; inset: 0; border-radius: 8px; overflow: hidden; backface-visibility: hidden; box-shadow: 0 6px 14px rgba(20,40,80,.25); }
+.flip .back { display: grid; place-items: center; color: #fff; font-size: 30px; background: radial-gradient(circle at 50% 40%, #6fd0f5, #2f7de1 60%, #233f9e); border: 4px solid #fff; }
+.flip .front { transform: rotateY(180deg); background: #dbe5f1; }
+.flip .front img { width: 100%; height: 100%; object-fit: cover; }
+.flip .cap { display: flex; justify-content: space-between; gap: 4px; padding-top: 6px; font-size: 12px; font-weight: 600; opacity: 0; transition: opacity .3s .3s; }
+.flip .cap .nm { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-align: left; }
+.flip.open .cap { opacity: 1; }
+.flip.glow-epic.open .front { box-shadow: 0 0 0 3px #a463e8, 0 0 24px rgba(164,99,232,.7); }
+.flip.glow-legendary.open .front { box-shadow: 0 0 0 3px #f0a91a, 0 0 30px rgba(255,190,40,.85); }
+.flip.holo.open .front::after { content: ""; position: absolute; inset: 0; mix-blend-mode: color-dodge; opacity: .35; background: linear-gradient(125deg, transparent 30%, rgba(255,120,220,.5) 42%, rgba(120,220,255,.5) 50%, rgba(255,240,120,.5) 58%, transparent 70%); background-size: 250% 250%; animation: holo 4s linear infinite; }
+@keyframes shake { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-3deg) scale(1.02); } 75% { transform: rotate(3deg) scale(1.02); } }
+@keyframes deal { from { opacity: 0; transform: translateY(30px) scale(.9); } }
 @keyframes fade { from { opacity: 0; } }
 @keyframes pop { from { opacity: 0; transform: scale(.96) translateY(8px); } }
 @keyframes up { from { opacity: 0; transform: translate(-50%, 12px); } }
@@ -350,6 +372,7 @@ img { display: block; max-width: 100%; }
   .detail .tilt { max-width: 250px; width: 100%; margin: 0 auto; }
   .shop { grid-template-columns: repeat(2, 1fr); }
   .admin-stats { grid-template-columns: repeat(2, 1fr); }
+  .reveal { grid-template-columns: repeat(min(var(--n, 3), 3), minmax(0, 1fr)); gap: 10px; }
   .row { flex-wrap: wrap; }
   .row .acts { width: 100%; }
   .split { grid-template-columns: minmax(0, 1fr); }
@@ -403,6 +426,7 @@ const SERVICES = {
   wallet: { label: 'Wallet Service', port: 3002 },
   catalog: { label: 'Card Catalog Service', port: 3003 },
   collection: { label: 'Collection Service', port: 3005 },
+  gacha: { label: 'Gacha Service', port: 3004 },
 };
 const baseUrl = (svc) => (VIA_PROXY ? `/api/${svc}` : `http://localhost:${SERVICES[svc].port}`);
 const RARITIES = ['common', 'rare', 'epic', 'legendary'];
@@ -473,6 +497,10 @@ const FRIENDLY = {
   WALLET_SERVICE_UNAVAILABLE: 'ระบบชำระเงินขัดข้องชั่วคราว ลองใหม่อีกครั้ง',
   USER_SERVICE_UNAVAILABLE: 'ระบบผู้ใช้ขัดข้องชั่วคราว ลองใหม่อีกครั้ง',
   CATALOG_SERVICE_UNAVAILABLE: 'ระบบแคตตาล็อกขัดข้องชั่วคราว ลองใหม่อีกครั้ง',
+  INSUFFICIENT_STOCK: 'การ์ดในแพ็กนี้หมดชั่วคราว ลองแพ็กอื่นก่อนนะ',
+  PACK_NOT_FOUND: 'ไม่พบแพ็กนี้ หรือแพ็กปิดขายแล้ว',
+  PACK_INACTIVE: 'แพ็กนี้ปิดขายแล้ว',
+  PULL_IN_PROGRESS: 'กำลังเปิดแพ็กอยู่ รอสักครู่',
 };
 const FIELD_TH = {
   email: 'อีเมล', password: 'รหัสผ่าน', newPassword: 'รหัสผ่านใหม่', currentPassword: 'รหัสผ่านปัจจุบัน',
@@ -592,6 +620,18 @@ function setSession(token, user) {
   checkAdmin();
 }
 
+// โหลดโปรไฟล์ล่าสุดจาก user-service (ข้อมูลใน session อาจเก่า เช่น แก้จากอีกเครื่อง)
+async function refreshProfile() {
+  if (!state.token) return;
+  try {
+    const { user } = await api('user', '/users/me', { auth: true });
+    state.user = user;
+    session.set('cd-session', { token: state.token, user });
+    renderNav();
+    if (location.hash.startsWith('#/account')) route();
+  } catch {}
+}
+
 // บัญชีแอดมินคือบัญชีที่เรียก GET /admin/fulfillments/orders ได้ (ไม่ใช่แอดมินจะได้ 403)
 async function checkAdmin() {
   let admin = false;
@@ -648,6 +688,7 @@ function renderNav() {
     <a href="#/admin-packs">จัดการแพ็ก</a>
     <a href="#/account">โปรไฟล์</a>` : `
     <a href="#/account">โปรไฟล์และที่อยู่</a>
+    <a href="#/pulls">ประวัติการเปิดแพ็ก</a>
     <a href="#/wallet">ร้านค้าเครดิต</a>
     <a href="#/orders">การจัดส่งของฉัน</a>`}
     <button id="logoutBtn" style="color:var(--bad)">ออกจากระบบ</button>`;
@@ -670,7 +711,7 @@ async function loadBalance() {
 // ============================================================
 //  router
 // ============================================================
-const ROUTES = { home: pageHome, cards: pageCards, collection: pageCollection, orders: pageOrders, wallet: pageWallet, account: pageAccount, admin: pageAdmin, 'admin-cards': pageAdminCards, 'admin-packs': pageAdminPacks };
+const ROUTES = { home: pageHome, cards: pageCards, collection: pageCollection, orders: pageOrders, wallet: pageWallet, account: pageAccount, pulls: pagePulls, admin: pageAdmin, 'admin-cards': pageAdminCards, 'admin-packs': pageAdminPacks };
 const ADMIN_PAGES = ['admin', 'admin-cards', 'admin-packs'];
 function route() {
   const name = location.hash.replace(/^#\/?/, '').split('?')[0] || 'home';
@@ -695,6 +736,7 @@ function pageHome() {
   $('#view').innerHTML = `
     <div class="stage">
       <span class="ribbon">✦ เลือกแพ็กที่จะเปิด</span>
+      ${state.token ? '<a href="#/pulls" class="small" style="display:block;margin-top:8px;color:var(--accent-2);font-weight:600">ประวัติการเปิดแพ็ก ›</a>' : ''}
       <div class="packs" id="packs">${'<div class="pack on"><div class="foil skel"></div></div>'.repeat(3)}</div>
       <div class="dots" id="packDots"></div>
       <div class="pack-info" id="packInfo"></div>
@@ -770,8 +812,132 @@ function renderPackInfo(p) {
     <div class="rates">${RARITIES.map((r) => `<div class="rate">${rar(r)}<b>${rates[r] || 0}%</b></div>`).join('')}</div>
     <div class="open-row">
       <span class="cost"><span class="coin"></span>${fmt(p.priceCredits)}</span>
-      <button class="btn gold" disabled title="ระบบเปิดแพ็กยังไม่เปิดให้บริการ">เปิดแพ็ก · เร็วๆ นี้</button>
+      <button class="btn gold" id="openPackBtn">เปิดแพ็ก</button>
     </div>`;
+  $('#openPackBtn').onclick = () => openPack(p);
+}
+
+// ============================================================
+//  เปิดแพ็ก (gacha-service)
+// ============================================================
+let opening = false;
+async function openPack(p) {
+  if (!state.token) return openAuth('login');
+  if (opening) return;
+  if (state.balance !== null && state.balance < p.priceCredits) {
+    toast(`เครดิตไม่พอ ต้องใช้ ${fmt(p.priceCredits)} เครดิต`, 'err');
+    location.hash = '#/wallet';
+    return;
+  }
+  opening = true;
+  const kind = ['starter', 'premium', 'legendary'].includes(p.id) ? p.id : 'other';
+  const art = $(`.pack[data-id="${CSS.escape(p.id)}"] .art`);
+  const m = openModal(`
+    <div class="rip">
+      <div class="pack pk-${kind} on shaking"><div class="foil"><div class="bg"></div>${art ? `<img class="art" src="${esc(art.src)}" alt="">` : ''}<div class="shine"></div>
+        <div class="label"><b>${esc(p.name)}</b><span>กำลังเปิด…</span></div></div></div>
+    </div>`);
+  m.classList.add('opening');
+  const started = Date.now();
+  try {
+    // Idempotency-Key = pull id: กดซ้ำหรือเน็ตหลุดแล้วส่งใหม่ จะไม่ถูกตัดเงินซ้ำ
+    const pull = await api('gacha', '/gacha/pulls', { method: 'POST', auth: true, headers: { 'Idempotency-Key': uuid() }, body: { packId: p.id } });
+    await new Promise((r) => setTimeout(r, Math.max(0, 1100 - (Date.now() - started))));
+    if (!m.isConnected) return;
+    loadBalance();
+    showReveal(m, p, pull);
+  } catch (e) {
+    if (m.isConnected) closeModal();
+    if (e.code === 'INSUFFICIENT_BALANCE') { toast('เครดิตไม่พอ กรุณาเติมเครดิตก่อน', 'err'); location.hash = '#/wallet'; }
+    else toast(e.message, 'err');
+  } finally { opening = false; }
+}
+
+const RARITY_ORDER = { common: 0, rare: 1, epic: 2, legendary: 3 };
+function showReveal(m, p, pull) {
+  const cards = [...pull.cards].sort((a, b) => RARITY_ORDER[a.rarity] - RARITY_ORDER[b.rarity]);
+  const best = cards[cards.length - 1];
+  setModal(m, `
+    <div style="text-align:center">
+      <h2 style="padding:0">${esc(p.name)}</h2>
+      <div class="muted small">แตะการ์ดเพื่อพลิก หรือกด “เปิดทั้งหมด”</div>
+      <div class="reveal" style="--n:${Math.min(cards.length, 5)}">${cards.map((c, i) => `
+        <div class="flip ${isHolo(c.rarity) ? 'holo glow-' + c.rarity : ''}" data-i="${i}" style="animation-delay:${i * 90}ms">
+          <div class="inner">
+            <div class="back"><span>✦</span></div>
+            <div class="front">${img(c.imageUrl, c.cardName)}</div>
+          </div>
+          <div class="cap"><span class="nm">${esc(c.cardName)}</span>${rar(c.rarity)}</div>
+        </div>`).join('')}</div>
+      <div class="muted small" id="revealNote" style="min-height:20px">${pull.status === 'COMPLETED' ? '' : 'กำลังส่งการ์ดเข้าคอลเลกชัน ระบบจะทำต่อให้อัตโนมัติ'}</div>
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:12px;flex-wrap:wrap">
+        <button class="btn white" id="flipAll">เปิดทั้งหมด</button>
+        <button class="btn gold hidden" id="again">เปิดอีกแพ็ก · ${fmt(p.priceCredits)}</button>
+        <a class="btn hidden" id="toCol" href="#/collection">ดูคอลเลกชัน</a>
+      </div>
+    </div>`);
+  m.classList.remove('opening');
+  m.classList.add('wide');
+  const flips = $$('.flip', m);
+  const done = () => {
+    $('#flipAll', m).classList.add('hidden'); $('#again', m).classList.remove('hidden'); $('#toCol', m).classList.remove('hidden');
+    if (isHolo(best.rarity)) $('#revealNote', m).textContent = best.rarity === 'legendary' ? `★ ได้ Legendary: ${best.cardName}!` : `◆◆◆ ได้ Epic: ${best.cardName}`;
+  };
+  const flip = (el) => { el.classList.add('open'); if (flips.every((f) => f.classList.contains('open'))) done(); };
+  flips.forEach((el) => { el.onclick = () => flip(el); });
+  $('#flipAll', m).onclick = () => flips.forEach((el, i) => setTimeout(() => flip(el), i * 160));
+  $('#again', m).onclick = () => { closeModal(); openPack(p); };
+}
+
+// ============================================================
+//  ประวัติการเปิดแพ็ก (gacha-service GET /gacha/pulls)
+// ============================================================
+const PULL_STATUS_TH = { COMPLETED: 'สำเร็จ', PENDING: 'กำลังดำเนินการ', PAID: 'กำลังส่งการ์ด', FAILED: 'ไม่สำเร็จ' };
+const PULL_STATUS_CLS = { COMPLETED: 's-DELIVERED', PENDING: 's-PENDING', PAID: 's-PROCESSING', FAILED: 's-CANCELLED' };
+let pullsPage = 1;
+function pagePulls() {
+  if (!requireLogin()) return;
+  $('#view').innerHTML = `
+    <div class="page-title"><h1>ประวัติการเปิดแพ็ก</h1><a class="btn gold sm" href="#/">เปิดแพ็ก</a></div>
+    <div id="pullStats"></div>
+    <div id="pullList">${'<div class="order"><div class="skel" style="height:130px"></div></div>'.repeat(2)}</div>
+    <div class="pager" id="pullPager"></div>`;
+  $('#pullPager').onclick = (ev) => { const b = ev.target.closest('[data-p]'); if (b && !b.disabled) { pullsPage = +b.dataset.p; loadPulls(); window.scrollTo({ top: 0, behavior: 'smooth' }); } };
+  $('#pullList').onclick = (ev) => { const c = ev.target.closest('[data-card]'); if (c) openCard(c.dataset.card); };
+  loadPulls();
+}
+
+async function loadPulls() {
+  try {
+    const [res, packs] = await Promise.all([
+      api('gacha', `/gacha/pulls?page=${pullsPage}&limit=10`, { auth: true }),
+      packsCache.length ? Promise.resolve({ data: packsCache }) : api('catalog', '/packs').catch(() => ({ data: [] })),
+    ]);
+    const el = $('#pullList'); if (!el) return;
+    const packName = Object.fromEntries(packs.data.map((p) => [p.id, p.name]));
+    $('#pullStats').innerHTML = res.total ? `<p class="muted small" style="margin:-6px 4px 14px">เปิดไปแล้วทั้งหมด ${fmt(res.total)} แพ็ก</p>` : '';
+    el.innerHTML = res.data.length ? res.data.map((p) => {
+      const best = p.cards.reduce((a, c) => (RARITY_ORDER[c.rarity] > RARITY_ORDER[a.rarity] ? c : a), p.cards[0] || { rarity: 'common' });
+      return `<div class="order">
+        <div class="order-top">
+          <div><b>${esc(packName[p.packId] || p.packId)}</b><div class="small muted">${dateTime(p.createdAt)} · ${p.cards.length} ใบ${p.price ? ` · ${fmt(p.price)} เครดิต` : ''}</div></div>
+          <span class="status ${PULL_STATUS_CLS[p.status] || ''}">${PULL_STATUS_TH[p.status] || p.status}</span>
+        </div>
+        <div class="dex" style="grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:10px;margin-top:14px">${p.cards.map((c) => `
+          <div class="pc ${isHolo(c.rarity) ? 'holo' : ''}" data-card="${esc(c.cardId)}" title="${esc(c.cardName)}">
+            <div class="face">${img(c.imageUrl, c.cardName)}</div>
+            <div class="under"><span class="nm">${esc(c.cardName)}</span>${rar(c.rarity)}</div>
+          </div>`).join('')}</div>
+        ${p.status === 'FAILED' ? `<div class="notice" style="margin:12px 0 0;background:var(--bad-soft);color:var(--bad)">เปิดแพ็กไม่สำเร็จ${p.failureReason ? ` (${esc(FRIENDLY[p.failureReason] || p.failureReason)})` : ''} ไม่มีการตัดเงิน หรือคืนเงินแล้ว</div>`
+          : isHolo(best.rarity) ? `<div class="small" style="margin-top:10px;font-weight:600;color:${best.rarity === 'legendary' ? 'var(--warn)' : '#8a46d6'}">${best.rarity === 'legendary' ? '★ ได้ Legendary' : '◆◆◆ ได้ Epic'}: ${esc(best.cardName)}</div>` : ''}
+      </div>`;
+    }).join('') : empty('🎴', 'ยังไม่เคยเปิดแพ็ก', 'เลือกแพ็กที่หน้าหลักแล้วกดเปิดได้เลย', '<a class="btn gold" href="#/">ไปเลือกแพ็ก</a>');
+    const tp = Math.max(1, res.totalPages);
+    $('#pullPager').innerHTML = tp > 1 ? `
+      <button class="btn white sm" ${pullsPage <= 1 ? 'disabled' : ''} data-p="${pullsPage - 1}">‹</button>
+      <span class="muted">หน้า ${pullsPage} / ${tp}</span>
+      <button class="btn white sm" ${pullsPage >= tp ? 'disabled' : ''} data-p="${pullsPage + 1}">›</button>` : '';
+  } catch (e) { if ($('#pullList')) $('#pullList').innerHTML = errorBox(e, 'loadPulls()'); }
 }
 
 // ============================================================
@@ -912,27 +1078,29 @@ async function pageCollection() {
 function renderCollection() {
   const sum = (k) => collectionCache.reduce((s, c) => s + c[k], 0);
   const total = sum('quantity'), avail = sum('availableQuantity'), sent = sum('redeemedQuantity');
+  // การ์ดที่สั่งส่งไปครบทุกใบแล้วไม่แสดงในคอลเลกชัน (ถ้ายกเลิกคำสั่ง การ์ดจะกลับมาเอง)
+  const owned = collectionCache.filter((c) => c.availableQuantity > 0);
   $('#colStats').innerHTML = `
-    <div class="ring" style="--p:${total ? Math.round((avail / total) * 100) : 0}"><span>${collectionCache.length}<small>แบบ</small></span></div>
+    <div class="ring" style="--p:${total ? Math.round((avail / total) * 100) : 0}"><span>${owned.length}<small>แบบ</small></span></div>
     <div class="stats">
       <div><span class="muted small">การ์ดทั้งหมด</span><b>${fmt(total)}</b></div>
       <div><span class="muted small">พร้อมส่ง</span><b>${fmt(avail)}</b></div>
       <div><span class="muted small">สั่งส่งแล้ว</span><b>${fmt(sent)}</b></div>
     </div>`;
-  $('#colGrid').innerHTML = collectionCache.length ? `<div class="dex">${collectionCache.map((c) => {
+  $('#colGrid').innerHTML = owned.length ? `<div class="dex">${owned.map((c) => {
     const q = state.ship[c.cardId] || 0;
-    return `<div class="pc ${isHolo(c.cardRarity) ? 'holo' : ''} ${c.availableQuantity ? '' : 'dim'}" data-id="${esc(c.cardId)}" title="${esc(c.cardName)}">
-      ${c.quantity > 1 ? `<span class="qty">×${c.quantity}</span>` : ''}
+    return `<div class="pc ${isHolo(c.cardRarity) ? 'holo' : ''}" data-id="${esc(c.cardId)}" title="${esc(c.cardName)}">
+      ${c.availableQuantity > 1 ? `<span class="qty">×${c.availableQuantity}</span>` : ''}
       <div class="face">${img(c.cardImageUrl, c.cardName)}${q ? `<span class="shipn">ส่ง ${q}</span>` : ''}</div>
       ${q ? '<div class="sel"></div>' : ''}
       <div class="under"><span class="nm">${esc(c.cardName)}</span>${rar(c.cardRarity)}</div>
       <div class="stepper">
         <button data-d="-1" ${q <= 0 ? 'disabled' : ''} aria-label="ลด">−</button>
-        <span>${c.availableQuantity ? `${q} / ${c.availableQuantity}` : 'ส่งครบแล้ว'}</span>
+        <span>${q} / ${c.availableQuantity}</span>
         <button data-d="1" ${q >= c.availableQuantity ? 'disabled' : ''} aria-label="เพิ่ม">+</button>
       </div>
     </div>`;
-  }).join('')}</div>` : empty('🃏', 'ยังไม่มีการ์ดในคอลเลกชัน', 'การ์ดจะเข้ามาที่นี่เมื่อคุณเปิดแพ็ก', `<a class="btn" href="#/">ไปเลือกแพ็ก</a>`);
+  }).join('')}</div>` : empty('🃏', collectionCache.length ? 'ส่งการ์ดออกไปครบหมดแล้ว' : 'ยังไม่มีการ์ดในคอลเลกชัน', collectionCache.length ? 'เปิดแพ็กเพื่อสะสมการ์ดใหม่ หรือดูสถานะพัสดุที่หน้าจัดส่ง' : 'การ์ดจะเข้ามาที่นี่เมื่อคุณเปิดแพ็ก', `<a class="btn" href="#/">ไปเลือกแพ็ก</a>`);
   $('#colGrid').onclick = (ev) => {
     const tile = ev.target.closest('[data-id]');
     if (!tile) return;
@@ -1649,6 +1817,7 @@ if (saved && saved.token && saved.user) { state.token = saved.token; state.user 
 renderNav();
 loadBalance();
 checkAdmin();
+refreshProfile();
 route();
 </script>
 </body>
