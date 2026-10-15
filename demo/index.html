@@ -76,9 +76,33 @@ img { display: block; max-width: 100%; }
 .tabbar .ic { width: 44px; height: 44px; border-radius: 16px; display: grid; place-items: center; transition: transform .2s, background .2s; }
 .tabbar a.on .ic { background: linear-gradient(135deg, #38c3ec, #2f7de1); color: #fff; transform: translateY(-14px); box-shadow: 0 8px 18px rgba(47,125,225,.35); }
 .tabbar a.on span:last-child { transform: translateY(-10px); }
-.tabbar.has-admin { grid-template-columns: repeat(6, 1fr); }
 .tabbar .admin-tab { display: none; }
-.tabbar.has-admin .admin-tab { display: flex; }
+.tabbar.admin-mode { grid-template-columns: repeat(4, 1fr); }
+.tabbar.admin-mode .admin-tab { display: flex; }
+.tabbar.admin-mode .user-tab { display: none; }
+.admin-badge { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 999px; background: var(--heading); color: #fff; font: 500 13px "Mitr", sans-serif; }
+.rows { display: flex; flex-direction: column; gap: 10px; }
+.row { display: flex; align-items: center; gap: 14px; background: #fff; border-radius: 16px; box-shadow: var(--shadow); padding: 10px 14px; }
+.row img { width: 46px; border-radius: 4px; flex: 0 0 auto; box-shadow: 0 2px 6px rgba(0,0,0,.15); }
+.row .mid { flex: 1; min-width: 0; }
+.row .mid b { font-family: "Mitr", sans-serif; font-weight: 500; color: var(--heading); }
+.row .mid div { font-size: 12px; color: var(--muted); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.row .stock { text-align: right; font: 600 18px "Mitr", sans-serif; color: var(--heading); white-space: nowrap; }
+.row .stock small { display: block; font: 400 11px "IBM Plex Sans Thai", sans-serif; color: var(--muted); }
+.row .acts { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.pack-admin { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.pack-card { background: #fff; border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; }
+.pack-card .band { height: 74px; position: relative; }
+.pack-card .band b { position: absolute; left: 16px; bottom: 10px; color: #fff; font: 600 19px "Mitr", sans-serif; text-shadow: 0 2px 6px rgba(0,0,0,.3); }
+.pack-card .band .off { position: absolute; right: 12px; top: 12px; }
+.pack-card .body { padding: 14px 16px 16px; }
+.pack-card .rates { margin: 10px 0 14px; }
+.pack-card .rate { box-shadow: none; background: var(--surface-2); }
+.rate-sum { font-size: 13px; font-weight: 600; }
+.rate-sum.bad { color: var(--bad); }
+.rate-sum.good { color: var(--ok); }
+.switch { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600; font-size: 14px; }
+.switch input { width: 18px; height: 18px; accent-color: var(--accent); }
 .admin-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
 .admin-stats button { border: 3px solid transparent; background: #fff; border-radius: 18px; box-shadow: var(--shadow); padding: 12px 10px; text-align: left; cursor: pointer; }
 .admin-stats button.on { border-color: var(--accent); }
@@ -324,7 +348,8 @@ img { display: block; max-width: 100%; }
   .detail .tilt { max-width: 250px; width: 100%; margin: 0 auto; }
   .shop { grid-template-columns: repeat(2, 1fr); }
   .admin-stats { grid-template-columns: repeat(2, 1fr); }
-  .tabbar.has-admin a { font-size: 10px; }
+  .row { flex-wrap: wrap; }
+  .row .acts { width: 100%; }
   .split { grid-template-columns: minmax(0, 1fr); }
   .grid2 { grid-template-columns: 1fr; }
   .overlay { place-items: end center; padding: 0; }
@@ -349,12 +374,15 @@ img { display: block; max-width: 100%; }
 </div>
 
 <nav class="tabbar" id="tabbar">
-  <a href="#/" data-route="home"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/></svg></span><span>หน้าหลัก</span></a>
-  <a href="#/cards" data-route="cards"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="12" height="17" rx="2"/><path d="M19 6.5v13a1.5 1.5 0 0 1-1.5 1.5H8"/></svg></span><span>สมุดการ์ด</span></a>
-  <a href="#/collection" data-route="collection"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H10l2 2.5h6.5A1.5 1.5 0 0 1 20 8v10.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5z"/><path d="m12 10 1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z"/></svg></span><span>คอลเลกชัน</span></a>
-  <a href="#/orders" data-route="orders"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/></svg></span><span>จัดส่ง</span></a>
-  <a href="#/wallet" data-route="wallet"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h16l-1.2 11.2a1.5 1.5 0 0 1-1.5 1.3H6.7a1.5 1.5 0 0 1-1.5-1.3z"/><path d="M8.5 8V6.5a3.5 3.5 0 0 1 7 0V8"/></svg></span><span>ร้านค้า</span></a>
-  <a href="#/admin" data-route="admin" class="admin-tab"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.5 3.2 8.2 7.5 9.5 4.3-1.3 7.5-5 7.5-9.5V6z"/><path d="m9 12 2 2 4-4"/></svg></span><span>แอดมิน</span></a>
+  <a href="#/" data-route="home" class="user-tab"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/></svg></span><span>หน้าหลัก</span></a>
+  <a href="#/cards" data-route="cards" class="user-tab"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="12" height="17" rx="2"/><path d="M19 6.5v13a1.5 1.5 0 0 1-1.5 1.5H8"/></svg></span><span>สมุดการ์ด</span></a>
+  <a href="#/collection" data-route="collection" class="user-tab"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H10l2 2.5h6.5A1.5 1.5 0 0 1 20 8v10.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5z"/><path d="m12 10 1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z"/></svg></span><span>คอลเลกชัน</span></a>
+  <a href="#/orders" data-route="orders" class="user-tab"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/></svg></span><span>จัดส่ง</span></a>
+  <a href="#/wallet" data-route="wallet" class="user-tab"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h16l-1.2 11.2a1.5 1.5 0 0 1-1.5 1.3H6.7a1.5 1.5 0 0 1-1.5-1.3z"/><path d="M8.5 8V6.5a3.5 3.5 0 0 1 7 0V8"/></svg></span><span>ร้านค้า</span></a>
+  <a href="#/admin" data-route="admin" class="admin-tab"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/></svg></span><span>ออเดอร์</span></a>
+  <a href="#/admin-cards" data-route="admin-cards" class="admin-tab"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="12" height="17" rx="2"/><path d="M19 6.5v13a1.5 1.5 0 0 1-1.5 1.5H8"/></svg></span><span>การ์ด</span></a>
+  <a href="#/admin-packs" data-route="admin-packs" class="admin-tab"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l-1 3 1 3-1 3 1 3-1 3 1 3H6l1-3-1-3 1-3-1-3 1-3z"/></svg></span><span>แพ็ก</span></a>
+  <a href="#/account" data-route="account" class="admin-tab"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><span>บัญชี</span></a>
 </nav>
 
 <div class="toasts" id="toasts"></div>
@@ -449,6 +477,8 @@ const FIELD_TH = {
   firstName: 'ชื่อ', lastName: 'นามสกุล', displayName: 'ชื่อผู้เล่น',
   recipientName: 'ชื่อผู้รับ', phone: 'เบอร์โทร', line1: 'บ้านเลขที่ ถนน', line2: 'อาคาร / หมู่บ้าน',
   subdistrict: 'ตำบล / แขวง', district: 'อำเภอ / เขต', province: 'จังหวัด', postalCode: 'รหัสไปรษณีย์', amount: 'จำนวน',
+  id: 'รหัส', name: 'ชื่อ', hp: 'HP', rarity: 'ความหายาก', setId: 'รหัสชุด', setName: 'ชื่อชุด', types: 'ธาตุ', artist: 'ผู้วาด',
+  imageSmall: 'รูปเล็ก', imageLarge: 'รูปใหญ่', total: 'จำนวนสต็อก', priceCredits: 'ราคา', cardsPerPack: 'การ์ดต่อแพ็ก', setIds: 'ชุดการ์ด', rates: 'โอกาส', description: 'คำอธิบาย',
 };
 
 async function api(svc, path, { method = 'GET', body, auth = false, headers = {} } = {}) {
@@ -546,7 +576,7 @@ function openAuth(mode = 'login') {
       setSession(data.accessToken, data.user);
       closeModal();
       toast(mode === 'login' ? `ยินดีต้อนรับ ${data.user.displayName}` : 'สร้างบัญชีเรียบร้อย');
-      route();
+      route();   // checkAdmin() จะพาแอดมินไปหน้าจัดการเองเมื่อรู้ผล
     } catch (e) { err.textContent = e.message; btn.disabled = false; }
   };
   render(mode);
@@ -569,7 +599,7 @@ async function checkAdmin() {
   if (admin !== state.admin) {
     state.admin = admin;
     renderNav();
-    if (location.hash.startsWith('#/admin')) route();
+    route();
   }
 }
 
@@ -594,23 +624,30 @@ function requireLogin() {
 // ============================================================
 //  nav
 // ============================================================
+const isAdmin = () => !!(state.token && state.admin);
 function renderNav() {
-  $('#tabbar').classList.toggle('has-admin', !!(state.token && state.admin));
+  $('#tabbar').classList.toggle('admin-mode', isAdmin());
   const r = $('#navRight');
   if (!state.token) {
     r.innerHTML = `<button class="btn white sm" onclick="openAuth('login')">เข้าสู่ระบบ</button>`;
     $('#userMenu').classList.add('hidden');
     return;
   }
-  r.innerHTML = `
+  r.innerHTML = isAdmin() ? `
+    <span class="admin-badge">🛡️ ผู้ดูแลระบบ</span>
+    <button class="avatar" id="avatarBtn" aria-label="บัญชีของฉัน">${esc(initials(state.user))}</button>` : `
     <a class="pill-chip" href="#/wallet" title="เครดิตคงเหลือ"><span class="coin"></span><span id="navBalance">${state.balance === null ? '—' : fmt(state.balance)}</span><span class="plus">+</span></a>
     <button class="avatar" id="avatarBtn" aria-label="บัญชีของฉัน">${esc(initials(state.user))}</button>`;
   $('#userMenu').innerHTML = `
     <div class="head"><b class="display" style="font-size:16px">${esc(state.user.displayName)}</b><div class="small muted">${esc(state.user.email)}</div></div>
+    ${isAdmin() ? `
+    <a href="#/admin">จัดการออเดอร์</a>
+    <a href="#/admin-cards">จัดการการ์ดและสต็อก</a>
+    <a href="#/admin-packs">จัดการแพ็ก</a>
+    <a href="#/account">โปรไฟล์</a>` : `
     <a href="#/account">โปรไฟล์และที่อยู่</a>
     <a href="#/wallet">ร้านค้าเครดิต</a>
-    <a href="#/orders">การจัดส่งของฉัน</a>
-    ${state.admin ? '<a href="#/admin">จัดการพัสดุ (แอดมิน)</a>' : ''}
+    <a href="#/orders">การจัดส่งของฉัน</a>`}
     <button id="logoutBtn" style="color:var(--bad)">ออกจากระบบ</button>`;
   $('#avatarBtn').onclick = (ev) => { ev.stopPropagation(); $('#userMenu').classList.toggle('hidden'); };
   $('#logoutBtn').onclick = () => logout();
@@ -631,10 +668,16 @@ async function loadBalance() {
 // ============================================================
 //  router
 // ============================================================
-const ROUTES = { home: pageHome, cards: pageCards, collection: pageCollection, orders: pageOrders, wallet: pageWallet, account: pageAccount, admin: pageAdmin };
+const ROUTES = { home: pageHome, cards: pageCards, collection: pageCollection, orders: pageOrders, wallet: pageWallet, account: pageAccount, admin: pageAdmin, 'admin-cards': pageAdminCards, 'admin-packs': pageAdminPacks };
+const ADMIN_PAGES = ['admin', 'admin-cards', 'admin-packs'];
 function route() {
   const name = location.hash.replace(/^#\/?/, '').split('?')[0] || 'home';
-  const page = ROUTES[name] ? name : 'home';
+  let page = ROUTES[name] ? name : 'home';
+  // แอดมินใช้ได้แค่หน้าจัดการ ไม่สุ่ม ไม่เติมเงิน ไม่มีคอลเลกชัน
+  if (isAdmin() && !ADMIN_PAGES.includes(page) && page !== 'account') {
+    if (location.hash !== '#/admin') { location.replace('#/admin'); return; }
+    page = 'admin';
+  }
   $$('#tabbar a').forEach((a) => a.classList.toggle('on', a.dataset.route === page));
   $('#shipRoot').innerHTML = '';
   window.scrollTo(0, 0);
@@ -1109,14 +1152,16 @@ async function cardImages(ids) {
 }
 
 const adminState = { status: 'PENDING', page: 1 };
+function requireAdmin() {
+  if (!requireLogin()) return false;
+  if (state.admin) return true;
+  $('#view').innerHTML = `<div style="margin-top:20px">${empty('🛡️', 'สำหรับผู้ดูแลเท่านั้น', 'บัญชีนี้ไม่มีสิทธิ์เข้าหน้านี้')}</div>`;
+  return false;
+}
 function pageAdmin() {
-  if (!requireLogin()) return;
-  if (!state.admin) {
-    $('#view').innerHTML = `<div style="margin-top:20px">${empty('🛡️', 'สำหรับผู้ดูแลเท่านั้น', 'บัญชีนี้ไม่มีสิทธิ์เข้าหน้านี้')}</div>`;
-    return;
-  }
+  if (!requireAdmin()) return;
   $('#view').innerHTML = `
-    <div class="page-title"><h1>จัดการพัสดุ</h1><button class="btn white sm" id="adminRefresh">↻ รีเฟรช</button></div>
+    <div class="page-title"><h1>จัดการออเดอร์</h1><button class="btn white sm" id="adminRefresh">↻ รีเฟรช</button></div>
     <div class="admin-stats" id="adminStats">${FLOW.map((s) => `<button data-s="${s}"><span>${STATUS_TH[s]}</span><b>…</b></button>`).join('')}</div>
     <div class="toolbar">
       <div class="seg" id="adminFilter">${['', ...FLOW, 'CANCELLED'].map((s) => `<button data-s="${s}">${s ? STATUS_TH[s] : 'ทั้งหมด'}</button>`).join('')}</div>
@@ -1156,6 +1201,266 @@ async function loadAdmin() {
     if (e.status === 403) { state.admin = false; renderNav(); route(); return; }
     if ($('#adminList')) $('#adminList').innerHTML = errorBox(e, 'loadAdmin()');
   }
+}
+
+// ============================================================
+//  แอดมิน: การ์ดและสต็อก (card-catalog-service /admin/*)
+// ============================================================
+const adminCards = { q: '', rarity: '', page: 1 };
+function pageAdminCards() {
+  if (!requireAdmin()) return;
+  const s = adminCards;
+  $('#view').innerHTML = `
+    <div class="page-title"><h1>การ์ดและสต็อก</h1><button class="btn sm" id="newCard">+ เพิ่มการ์ด</button></div>
+    <div class="toolbar">
+      <form class="search" id="acSearch">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input class="input" id="acQ" placeholder="ค้นหาชื่อการ์ด" value="${esc(s.q)}" maxlength="50">
+      </form>
+      <div class="seg" id="acRarity">${['', ...RARITIES].map((r) => `<button class="${s.rarity === r ? 'on' : ''}" data-r="${r}">${r ? rar(r) : 'ทั้งหมด'}</button>`).join('')}</div>
+    </div>
+    <div class="count-line" id="acCount">กำลังโหลด…</div>
+    <div id="acList" class="rows">${'<div class="skel" style="height:72px"></div>'.repeat(6)}</div>
+    <div class="pager" id="acPager"></div>`;
+  let t;
+  $('#acQ').oninput = () => { clearTimeout(t); t = setTimeout(() => { s.q = $('#acQ').value.trim(); s.page = 1; loadAdminCards(); }, 350); };
+  $('#acSearch').onsubmit = (ev) => { ev.preventDefault(); s.q = $('#acQ').value.trim(); s.page = 1; loadAdminCards(); };
+  $('#acRarity').onclick = (ev) => {
+    const b = ev.target.closest('button'); if (!b) return;
+    s.rarity = b.dataset.r; s.page = 1;
+    $$('#acRarity button').forEach((x) => x.classList.toggle('on', x === b));
+    loadAdminCards();
+  };
+  $('#newCard').onclick = () => openCardForm(null);
+  $('#acPager').onclick = (ev) => { const b = ev.target.closest('[data-p]'); if (b && !b.disabled) { s.page = +b.dataset.p; loadAdminCards(); window.scrollTo({ top: 0, behavior: 'smooth' }); } };
+  $('#acList').onclick = async (ev) => {
+    const b = ev.target.closest('button[data-act]'); if (!b) return;
+    const id = b.dataset.id;
+    if (b.dataset.act === 'stock') return openStockForm(id);
+    if (b.dataset.act === 'edit') {
+      try { openCardForm(await api('catalog', `/cards/${encodeURIComponent(id)}`)); } catch (e) { toast(e.message, 'err'); }
+      return;
+    }
+    if (b.dataset.act === 'delete') {
+      if (!confirm(`ลบการ์ด ${id} ออกจากแคตตาล็อก? (การ์ดที่ผู้ใช้มีอยู่แล้วจะยังอยู่ในคอลเลกชัน)`)) return;
+      b.disabled = true;
+      try { await api('catalog', `/admin/cards/${encodeURIComponent(id)}`, { method: 'DELETE', auth: true }); toast('ลบการ์ดแล้ว'); loadAdminCards(); }
+      catch (e) { toast(e.code === 'CARD_IN_USE' ? 'ลบไม่ได้: การ์ดใบนี้ถูกจองอยู่' : e.message, 'err'); b.disabled = false; }
+    }
+  };
+  loadAdminCards();
+}
+
+let acReq = 0;
+async function loadAdminCards() {
+  const s = adminCards, my = ++acReq;
+  const qs = new URLSearchParams({ page: s.page, limit: 20 });
+  if (s.q) qs.set('q', s.q);
+  if (s.rarity) qs.set('rarity', s.rarity);
+  try {
+    const res = await api('catalog', `/cards?${qs}`);
+    if (my !== acReq || !$('#acList')) return;
+    $('#acCount').textContent = `${fmt(res.total)} ใบในแคตตาล็อก`;
+    $('#acList').innerHTML = res.data.length ? res.data.map((c) => `
+      <div class="row">
+        ${img(c.imageSmall, c.name)}
+        <div class="mid"><b>${esc(c.name)}</b> ${rar(c.rarity)}<div>${esc(c.id)} · ${esc(c.setName)}${c.hp ? ' · HP ' + c.hp : ''}</div></div>
+        <div class="stock">${fmt(c.available)}<small>คงเหลือ</small></div>
+        <div class="acts">
+          <button class="btn white sm" data-act="stock" data-id="${esc(c.id)}">สต็อก</button>
+          <button class="btn white sm" data-act="edit" data-id="${esc(c.id)}">แก้ไข</button>
+          <button class="btn danger sm" data-act="delete" data-id="${esc(c.id)}">ลบ</button>
+        </div>
+      </div>`).join('') : empty('🔍', 'ไม่พบการ์ด', 'ลองเปลี่ยนคำค้นหรือตัวกรอง');
+    const tp = Math.max(1, res.totalPages);
+    $('#acPager').innerHTML = tp > 1 ? `
+      <button class="btn white sm" ${s.page <= 1 ? 'disabled' : ''} data-p="${s.page - 1}">‹</button>
+      <span class="muted">หน้า ${s.page} / ${tp}</span>
+      <button class="btn white sm" ${s.page >= tp ? 'disabled' : ''} data-p="${s.page + 1}">›</button>` : '';
+  } catch (e) { if (my === acReq && $('#acList')) $('#acList').innerHTML = errorBox(e, 'loadAdminCards()'); }
+}
+
+const listText = (a) => (a || []).join(', ');
+const listParse = (v) => v.split(',').map((x) => x.trim()).filter(Boolean);
+
+function openCardForm(card) {
+  const c = card || {};
+  const m = openModal(`
+    <h2>${card ? 'แก้ไขการ์ด' : 'เพิ่มการ์ดใหม่'}</h2>
+    <form id="cardForm" style="margin-top:16px" novalidate>
+      <div class="grid2">
+        <div class="field"><label>รหัสการ์ด (id)</label><input class="input" name="id" value="${esc(c.id)}" ${card ? 'disabled' : ''} placeholder="sv3pt5-200"></div>
+        <div class="field"><label>ชื่อการ์ด</label><input class="input" name="name" value="${esc(c.name)}"></div>
+        <div class="field"><label>ความหายาก</label><select class="input" name="rarity">${RARITIES.map((r) => `<option value="${r}" ${c.rarity === r ? 'selected' : ''}>${RARITY_TH[r]}</option>`).join('')}</select></div>
+        <div class="field"><label>HP</label><input class="input" name="hp" type="number" min="1" max="1000" value="${esc(c.hp)}"></div>
+        <div class="field"><label>รหัสชุด (setId)</label><input class="input" name="setId" value="${esc(c.setId)}" placeholder="sv3pt5"></div>
+        <div class="field"><label>ชื่อชุด</label><input class="input" name="setName" value="${esc(c.setName)}" placeholder="151"></div>
+        <div class="field"><label>ธาตุ (คั่นด้วย ,)</label><input class="input" name="types" value="${esc(listText(c.types))}" placeholder="Fire"></div>
+        <div class="field"><label>ผู้วาด</label><input class="input" name="artist" value="${esc(c.artist)}"></div>
+      </div>
+      <div class="field"><label>รูปเล็ก (https)</label><input class="input" name="imageSmall" value="${esc(c.imageSmall)}" placeholder="https://images.pokemontcg.io/sv3pt5/200.png"></div>
+      <div class="field"><label>รูปใหญ่ (https)</label><input class="input" name="imageLarge" value="${esc(c.imageLarge)}" placeholder="https://images.pokemontcg.io/sv3pt5/200_hires.png"></div>
+      ${card ? '' : '<div class="field"><label>สต็อกเริ่มต้น</label><input class="input" name="stock" type="number" min="0" value="0"></div>'}
+      <div class="form-error"></div>
+      <button class="btn block">${card ? 'บันทึกการแก้ไข' : 'เพิ่มการ์ด'}</button>
+    </form>`);
+  $('#cardForm', m).onsubmit = async (ev) => {
+    ev.preventDefault();
+    const f = ev.target, btn = $('button', f), err = $('.form-error', f);
+    err.textContent = '';
+    const v = (k) => f[k].value.trim();
+    const body = {
+      name: v('name'), rarity: v('rarity'), hp: Number(v('hp')), setId: v('setId'), setName: v('setName'),
+      types: listParse(v('types')), imageSmall: v('imageSmall'), imageLarge: v('imageLarge'), artist: v('artist') || null,
+    };
+    if (!card) body.id = v('id');
+    // แก้ไข: ส่งเฉพาะช่องที่เปลี่ยน
+    if (card) for (const k of Object.keys(body)) if (JSON.stringify(body[k]) === JSON.stringify(card[k] ?? (k === 'artist' ? null : undefined))) delete body[k];
+    if (card && !Object.keys(body).length) { closeModal(); return; }
+    btn.disabled = true;
+    try {
+      if (card) {
+        await api('catalog', `/admin/cards/${encodeURIComponent(card.id)}`, { method: 'PATCH', auth: true, body });
+      } else {
+        await api('catalog', '/admin/cards', { method: 'POST', auth: true, body });
+        const stock = Number(v('stock'));
+        if (stock > 0) await api('catalog', `/admin/inventory/${encodeURIComponent(body.id)}`, { method: 'PUT', auth: true, body: { total: stock } });
+      }
+      closeModal();
+      toast(card ? 'บันทึกการ์ดแล้ว' : 'เพิ่มการ์ดแล้ว');
+      loadAdminCards();
+    } catch (e) {
+      err.textContent = e.code === 'CARD_EXISTS' ? 'มีการ์ดรหัสนี้อยู่แล้ว' : e.message;
+      btn.disabled = false;
+    }
+  };
+}
+
+async function openStockForm(cardId) {
+  const m = openModal('<h2>ปรับสต็อก</h2><div class="skel" style="height:120px;margin-top:16px"></div>');
+  try {
+    const [card, st] = await Promise.all([api('catalog', `/cards/${encodeURIComponent(cardId)}`), api('catalog', `/inventory/${encodeURIComponent(cardId)}`)]);
+    if (!m.isConnected) return;
+    setModal(m, `
+      <h2>ปรับสต็อก</h2>
+      <div class="row" style="box-shadow:none;background:var(--surface-2);margin:14px 0">${img(card.imageSmall, card.name)}<div class="mid"><b>${esc(card.name)}</b><div>${esc(card.id)}</div></div></div>
+      <div class="stats" style="margin-bottom:16px">
+        <div><span class="muted small">ทั้งหมด</span><b>${fmt(st.total)}</b></div>
+        <div><span class="muted small">ถูกจองอยู่</span><b>${fmt(st.reserved)}</b></div>
+        <div><span class="muted small">พร้อมขาย</span><b>${fmt(st.available)}</b></div>
+      </div>
+      <form id="stockForm" novalidate>
+        <div class="field"><label>จำนวนทั้งหมดใหม่ (ต้องไม่น้อยกว่าที่ถูกจอง)</label><input class="input" name="total" type="number" min="${st.reserved}" value="${st.total}"></div>
+        <div class="form-error"></div>
+        <button class="btn block">บันทึกสต็อก</button>
+      </form>`);
+    $('#stockForm', m).onsubmit = async (ev) => {
+      ev.preventDefault();
+      const f = ev.target, btn = $('button', f), err = $('.form-error', f);
+      err.textContent = ''; btn.disabled = true;
+      try {
+        await api('catalog', `/admin/inventory/${encodeURIComponent(cardId)}`, { method: 'PUT', auth: true, body: { total: Number(f.total.value) } });
+        closeModal(); toast('อัปเดตสต็อกแล้ว'); loadAdminCards();
+      } catch (e) { err.textContent = e.code === 'TOTAL_BELOW_RESERVED' ? `ต้องไม่น้อยกว่า ${st.reserved} ใบที่ถูกจองอยู่` : e.message; btn.disabled = false; }
+    };
+  } catch (e) { if (m.isConnected) setModal(m, errorBox(e)); }
+}
+
+// ============================================================
+//  แอดมิน: แพ็ก
+// ============================================================
+const PACK_BG = { starter: 'linear-gradient(135deg,#31b5ea,#2d6fd8)', premium: 'linear-gradient(135deg,#b36cf5,#e2549e)', legendary: 'linear-gradient(135deg,#ffcf4a,#f08a17)' };
+let adminPacksCache = [];
+function pageAdminPacks() {
+  if (!requireAdmin()) return;
+  $('#view').innerHTML = `
+    <div class="page-title"><h1>แพ็ก</h1><button class="btn sm" id="newPack">+ สร้างแพ็ก</button></div>
+    <div id="apList" class="pack-admin">${'<div class="skel" style="height:240px"></div>'.repeat(3)}</div>`;
+  $('#newPack').onclick = () => openPackForm(null);
+  $('#apList').onclick = async (ev) => {
+    const b = ev.target.closest('[data-act]'); if (!b) return;
+    const p = adminPacksCache.find((x) => x.id === b.dataset.id);
+    if (b.dataset.act === 'edit') return openPackForm(p);
+    if (b.dataset.act === 'toggle') {
+      b.disabled = true;
+      try { await api('catalog', `/admin/packs/${encodeURIComponent(p.id)}`, { method: 'PATCH', auth: true, body: { active: !p.active } }); toast(p.active ? 'ปิดการขายแพ็กแล้ว' : 'เปิดขายแพ็กแล้ว'); loadAdminPacks(); }
+      catch (e) { toast(e.message, 'err'); b.disabled = false; }
+    }
+  };
+  loadAdminPacks();
+}
+
+async function loadAdminPacks() {
+  try {
+    const { data } = await api('catalog', '/admin/packs', { auth: true });
+    adminPacksCache = data;
+    const el = $('#apList'); if (!el) return;
+    el.innerHTML = data.length ? data.map((p) => `
+      <div class="pack-card" style="${p.active ? '' : 'opacity:.7'}">
+        <div class="band" style="background:${PACK_BG[p.id] || 'linear-gradient(135deg,#94a3b8,#475569)'}">
+          <b>${esc(p.name)}</b>${p.active ? '' : '<span class="status s-CANCELLED off">ปิดขาย</span>'}
+        </div>
+        <div class="body">
+          <div class="muted small">${esc(p.id)} · ${p.cardsPerPack} ใบต่อแพ็ก · ชุด ${esc(listText(p.setIds))}</div>
+          <div class="rates">${RARITIES.map((r) => `<div class="rate">${rar(r)}<b>${p.rates[r] || 0}%</b></div>`).join('')}</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+            <span class="cost" style="font-size:19px"><span class="coin sm"></span>${fmt(p.priceCredits)}</span>
+            <div style="display:flex;gap:6px">
+              <button class="btn white sm" data-act="toggle" data-id="${esc(p.id)}">${p.active ? 'ปิดขาย' : 'เปิดขาย'}</button>
+              <button class="btn sm" data-act="edit" data-id="${esc(p.id)}">แก้ไข</button>
+            </div>
+          </div>
+        </div>
+      </div>`).join('') : empty('📦', 'ยังไม่มีแพ็ก', 'กด “+ สร้างแพ็ก” เพื่อเริ่ม');
+  } catch (e) { if ($('#apList')) $('#apList').innerHTML = errorBox(e, 'loadAdminPacks()'); }
+}
+
+function openPackForm(pack) {
+  const p = pack || { rates: { common: 70, rare: 25, epic: 4, legendary: 1 }, cardsPerPack: 5, active: true };
+  const m = openModal(`
+    <h2>${pack ? 'แก้ไขแพ็ก' : 'สร้างแพ็กใหม่'}</h2>
+    <form id="packForm" style="margin-top:16px" novalidate>
+      <div class="grid2">
+        <div class="field"><label>รหัสแพ็ก (id)</label><input class="input" name="id" value="${esc(p.id)}" ${pack ? 'disabled' : ''} placeholder="mega"></div>
+        <div class="field"><label>ชื่อแพ็ก</label><input class="input" name="name" value="${esc(p.name)}"></div>
+        <div class="field"><label>ราคา (เครดิต)</label><input class="input" name="priceCredits" type="number" min="1" value="${esc(p.priceCredits)}"></div>
+        <div class="field"><label>การ์ดต่อแพ็ก</label><input class="input" name="cardsPerPack" type="number" min="1" max="20" value="${esc(p.cardsPerPack)}"></div>
+      </div>
+      <div class="field"><label>คำอธิบาย</label><input class="input" name="description" value="${esc(p.description)}"></div>
+      <div class="field"><label>ชุดการ์ดที่สุ่มได้ (setId คั่นด้วย ,)</label><input class="input" name="setIds" value="${esc(listText(p.setIds))}" placeholder="sv3pt5, swsh7"></div>
+      <label style="font-size:13px;font-weight:600;color:#4a5872">โอกาสได้แต่ละระดับ (%) · <span class="rate-sum" id="rateSum"></span></label>
+      <div class="grid2" style="grid-template-columns:repeat(4,1fr);margin-top:6px">
+        ${RARITIES.map((r) => `<div class="field"><label>${rar(r)}</label><input class="input" name="rate-${r}" type="number" min="0" max="100" value="${p.rates[r] || 0}"></div>`).join('')}
+      </div>
+      <label class="switch" style="margin-bottom:14px"><input type="checkbox" name="active" ${p.active ? 'checked' : ''}> เปิดขาย</label>
+      <div class="form-error"></div>
+      <button class="btn block">${pack ? 'บันทึกการแก้ไข' : 'สร้างแพ็ก'}</button>
+    </form>`);
+  const f = $('#packForm', m);
+  const sumRates = () => RARITIES.reduce((s, r) => s + (Number(f['rate-' + r].value) || 0), 0);
+  const showSum = () => { const n = sumRates(); const el = $('#rateSum', m); el.textContent = `รวม ${n}%${n === 100 ? ' ✓' : ' (ต้องเท่ากับ 100)'}`; el.className = 'rate-sum ' + (n === 100 ? 'good' : 'bad'); };
+  f.oninput = () => { showSum(); $('.form-error', f).textContent = ''; }; showSum();
+  f.onsubmit = async (ev) => {
+    ev.preventDefault();
+    const btn = $('button', f), err = $('.form-error', f);
+    err.textContent = '';
+    if (sumRates() !== 100) { err.textContent = 'โอกาสทั้ง 4 ระดับต้องรวมกันได้ 100%'; return; }
+    const v = (k) => f[k].value.trim();
+    const body = {
+      name: v('name'), description: v('description'), priceCredits: Number(v('priceCredits')), cardsPerPack: Number(v('cardsPerPack')),
+      setIds: listParse(v('setIds')), rates: Object.fromEntries(RARITIES.map((r) => [r, Number(f['rate-' + r].value) || 0])), active: f.active.checked,
+    };
+    if (!pack) body.id = v('id');
+    btn.disabled = true;
+    try {
+      if (pack) await api('catalog', `/admin/packs/${encodeURIComponent(pack.id)}`, { method: 'PATCH', auth: true, body });
+      else await api('catalog', '/admin/packs', { method: 'POST', auth: true, body });
+      closeModal(); toast(pack ? 'บันทึกแพ็กแล้ว' : 'สร้างแพ็กแล้ว'); loadAdminPacks();
+    } catch (e) {
+      err.textContent = e.code === 'PACK_EXISTS' ? 'มีแพ็กรหัสนี้อยู่แล้ว' : e.code === 'INVALID_RATES' ? 'โอกาสทั้ง 4 ระดับต้องรวมกันได้ 100%' : e.message;
+      btn.disabled = false;
+    }
+  };
 }
 
 // ============================================================
@@ -1273,7 +1578,7 @@ function pageAccount() {
           <button class="btn white">เปลี่ยนรหัสผ่าน</button>
         </form>
       </div>
-      <div class="panel">
+      <div class="panel ${isAdmin() ? 'hidden' : ''}">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3 style="margin:0">ที่อยู่จัดส่ง</h3><button class="btn white sm" id="newAddr">+ เพิ่ม</button></div>
         <div id="addrBook"><div class="skel" style="height:120px"></div></div>
       </div>
