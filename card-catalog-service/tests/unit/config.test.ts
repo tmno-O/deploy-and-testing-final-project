@@ -49,4 +49,34 @@ describe('loadConfig', () => {
     expect(() => loadConfig({ ...base, PORT: 'abc' })).toThrow('PORT');
     expect(() => loadConfig({ ...base, RESERVATION_TTL_SECONDS: '-5' })).toThrow('RESERVATION_TTL_SECONDS');
   });
+
+  test('uses the JSON store unless DATABASE_URL is set', () => {
+    expect(loadConfig({ ...base }).database).toBeUndefined();
+    expect(loadConfig({ ...base, DATABASE_URL: '' }).database).toBeUndefined();
+  });
+
+  test('parses the database settings with sensible ssl defaults', () => {
+    const local = loadConfig({ ...base, DATABASE_URL: 'postgres://u:p@localhost:5432/db' }).database!;
+    expect(local).toMatchObject({ ssl: 'disable', poolMax: 5 });
+    const remote = loadConfig({
+      ...base,
+      DATABASE_URL: 'postgresql://u:p@aws-0-x.pooler.supabase.com:6543/postgres',
+      DATABASE_POOL_MAX: '3',
+      DATABASE_SSL: 'require',
+      DATABASE_SSL_CA: 'line1\\nline2',
+    }).database!;
+    expect(remote).toMatchObject({ ssl: 'require', poolMax: 3, sslCa: 'line1\nline2' });
+    expect(loadConfig({ ...base, DATABASE_URL: 'postgres://u:p@db.example.com/x' }).database!.ssl).toBe('no-verify');
+  });
+
+  test('a blank DATABASE_SSL (as docker-compose passes it) means the default', () => {
+    expect(loadConfig({ ...base, DATABASE_URL: 'postgres://h/db', DATABASE_SSL: '' }).database!.ssl).toBe('no-verify');
+    expect(loadConfig({ ...base, DATABASE_URL: 'postgres://localhost/db', DATABASE_SSL: '' }).database!.ssl).toBe('disable');
+  });
+
+  test('rejects an invalid database configuration', () => {
+    expect(() => loadConfig({ ...base, DATABASE_URL: 'not a url' })).toThrow('DATABASE_URL');
+    expect(() => loadConfig({ ...base, DATABASE_URL: 'postgres://h/db', DATABASE_SSL: 'maybe' })).toThrow('DATABASE_SSL');
+    expect(() => loadConfig({ ...base, DATABASE_URL: 'postgres://h/db', DATABASE_POOL_MAX: '0' })).toThrow('DATABASE_POOL_MAX');
+  });
 });

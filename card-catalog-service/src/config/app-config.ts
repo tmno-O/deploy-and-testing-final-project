@@ -6,6 +6,8 @@ export interface AppConfig {
   env: string;
   port: number;
   data: { file: string; persist: boolean };
+  /** Set => PostgreSQL (Supabase) replaces the JSON file store. */
+  database?: DatabaseConfig;
   trustProxy: boolean | number | string;
   corsOrigin: string[];
   jwt: { secret: string; issuer: string };
@@ -14,6 +16,16 @@ export interface AppConfig {
   reservationTtlMs: number;
   reservationSweepMs: number;
   rateLimitPerMinute: number;
+}
+
+export type DatabaseSsl = 'disable' | 'no-verify' | 'require';
+
+export interface DatabaseConfig {
+  url: string;
+  ssl: DatabaseSsl;
+  /** PEM of the CA to verify the server with when ssl = 'require' (Supabase: Project Settings > Database > SSL). */
+  sslCa?: string;
+  poolMax: number;
 }
 
 type Env = Record<string, string | undefined>;
@@ -45,6 +57,32 @@ function parsePositiveInt(env: Env, name: string, fallback: number): number {
   return value;
 }
 
+function isLocalHost(url: string): boolean {
+  try {
+    const host = new URL(url).hostname;
+    return host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
+  } catch {
+    throw new Error('DATABASE_URL is not a valid connection URL');
+  }
+}
+
+export function parseDatabase(env: Env): DatabaseConfig | undefined {
+  const url = env.DATABASE_URL;
+  if (!url) return undefined;
+  const rawSsl = env.DATABASE_SSL;
+  if (rawSsl && !['disable', 'no-verify', 'require'].includes(rawSsl)) {
+    throw new Error('DATABASE_SSL must be one of: disable, no-verify, require');
+  }
+  // local databases default to plain TCP; remote ones (Supabase) are always encrypted
+  const ssl = (rawSsl as DatabaseSsl | undefined) || (isLocalHost(url) ? 'disable' : 'no-verify'); // '' counts as unset
+  return {
+    url,
+    ssl,
+    sslCa: env.DATABASE_SSL_CA ? env.DATABASE_SSL_CA.replace(/\\n/g, '\n') : undefined,
+    poolMax: parsePositiveInt(env, 'DATABASE_POOL_MAX', 5),
+  };
+}
+
 /** Reads and validates the environment. Throws (fails fast at boot) on missing or weak secrets. */
 export function loadConfig(env: Env = process.env): AppConfig {
   const nodeEnv = env.NODE_ENV || 'development';
@@ -68,6 +106,7 @@ export function loadConfig(env: Env = process.env): AppConfig {
       // write changes back to the JSON file (disabled in tests)
       persist: env.PERSIST_DATA ? env.PERSIST_DATA === 'true' : nodeEnv !== 'test',
     },
+    database: parseDatabase(env),
     trustProxy: parseTrustProxy(env.TRUST_PROXY),
     corsOrigin: parseList(env.CORS_ORIGIN || '*'),
     jwt: { secret: jwtSecret, issuer: env.JWT_ISSUER || 'user-service' },

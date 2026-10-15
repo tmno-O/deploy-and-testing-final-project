@@ -22,12 +22,12 @@ export class CardsService {
     private readonly stock: StockRepository,
   ) {}
 
-  list(rawQuery: unknown) {
+  async list(rawQuery: unknown) {
     const query = parseOrThrow(listQuerySchema, rawQuery);
     const needle = query.q?.toLowerCase();
     const type = query.type?.toLowerCase();
 
-    const matches = this.cards.findAll().filter(
+    const matches = (await this.cards.findAll()).filter(
       (card) =>
         (!needle || card.name.toLowerCase().includes(needle)) &&
         (!query.rarity || card.rarity === query.rarity) &&
@@ -35,7 +35,7 @@ export class CardsService {
         (!query.setId || card.setId === query.setId),
     );
 
-    const availability = this.stock.availabilityMap();
+    const availability = await this.stock.availabilityMap();
     const start = (query.page - 1) * query.limit;
     return {
       data: matches
@@ -48,10 +48,10 @@ export class CardsService {
     };
   }
 
-  get(rawId: unknown) {
+  async get(rawId: unknown) {
     const id = parseOrThrow(idSchema, rawId);
-    const card = this.cards.findById(id);
+    const card = await this.cards.findById(id);
     if (!card) throw notFound('Card not found', 'CARD_NOT_FOUND');
-    return toDetail(card, this.stock.available(card.id));
+    return toDetail(card, await this.stock.available(card.id));
   }
 }

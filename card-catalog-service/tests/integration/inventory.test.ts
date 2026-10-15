@@ -277,20 +277,20 @@ describe('inventory', () => {
     test('background sweep expires reservations without any API call and prunes old ones', async () => {
       await reserve([{ cardId: 'a-1', qty: 3 }], 'sweep-key-0000001');
       advance(TTL + 1000);
-      expect(inventory.sweep()).toBe(1);
+      expect(await inventory.sweep()).toBe(1);
       expect(stockOf('a-1').reserved).toBe(4);
-      expect(inventory.sweep()).toBe(0);
+      expect(await inventory.sweep()).toBe(0);
       expect(store.data.reservations).toHaveLength(1);
 
       jest.restoreAllMocks();
       advance(25 * 60 * 60 * 1000);
-      inventory.sweep();
+      await inventory.sweep();
       expect(store.data.reservations).toHaveLength(0);
     });
 
     test('active reservations are never pruned', async () => {
       await reserve([{ cardId: 'a-1', qty: 1 }]);
-      inventory.sweep();
+      await inventory.sweep();
       expect(store.data.reservations).toHaveLength(1);
     });
   });

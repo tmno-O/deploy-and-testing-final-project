@@ -24,8 +24,8 @@ export class AdminController {
 
   @Delete('cards/:id')
   @HttpCode(204)
-  deleteCard(@Req() req: AuthedRequest, @Param('id') id: string) {
-    this.admin.deleteCard(this.actor(req), id);
+  async deleteCard(@Req() req: AuthedRequest, @Param('id') id: string) {
+    await this.admin.deleteCard(this.actor(req), id);
   }
 
   @Get('packs')

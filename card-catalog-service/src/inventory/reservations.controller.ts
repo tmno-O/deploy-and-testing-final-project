@@ -10,12 +10,12 @@ export class ReservationsController {
   constructor(private readonly inventory: InventoryService) {}
 
   @Post()
-  create(
+  async create(
     @Headers('idempotency-key') key: string | undefined,
     @Body() body: unknown,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { reservation, replayed } = this.inventory.reserve(key, body);
+    const { reservation, replayed } = await this.inventory.reserve(key, body);
     res.status(replayed ? 200 : 201);
     if (replayed) res.setHeader('Idempotent-Replayed', 'true');
     return toReservationView(reservation);
@@ -23,13 +23,13 @@ export class ReservationsController {
 
   @Post(':id/commit')
   @HttpCode(200)
-  commit(@Param('id') id: string) {
-    return toReservationView(this.inventory.commit(id));
+  async commit(@Param('id') id: string) {
+    return toReservationView(await this.inventory.commit(id));
   }
 
   @Post(':id/release')
   @HttpCode(200)
-  release(@Param('id') id: string) {
-    return toReservationView(this.inventory.release(id));
+  async release(@Param('id') id: string) {
+    return toReservationView(await this.inventory.release(id));
   }
 }

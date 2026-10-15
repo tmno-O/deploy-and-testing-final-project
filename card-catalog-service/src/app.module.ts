@@ -7,6 +7,7 @@ import { CardsModule } from './cards/cards.module';
 import { CatalogModule } from './catalog/catalog.module';
 import { APP_CONFIG, type AppConfig } from './config/app-config';
 import { AppConfigModule } from './config/config.module';
+import { DatabaseModule } from './database/database.module';
 import { HealthModule } from './health/health.module';
 import { InventoryModule } from './inventory/inventory.module';
 import { PacksModule } from './packs/packs.module';
@@ -15,9 +16,11 @@ import { StoreModule } from './store/store.module';
 @Module({
   imports: [
     // only used to load .env into process.env before AppConfigModule validates it
-    ConfigModule.forRoot({ ignoreEnvVars: true, isGlobal: false }),
+    // the service's own .env wins; the repo-root .env (shared by docker compose) fills in anything missing
+    ConfigModule.forRoot({ ignoreEnvVars: true, isGlobal: false, envFilePath: ['.env', '../.env'] }),
     AppConfigModule,
     StoreModule,
+    DatabaseModule,
     // per-IP limit for all public routes (health is exempt); behind a gateway set TRUST_PROXY so the real IP is used
     ThrottlerModule.forRootAsync({
       inject: [APP_CONFIG],
