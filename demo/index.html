@@ -468,7 +468,16 @@ const dateTime = (s) => new Date(s).toLocaleString('th-TH', { day: 'numeric', mo
 // ความหายากแบบเพชร: common ◆ · rare ◆◆ · epic ◆◆◆ · legendary ★
 const rar = (r) => `<span class="rar ${esc(r)}" title="${esc(RARITY_TH[r] || r)}">${r === 'legendary' ? '★' : '◆'.repeat({ common: 1, rare: 2, epic: 3 }[r] || 1)}</span>`;
 const isHolo = (r) => r === 'epic' || r === 'legendary';
-const uuid = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 12));
+// crypto.randomUUID exists only on https:// or localhost; on other origins (e.g. http://192.168.x.x) build a valid UUID v4 by hand,
+// because gacha-service rejects an Idempotency-Key that is not a UUID
+const uuid = () => {
+  if (crypto.randomUUID) return crypto.randomUUID();
+  const b = crypto.getRandomValues(new Uint8Array(16));
+  b[6] = (b[6] & 0x0f) | 0x40;
+  b[8] = (b[8] & 0x3f) | 0x80;
+  const h = [...b].map((x) => x.toString(16).padStart(2, '0')).join('');
+  return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20)}`;
+};
 const shortId = (id) => '#' + String(id).slice(0, 8).toUpperCase();
 const initials = (u) => ((u.displayName || u.firstName || '?')[0] || '?').toUpperCase();
 const PLACEHOLDER = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 63 88"><rect width="63" height="88" fill="#dbe5f1"/><text x="31.5" y="48" font-size="8" text-anchor="middle" fill="#8fa3bf" font-family="sans-serif">no image</text></svg>');
